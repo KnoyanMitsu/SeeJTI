@@ -1,7 +1,7 @@
 <script setup>
 import JTI from '@/assets/Logo/jti_polinema 3.png'
 import { RouterView } from 'vue-router'
-import Navbar from './components/Navbar.vue'
+import Navbar from './components/NavbarComponent.vue'
 </script>
 
 <template>

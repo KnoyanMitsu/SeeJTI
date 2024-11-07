@@ -1,4 +1,9 @@
+
+
 <template>
+  <head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=info" />
+  </head>
   <body>
     <div class="flex">
       <div class="container items-center h-screen flex justify-center">
