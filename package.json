@@ -14,8 +14,11 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "material-icons": "^1.13.12",
     "vue": "^3.5.12",
-    "vue-router": "^4.4.5"
+    "vue-router": "^4.4.5",
+    "vuesax": "^3.12.2",
+    "vuesax3": "^4.2.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

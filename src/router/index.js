@@ -1,5 +1,5 @@
 import HomeView from '@/views/HomeView.vue'
-import LoginView from '@/views/LoginView.vue'
+import LoginAdminView from '@/views/LoginAdminView.vue'
 import NotFound from '@/views/Error/404.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -13,9 +13,9 @@ const router = createRouter({
     },
 
     {
-      path: '/login',
+      path: '/admin',
       name: 'login',
-      component: LoginView,
+      component: LoginAdminView,
     },
     {
       path: '/:pathMatch(.*)*',
