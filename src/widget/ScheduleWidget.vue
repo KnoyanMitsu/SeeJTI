@@ -24,8 +24,9 @@
         </div>
       </div>
     </div>
-    <div class="mt-8 p-3 text-center font-semibold bg-green-500">
-      <p class="text-white">Kuliah Ada</p>
+    <div class="mt-8 p-3 text-center font-semibold bg-[#00CB1E]">
+      <!-- <vs-icon class="inline_block text-white" icon="select_check_box"></vs-icon> -->
+      <p class="text-white inline_block ">Kuliah Ada</p>
     </div>
   </div>
 </template>

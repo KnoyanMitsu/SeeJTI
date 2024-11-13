@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps } from 'vue'
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <nav class="flex items-center justify-between flex-wrap bg-white p-6">
+  <nav class="flex items-center justify-between flex-wrap p-6 mb-24">
     <router-link to="/" class="flex items-center flex-shrink-0 text-white mr-6">
       <span class="font-bold text-2xl tracking-tight text-black px-4 py-2"
         >SeeJTI</span
@@ -29,22 +29,19 @@ const props = defineProps({
         </svg>
       </button>
     </div> -->
-    <div class="w-full flex justify-end w-auto">
+    <div class="flex justify-end w-auto">
       <div class="flex justify-end">
-        <div class="grid mr-3 gap">
-          <p class="text-black text-right rounded row-span-3 font-semibold text-black/50">Selamat Datang</p>
-          <div class="row-span-2 grid grid-flow-col gap-2">
-            <p class="text-black text-right rounded font-medium">9912803174</p>
-            <p class="text-right text-black font-bold rounded">
-              Tianlu
-            </p>
-          </div>
-        </div>
         <img
           src="https://pbs.twimg.com/media/GLp9znnWMAAAsz_.jpg"
           alt="profile"
           class="w-10 h-10 rounded-full mt-1 object-cover"
         />
+        <div class="grid ml-3 gap">
+          <p class="text-black text-left rounded row-span-3 font-semibold">
+            Tianlu
+          </p>
+        <p class="text-black/50 text-left rounded text-xs font-medium">9912803174 | TI-2C</p>
+        </div>
       </div>
     </div>
   </nav>
