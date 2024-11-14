@@ -1,5 +1,4 @@
 <?php
-require _DIR_ . '/vendor/autoload.php';
 require _DIR_ . '/config/database.php';
 
 const SESSION_SECRET = 'seejtipolinema';
