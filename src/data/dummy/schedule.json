@@ -1,0 +1,78 @@
+{
+    "classes": [
+      {
+        "name": "TI-2A",
+        "schedule": {
+          "Senin": [
+            { "subject": "Sistem Informasi", "time": "07:00 - 09:00", "room": "LSI1" },
+            { "subject": "Pemrograman Web", "time": "09:00 - 11:00", "room": "LSI2" },
+            { "subject": "Jaringan Komputer", "time": "13:00 - 15:00", "room": "LSI3" }
+          ],
+          "Selasa": [
+            { "subject": "Matematika Diskrit", "time": "08:00 - 10:00", "room": "LSI1" }
+          ],
+          "Rabu": [
+            { "subject": "Kalkulus", "time": "07:00 - 09:00", "room": "LSI2" },
+            { "subject": "Manajemen Proyek", "time": "09:00 - 11:00", "room": "LSI3" },
+            { "subject": "Sistem Basis Data", "time": "13:00 - 15:00", "room": "LSI1" }
+          ],
+          "Kamis": [
+            { "subject": "Algoritma dan Struktur Data", "time": "10:00 - 12:00", "room": "LSI2" }
+          ],
+          "Jumat": [
+            { "subject": "Etika Profesi", "time": "08:00 - 10:00", "room": "LSI3" },
+            { "subject": "Kecerdasan Buatan", "time": "10:00 - 12:00", "room": "LSI1" },
+            { "subject": "Pengolahan Citra", "time": "13:00 - 15:00", "room": "LSI2" }
+          ]
+        }
+      },
+      {
+        "name": "TI-2B",
+        "schedule": {
+          "Senin": [
+            { "subject": "Pemrograman Java", "time": "07:00 - 09:00", "room": "LSI2" },
+            { "subject": "Sistem Operasi", "time": "09:00 - 11:00", "room": "LSI3" }
+          ],
+          "Selasa": [
+            { "subject": "Pengantar Data Science", "time": "10:00 - 12:00", "room": "LSI1" },
+            { "subject": "Jaringan Komputer", "time": "13:00 - 15:00", "room": "LSI2" }
+          ],
+          "Rabu": [
+            { "subject": "Kalkulus", "time": "07:00 - 09:00", "room": "LSI3" }
+          ],
+          "Kamis": [
+            { "subject": "Sistem Informasi Geografis", "time": "08:00 - 10:00", "room": "LSI1" },
+            { "subject": "Pemrograman Web", "time": "10:00 - 12:00", "room": "LSI2" },
+            { "subject": "Statistika", "time": "13:00 - 15:00", "room": "LSI3" }
+          ],
+          "Jumat": [
+            { "subject": "Manajemen Proyek", "time": "09:00 - 11:00", "room": "LSI2" }
+          ]
+        }
+      },
+      {
+        "name": "TI-2C",
+        "schedule": {
+          "Senin": [
+            { "subject": "Data Mining", "time": "08:00 - 10:00", "room": "LSI1" },
+            { "subject": "Manajemen Basis Data", "time": "10:00 - 12:00", "room": "LSI3" },
+            { "subject": "Keamanan Jaringan", "time": "13:00 - 15:00", "room": "LSI2" }
+          ],
+          "Selasa": [
+            { "subject": "Pemrograman Python", "time": "07:00 - 09:00", "room": "LSI2" }
+          ],
+          "Rabu": [
+            { "subject": "Sistem Digital", "time": "09:00 - 11:00", "room": "LSI1" }
+          ],
+          "Kamis": [
+            { "subject": "Algoritma dan Struktur Data", "time": "07:00 - 09:00", "room": "LSI3" },
+            { "subject": "Kalkulus", "time": "09:00 - 11:00", "room": "LSI2" }
+          ],
+          "Jumat": [
+            { "subject": "Teknik Kompilasi", "time": "08:00 - 10:00", "room": "LSI1" }
+          ]
+        }
+      }
+    ]
+  }
+  

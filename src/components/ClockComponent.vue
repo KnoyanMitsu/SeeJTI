@@ -2,7 +2,6 @@
   <div class="text-center">
     <h1 class="text-xl font-bold text-black">{{ date}}</h1>
     <h1 class="text-9xl font-bold text-black">{{ currentTime}}</h1>
-
   </div>
 </template>
 

@@ -40,7 +40,7 @@ const props = defineProps({
           <p class="text-black text-left rounded row-span-3 font-semibold">
             Tianlu
           </p>
-        <p class="text-black/50 text-left rounded text-xs font-medium">9912803174 | TI-2C</p>
+        <p class="text-black/50 text-left rounded text-xs font-medium">9912803174 | TI-YES</p>
         </div>
       </div>
     </div>
