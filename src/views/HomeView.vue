@@ -1,7 +1,7 @@
 <script setup>
-import JTI from '@/assets/Logo/jti_polinema 3.png'
-import Clock from '@/components/ClockComponent.vue'
+import ClockView from '@/components/ClockComponent.vue'
 import Navbar from '@/components/NavbarComponent.vue'
+import Clock from '@/controller/Date'
 import NavWidget from '@/widget/NavWidget.vue'
 import ScheduleWidget from '@/widget/ScheduleWidget.vue'
 </script>
@@ -13,28 +13,26 @@ export default {
     return {
       selectedClass: 'TI-2C',
       day: '',
-      days: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
-    };
+    }
   },
   mounted() {
-    this.updateTime();
-    setInterval(this.updateTime, 1000);
-  },
-  methods: {
-    updateTime() {
-      const now = new Date();
-      const dayName = this.days[now.getDay()];
-      this.day = dayName;
-    },
+    const clockInstance = new Clock()
+
+    setInterval(() => {
+      this.day = clockInstance.day
+    }, 1)
   },
   computed: {
     filteredSchedule() {
-      return this.selectedClass ? schedule.classes.find((item) => item.name === this.selectedClass).schedule : [];
+      return this.selectedClass
+        ? schedule.classes.find(item => item.name === this.selectedClass)
+            .schedule
+        : []
     },
-    filteredDay(){
-      return this.day ? this.filteredSchedule[this.day] : [];
-    }
-  }
+    filteredDay() {
+      return this.day ? this.filteredSchedule[this.day] : []
+    },
+  },
 }
 </script>
 
@@ -58,17 +56,22 @@ export default {
     ></div>
 
     <div class="backdrop-blur-md h-full">
-      <Navbar :logo="JTI" />
-      <div class="container mx-auto">
+      <Navbar />
+      <div class="container mx-auto mt-24">
         <div class="grid gap-5 lg:grid-cols-2">
-          <Clock />
+          <ClockView />
           <NavWidget />
         </div>
         <div class="mt-10 mx-4 lg:mx-20">
           <div class="">
             <div class="p-2 w-48 bg-white rounded-2xl shadow-md">
               <p class="font-bold inline-block">Jadwal Kelas</p>
-              <select name="Kelas" v-model="selectedClass" class="bg-white w-16 inline-block" id="">
+              <select
+                name="Kelas"
+                v-model="selectedClass"
+                class="bg-white w-16 inline-block"
+                id=""
+              >
                 <option value="TI-2A">TI-2A</option>
                 <option value="TI-2B">TI-2B</option>
                 <option value="TI-2C">TI-2C</option>
@@ -76,15 +79,16 @@ export default {
             </div>
           </div>
         </div>
-         <div class="grid mt-6 gap-5 lg:grid-cols-3 mx-20 md:grid-cols-2">
-            <ScheduleWidget
-              v-for="(item, index) in filteredDay"
-              :key="index"
-              :nama="item.subject"
-              :jam="item.time"
-              :kelas="selectedClass"
-              :ruang="item.room"
-            />
+
+        <div class="grid mt-6 gap-5 lg:grid-cols-3 lg:mx-20 md:grid-cols-2">
+          <ScheduleWidget
+            v-for="(item, index) in filteredDay"
+            :key="index"
+            :nama="item.subject"
+            :jam="item.time"
+            :kelas="selectedClass"
+            :ruang="item.room"
+          />
         </div>
       </div>
     </div>

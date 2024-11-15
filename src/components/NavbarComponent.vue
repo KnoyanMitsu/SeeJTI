@@ -1,19 +1,14 @@
 <script setup>
-import { defineProps } from 'vue'
-
-// eslint-disable-next-line no-unused-vars
-const props = defineProps({
-  logo: String,
-})
+import JTI from '@/assets/Logo/jti_polinema 3.png'
 </script>
 
 <template>
-  <nav class="flex items-center justify-between flex-wrap p-6 mb-24">
+  <nav class="flex items-center justify-between flex-wrap p-6 ">
     <router-link to="/" class="flex items-center flex-shrink-0 text-white mr-6">
       <span class="font-bold text-2xl tracking-tight text-black px-4 py-2"
         >SeeJTI</span
       >
-      <img class="h-8" :src="logo" alt="" />
+      <img class="h-8" :src="JTI" alt="" />
     </router-link>
     <!-- <div class="block lg:hidden">
       <button

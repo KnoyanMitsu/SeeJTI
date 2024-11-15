@@ -23,7 +23,7 @@ export default{
 
 
 <template>
-  <div class="bg-white shadow-md rounded-md mx-auto lg:w-full mb-7">
+  <div class=" rounded-md mx-auto w-full mb-7">
     <div class="ml-5 mr-4">
       <h1 class="text-3xl font-bold mt-7">{{ nama }}</h1>
       <p class="font-bold text-gray-600 mt-3">RPP - Tatap Muka</p>
@@ -47,9 +47,6 @@ export default{
           <p class="font-bold ml-2">{{ ruang }}</p>
         </div>
       </div>
-    </div>
-    <div class="mt-8 p-3 text-center font-semibold bg-[#00CB1E]">
-      <p class="text-white inline_block ">Kuliah Ada</p>
     </div>
   </div>
 </template>
