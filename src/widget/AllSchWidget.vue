@@ -23,8 +23,8 @@ export default{
 
 
 <template>
-  <div class=" rounded-md mx-auto w-full mb-7">
-    <div class="ml-5 mr-4">
+  <div class=" mx-auto w-full mb-7   ">
+    <div class="ml-5 mr-4 mb-7">
       <h1 class="text-3xl font-bold mt-7">{{ nama }}</h1>
       <p class="font-bold text-gray-600 mt-3">RPP - Tatap Muka</p>
       <div class="grid grid-cols-2 gap-4 mt-3">

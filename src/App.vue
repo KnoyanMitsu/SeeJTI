@@ -14,6 +14,9 @@ import { RouterView } from 'vue-router'
 </template>
 
 <style scoped>
+html{
+  height: 100%;
+}
 @import url('../src/assets/style.css');
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
