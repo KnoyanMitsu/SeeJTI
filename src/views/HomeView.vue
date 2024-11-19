@@ -80,7 +80,7 @@ export default {
           </div>
         </div>
 
-        <div class="grid mt-6 gap-5 lg:grid-cols-3 lg:mx-20 md:grid-cols-2">
+        <div class="grid mt-6 gap-5 2xl:grid-cols-3 lg:mx-20 lg:grid-cols-2  md:grid-cols-1">
           <ScheduleWidget
             v-for="(item, index) in filteredDay"
             :key="index"

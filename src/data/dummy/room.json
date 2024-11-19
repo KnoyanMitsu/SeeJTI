@@ -1,0 +1,47 @@
+{
+  "rooms": [
+    {
+      "name": "LSI1",
+      "schedule": {
+        "Senin": [
+          { "subject": "Sistem Informasi", "time": "07:00 - 09:00", "class": "TI-2A" },
+          { "subject": "Matematika Diskrit", "time": "08:00 - 10:00", "class": "TI-2C" },
+          { "subject": "Data Mining", "time": "08:00 - 10:00", "class": "TI-2C" }
+        ],
+        "Rabu": [
+          { "subject": "Sistem Basis Data", "time": "13:00 - 15:00", "class": "TI-2A" },
+          { "subject": "Sistem Digital", "time": "09:00 - 11:00", "class": "TI-2C" }
+        ],
+        "Jumat": [
+          { "subject": "Teknik Kompilasi", "time": "08:00 - 10:00", "class": "TI-2C" },
+          { "subject": "Kecerdasan Buatan", "time": "10:00 - 12:00", "class": "TI-2A" }
+        ]
+      }
+    },
+    {
+      "name": "LSI2",
+      "schedule": {
+        "Senin": [
+          { "subject": "Pemrograman Web", "time": "09:00 - 11:00", "class": "TI-2A" },
+          { "subject": "Keamanan Jaringan", "time": "13:00 - 15:00", "class": "TI-2C" }
+        ],
+        "Kamis": [
+          { "subject": "Kalkulus", "time": "09:00 - 11:00", "class": "TI-2C" },
+          { "subject": "Algoritma dan Struktur Data", "time": "07:00 - 09:00", "class": "TI-2C" }
+        ]
+      }
+    },
+    {
+      "name": "LSI3",
+      "schedule": {
+        "Senin": [
+          { "subject": "Jaringan Komputer", "time": "13:00 - 15:00", "class": "TI-2A" },
+          { "subject": "Manajemen Basis Data", "time": "10:00 - 12:00", "class": "TI-2C" }
+        ],
+        "Kamis": [
+          { "subject": "Algoritma dan Struktur Data", "time": "07:00 - 09:00", "class": "TI-2C" }
+        ]
+      }
+    }
+  ]
+}

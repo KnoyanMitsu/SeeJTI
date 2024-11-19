@@ -3,6 +3,7 @@ import LoginAdminView from '@/views/LoginAdminView.vue'
 import NotFound from '@/views/Error/404Error.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import ScheduleView from '@/views/ScheduleView.vue'
+import RoomView from '@/views/RoomView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,9 +25,14 @@ const router = createRouter({
       component: NotFound
     },
     {
-      path: '/jadwal',
-      name: 'jadwal',
+      path: '/jadwal/kelas',
+      name: 'kelas',
       component: ScheduleView,
+    },
+    {
+      path: '/jadwal/ruang',
+      name: 'ruang',
+      component: RoomView,
     }
   ],
 })
