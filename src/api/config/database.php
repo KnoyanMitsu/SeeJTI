@@ -1,13 +1,21 @@
 <?php
+class Database {
+    private $host = 'localhost';
+    private $username = 'root';
+    private $password = '';
+    private $database = 'SeeJTI';
+    public $koneksi;
 
-$host = 'localhost';
-$dbname = 'seejti';
-$username = 'root';
-$password = '';
+    public function __construct() {
+        $this->koneksi = new mysqli($this->host, $this->username, $this->password, $this->database);
+        
+        if ($this->koneksi->connect_error) {
+            die("Koneksi gagal: " . $this->koneksi->connect_error);
+        }
+    }
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Koneksi ke database gagal: " . $e->getMessage());
+    public function getKoneksi() {
+        return $this->koneksi;
+    }
 }
+?>
