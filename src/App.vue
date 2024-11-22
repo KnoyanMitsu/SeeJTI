@@ -1,17 +1,23 @@
 <script setup>
-import JTI from '@/assets/Logo/jti_polinema 3.png'
 import { RouterView } from 'vue-router'
-import Navbar from './components/NavbarComponent.vue'
 </script>
 
 <template>
-  <html class="bg-white">
-    <Navbar :logo="JTI" />
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.10.7/iconfont/material-icons.min.css">
+  </head>
+  <html class="bg-[#F3F6F9]">
 
-    <RouterView />
+
+    <router-view/>
   </html>
 </template>
 
 <style scoped>
+html{
+  height: 100%;
+}
 @import url('../src/assets/style.css');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
 </style>
