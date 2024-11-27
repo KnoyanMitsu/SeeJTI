@@ -6,7 +6,7 @@
     <ul class="font-semibold flex col gap-16">
       <li class="flex items-center gap-2">
           <vs-icon icon="home"></vs-icon>
-          <a href="/sas/home">Home</a>
+          <a href="/">Home</a>
       </li>
       <li class="flex items-center gap-2">
         <vs-icon icon="book"></vs-icon>

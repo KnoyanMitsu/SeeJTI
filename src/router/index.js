@@ -4,6 +4,8 @@ import NotFound from '@/views/Error/404Error.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import ScheduleView from '@/views/ScheduleView.vue'
 import RoomView from '@/views/RoomView.vue'
+import NoRoomView from '@/views/NoRoomView.vue'
+import LoginUserView from '@/views/LoginUserView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +22,11 @@ const router = createRouter({
       component: LoginAdminView,
     },
     {
+      path: '/login',
+      name: 'loginuser',
+      component: LoginUserView,
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: '404',
       component: NotFound
@@ -33,6 +40,11 @@ const router = createRouter({
       path: '/jadwal/ruang',
       name: 'ruang',
       component: RoomView,
+    },
+    {
+      path: '/jadwal/kosong',
+      name: 'kosong',
+      component: NoRoomView,
     }
   ],
 })
