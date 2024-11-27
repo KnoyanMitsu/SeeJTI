@@ -2,12 +2,10 @@
 import NavbarComponent from '@/components/NavbarComponent.vue'
 import Date from '@/controller/Date'
 import Calendar from '@/widget/CalendarWidget.vue'
-import NavClassroom from '@/widget/NavClassroom.vue';
-import ListRoomWidget from '@/widget/ListRoomWidget.vue';
+import NavClassroom from '@/widget/NavClassroom.vue'
 </script>
 
 <script>
-import schedule from '@/data/dummy/schedule.json'
 export default {
   mounted() {
     const clockInstance = new Date()
@@ -16,13 +14,13 @@ export default {
       this.year = clockInstance.year
       this.month = clockInstance.month
       this.day = clockInstance.date
-    },1)
+    }, 1)
   },
   data() {
     return {
       year: '',
       month: '',
-      day: ''
+      day: '',
     }
   },
   components: {
@@ -34,7 +32,7 @@ export default {
 <template>
   <NavbarComponent />
   <nav class="flex bg-[#0E1F43] item-center justify-between flex-warp p mb-10">
-      <NavClassroom/>
+    <NavClassroom />
   </nav>
 
   <div class="grid grid-cols-2">
@@ -48,21 +46,8 @@ export default {
         <h1 class="font-semibold text-lg mb-2">Ruang Kosong</h1>
         <p class="text-[#7A7979]">{{ day }}</p>
       </div>
-      <div>
-        <div class="grid mt-6 gap-5 2xl:grid-cols-3 lg:mx-20 lg:grid-cols-2  md:grid-cols-1">
-          <ListRoomWidget
-            v-for="(item, index) in filteredDay"
-            :key="index"
-            :jam="item.time"
-            :ruang="item.room"
-          />
-        </div>
-        <p>Ruang yang dipilih</p>
-        <p class="font-semibold">None</p>
-      </div>
-      <div>
-        Todo: This Ruang yang di pilih and button Request Pindah Ruang
-      </div>
+      <div>Todo: this list room</div>
+      <div>Todo: This Ruang yang di pilih and button Request Pindah Ruang</div>
     </div>
   </div>
 </template>

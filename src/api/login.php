@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 include 'database.php';
 =======
 include 'config/database.php';
@@ -12,6 +13,9 @@ include 'database.php';
 =======
 include 'config/database.php';
 >>>>>>> 2ae0320 (Login dan ruang kosong)
+=======
+include 'config/database.php';
+>>>>>>> c061aa4 (Login dan ruang kosong)
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
@@ -29,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($user) {
             if ($password === $user['password']) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -57,18 +62,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['username'] = $username;
                 header("Location: info.php");  // Redirect ke info.php jika login berhasil
                 exit();
+=======
+                echo "success";
+>>>>>>> c061aa4 (Login dan ruang kosong)
             } else {
-                echo "Password salah.";
+                echo "error";
             }
         } else {
-            echo "Username tidak ditemukan.";
+            echo "error";
         }
     } catch (PDOException $e) {
-        echo "Kesalahan: " . $e->getMessage();
+        echo "error";
+    } finally {
+        if (isset($pdo)) {
+            $pdo = null;
+        }
     }
+} else {
+    echo "error";
 }
+<<<<<<< HEAD
 ?>
 >>>>>>> 693392c (login api)
 =======
 ?>
 >>>>>>> 2ae0320 (Login dan ruang kosong)
+=======
+?>
+>>>>>>> c061aa4 (Login dan ruang kosong)

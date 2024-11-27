@@ -26,6 +26,28 @@
             "time": "10:00 - 12:00",
             "class": "TI-2B"
           }
+          {
+            "subject": "Sistem Informasi",
+            "time": "07:00 - 09:00",
+            "class": "TI-2A"
+          },
+          {
+            "subject": "Data Mining",
+            "time": "08:00 - 10:00",
+            "class": "TI-2C"
+          }
+        ],
+        "Selasa": [
+          {
+            "subject": "Matematika Diskrit",
+            "time": "08:00 - 10:00",
+            "class": "TI-2A"
+          },
+          {
+            "subject": "Pengantar Data Science",
+            "time": "10:00 - 12:00",
+            "class": "TI-2B"
+          }
         ],
         "Rabu": [
           {
@@ -38,8 +60,35 @@
             "time": "09:00 - 11:00",
             "class": "TI-2C"
           }
+          {
+            "subject": "Sistem Basis Data",
+            "time": "13:00 - 15:00",
+            "class": "TI-2A"
+          },
+          {
+            "subject": "Sistem Digital",
+            "time": "09:00 - 11:00",
+            "class": "TI-2C"
+          }
         ],
         "Jumat": [
+          {
+            "subject": "Kecerdasan Buatan",
+            "time": "10:00 - 12:00",
+            "class": "TI-2A"
+          },
+          {
+            "subject": "Teknik Kompilasi",
+            "time": "08:00 - 10:00",
+            "class": "TI-2C"
+          }
+        ],
+        "Kamis": [
+          {
+            "subject": "Sistem Informasi Geografis",
+            "time": "08:00 - 10:00",
+            "class": "TI-2B"
+          }
           {
             "subject": "Kecerdasan Buatan",
             "time": "10:00 - 12:00",
@@ -86,8 +135,69 @@
             "time": "07:00 - 09:00",
             "class": "TI-2A"
           }
+          {
+            "subject": "Pemrograman Web",
+            "time": "09:00 - 11:00",
+            "class": "TI-2A"
+          },
+          {
+            "subject": "Pemrograman Java",
+            "time": "07:00 - 09:00",
+            "class": "TI-2B"
+          },
+          {
+            "subject": "Keamanan Jaringan",
+            "time": "13:00 - 15:00",
+            "class": "TI-2C"
+          }
+        ],
+        "Rabu": [
+          {
+            "subject": "Kalkulus",
+            "time": "07:00 - 09:00",
+            "class": "TI-2A"
+          }
         ],
         "Kamis": [
+          {
+            "subject": "Algoritma dan Struktur Data",
+            "time": "10:00 - 12:00",
+            "class": "TI-2A"
+          },
+          {
+            "subject": "Pemrograman Web",
+            "time": "10:00 - 12:00",
+            "class": "TI-2B"
+          },
+          {
+            "subject": "Kalkulus",
+            "time": "09:00 - 11:00",
+            "class": "TI-2C"
+          }
+        ],
+        "Jumat": [
+          {
+            "subject": "Pengolahan Citra",
+            "time": "13:00 - 15:00",
+            "class": "TI-2A"
+          },
+          {
+            "subject": "Manajemen Proyek",
+            "time": "09:00 - 11:00",
+            "class": "TI-2B"
+          }
+        ],
+        "Selasa": [
+          {
+            "subject": "Jaringan Komputer",
+            "time": "13:00 - 15:00",
+            "class": "TI-2B"
+          },
+          {
+            "subject": "Pemrograman Python",
+            "time": "07:00 - 09:00",
+            "class": "TI-2C"
+          }
           {
             "subject": "Algoritma dan Struktur Data",
             "time": "10:00 - 12:00",
@@ -168,8 +278,52 @@
             "time": "08:00 - 10:00",
             "class": "TI-2A"
           }
+          {
+            "subject": "Jaringan Komputer",
+            "time": "13:00 - 15:00",
+            "class": "TI-2A"
+          },
+          {
+            "subject": "Sistem Operasi",
+            "time": "09:00 - 11:00",
+            "class": "TI-2B"
+          },
+          {
+            "subject": "Manajemen Basis Data",
+            "time": "10:00 - 12:00",
+            "class": "TI-2C"
+          }
+        ],
+        "Rabu": [
+          {
+            "subject": "Manajemen Proyek",
+            "time": "09:00 - 11:00",
+            "class": "TI-2A"
+          },
+          {
+            "subject": "Kalkulus",
+            "time": "07:00 - 09:00",
+            "class": "TI-2B"
+          }
+        ],
+        "Jumat": [
+          {
+            "subject": "Etika Profesi",
+            "time": "08:00 - 10:00",
+            "class": "TI-2A"
+          }
         ],
         "Kamis": [
+          {
+            "subject": "Statistika",
+            "time": "13:00 - 15:00",
+            "class": "TI-2B"
+          },
+          {
+            "subject": "Algoritma dan Struktur Data",
+            "time": "07:00 - 09:00",
+            "class": "TI-2C"
+          }
           {
             "subject": "Statistika",
             "time": "13:00 - 15:00",
@@ -185,6 +339,7 @@
     }
   ]
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 <<<<<<< HEAD
 
@@ -199,3 +354,6 @@
 =======
 }
 >>>>>>> 2ae0320 (Login dan ruang kosong)
+=======
+}
+>>>>>>> c061aa4 (Login dan ruang kosong)
