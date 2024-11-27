@@ -2,6 +2,7 @@
 import Navbar from '@/components/NavbarComponent.vue'
 import schedule from '@/data/dummy/schedule.json'
 import AllSchWidget from '@/widget/AllSchWidget.vue';
+import NavClassroom from '@/widget/NavClassroom.vue';
 </script>
 
 <script>
@@ -26,7 +27,7 @@ export default {
   <div class="backdrop-blur-md h-full">
     <Navbar />
     <nav class="flex bg-[#0E1F43] item-center justify-between flex-warp p mb-10">
-      This is Navbar
+      <NavClassroom/>
     </nav>
 
     <div class="container mx-auto">
@@ -55,7 +56,7 @@ export default {
         <div class="bg-white lg:mx-20 rounded-t-md w-20">
           <h1 class="text-lg  font-bolt mx-3 font-bold text-center">{{ hari }}</h1>
         </div>
-        <div class="grid lg:grid-cols-3 lg:mx-20 md:grid-cols-2 mb-10 rounded-b-md">
+        <div class="grid lg:grid-cols-3 lg:mx-20 md:grid-cols-2 mb-2 rounded-b-md">
           <AllSchWidget
             v-for="item in matkul"
             :key="item"
