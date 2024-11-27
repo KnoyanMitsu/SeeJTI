@@ -1,6 +1,9 @@
 <script setup>
 import JTI from '@/assets/Logo/jti_polinema 3.png'
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2ae0320 (Login dan ruang kosong)
 </script>
 
 <template>
@@ -21,12 +24,19 @@ import JTI from '@/assets/Logo/jti_polinema 3.png'
         <div class="col-span-1">
           <h1 class="text-black text-6xl font-bold mb-5">Login</h1>
           <div>
+<<<<<<< HEAD
             <form @submit.prevent = "login">
+=======
+            <form action="#" method="post">
+>>>>>>> 2ae0320 (Login dan ruang kosong)
               <div class="mb-2">
                 <p class="font-bold mb-3 inline-block">Username</p>
                 <p class="text-red-500 inline-block">*</p>
                 <input
+<<<<<<< HEAD
                 v-model = "username"
+=======
+>>>>>>> 2ae0320 (Login dan ruang kosong)
                   type="text"
                   name="username"
                   id="username"
@@ -39,7 +49,10 @@ import JTI from '@/assets/Logo/jti_polinema 3.png'
                 <p class="font-bold mb-3 inline-block">Password</p>
                 <p class="text-red-500 inline-block">*</p>
                 <input
+<<<<<<< HEAD
                 v-model = "password"
+=======
+>>>>>>> 2ae0320 (Login dan ruang kosong)
                   type="password"
                   name="password"
                   id="password"
@@ -48,14 +61,23 @@ import JTI from '@/assets/Logo/jti_polinema 3.png'
                 />
               </div>
 
+<<<<<<< HEAD
               <button
+=======
+              <!-- <button
+>>>>>>> 2ae0320 (Login dan ruang kosong)
                 type="submit"
                 class="w-full px-4 py-2 text-white bg-[#F05529] rounded-md hover:bg-[#FEA127]"
               >
                 Login
+<<<<<<< HEAD
               </button>
             </form>
             <p> {{ pesan }}</p>
+=======
+              </button> -->
+            </form>
+>>>>>>> 2ae0320 (Login dan ruang kosong)
           </div>
         </div>
         </div>
@@ -64,6 +86,7 @@ import JTI from '@/assets/Logo/jti_polinema 3.png'
     </div>
   </div>
 </template>
+<<<<<<< HEAD
 <script>
 import axios from '../api/api';
 import router from '../router';
@@ -103,3 +126,5 @@ export default {
   },
 };
 </script>
+=======
+>>>>>>> 2ae0320 (Login dan ruang kosong)

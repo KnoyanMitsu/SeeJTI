@@ -1,6 +1,7 @@
 <?php
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 include 'database.php';
 =======
 include 'config/database.php';
@@ -8,6 +9,9 @@ include 'config/database.php';
 =======
 include 'database.php';
 >>>>>>> 27ffbef (update role)
+=======
+include 'config/database.php';
+>>>>>>> 2ae0320 (Login dan ruang kosong)
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
@@ -26,6 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user) {
             if ($password === $user['password']) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2ae0320 (Login dan ruang kosong)
                 echo "success";
             } else {
                 echo "error";
@@ -43,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo "error";
 }
+<<<<<<< HEAD
 ?>
 =======
                 session_start();
@@ -61,3 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 >>>>>>> 693392c (login api)
+=======
+?>
+>>>>>>> 2ae0320 (Login dan ruang kosong)
