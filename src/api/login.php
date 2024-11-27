@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
 include 'database.php';
+=======
+include 'config/database.php';
+>>>>>>> 693392c (login api)
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
@@ -17,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($user) {
             if ($password === $user['password']) {
+<<<<<<< HEAD
                 echo "success";
             } else {
                 echo "error";
@@ -35,3 +40,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "error";
 }
 ?>
+=======
+                session_start();
+                $_SESSION['username'] = $username;
+                header("Location: info.php");  // Redirect ke info.php jika login berhasil
+                exit();
+            } else {
+                echo "Password salah.";
+            }
+        } else {
+            echo "Username tidak ditemukan.";
+        }
+    } catch (PDOException $e) {
+        echo "Kesalahan: " . $e->getMessage();
+    }
+}
+?>
+>>>>>>> 693392c (login api)
