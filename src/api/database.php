@@ -1,5 +1,6 @@
 <?php
 <<<<<<< HEAD
+<<<<<<< HEAD
 error_reporting(E_ALL); 
 ini_set('display_errors', 1);   
 =======
@@ -23,6 +24,8 @@ function connectDatabase() {
 <<<<<<< HEAD
 ?>
 <?php
+=======
+>>>>>>> 52fda40 (login baru bisa, belum clean code)
 function connectDatabase() {
     $host = 'localhost';
     $dbname = 'seejti';
@@ -39,6 +42,9 @@ function connectDatabase() {
         return null;
     }
 }
+<<<<<<< HEAD
 =======
 >>>>>>> 2ae0320 (Login dan ruang kosong)
+=======
+>>>>>>> 52fda40 (login baru bisa, belum clean code)
 ?>

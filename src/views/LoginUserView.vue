@@ -1,9 +1,13 @@
 <script setup>
 import JTI from '@/assets/Logo/jti_polinema 3.png'
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 2ae0320 (Login dan ruang kosong)
+=======
+
+>>>>>>> 52fda40 (login baru bisa, belum clean code)
 </script>
 
 <template>
@@ -25,18 +29,26 @@ import JTI from '@/assets/Logo/jti_polinema 3.png'
           <h1 class="text-black text-6xl font-bold mb-5">Login</h1>
           <div>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <form @submit.prevent = "login">
 =======
             <form action="#" method="post">
 >>>>>>> 2ae0320 (Login dan ruang kosong)
+=======
+            <form @submit.prevent = "login">
+>>>>>>> 52fda40 (login baru bisa, belum clean code)
               <div class="mb-2">
                 <p class="font-bold mb-3 inline-block">Username</p>
                 <p class="text-red-500 inline-block">*</p>
                 <input
 <<<<<<< HEAD
+<<<<<<< HEAD
                 v-model = "username"
 =======
 >>>>>>> 2ae0320 (Login dan ruang kosong)
+=======
+                v-model = "username"
+>>>>>>> 52fda40 (login baru bisa, belum clean code)
                   type="text"
                   name="username"
                   id="username"
@@ -50,9 +62,13 @@ import JTI from '@/assets/Logo/jti_polinema 3.png'
                 <p class="text-red-500 inline-block">*</p>
                 <input
 <<<<<<< HEAD
+<<<<<<< HEAD
                 v-model = "password"
 =======
 >>>>>>> 2ae0320 (Login dan ruang kosong)
+=======
+                v-model = "password"
+>>>>>>> 52fda40 (login baru bisa, belum clean code)
                   type="password"
                   name="password"
                   id="password"
@@ -62,14 +78,19 @@ import JTI from '@/assets/Logo/jti_polinema 3.png'
               </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
               <button
 =======
               <!-- <button
 >>>>>>> 2ae0320 (Login dan ruang kosong)
+=======
+              <button
+>>>>>>> 52fda40 (login baru bisa, belum clean code)
                 type="submit"
                 class="w-full px-4 py-2 text-white bg-[#F05529] rounded-md hover:bg-[#FEA127]"
               >
                 Login
+<<<<<<< HEAD
 <<<<<<< HEAD
               </button>
             </form>
@@ -78,6 +99,11 @@ import JTI from '@/assets/Logo/jti_polinema 3.png'
               </button> -->
             </form>
 >>>>>>> 2ae0320 (Login dan ruang kosong)
+=======
+              </button>
+            </form>
+            <p> {{ pesan }}</p>
+>>>>>>> 52fda40 (login baru bisa, belum clean code)
           </div>
         </div>
         </div>
@@ -87,6 +113,9 @@ import JTI from '@/assets/Logo/jti_polinema 3.png'
   </div>
 </template>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 52fda40 (login baru bisa, belum clean code)
 <script>
 import axios from '../api/api';
 import router from '../router';
@@ -126,5 +155,8 @@ export default {
   },
 };
 </script>
+<<<<<<< HEAD
 =======
 >>>>>>> 2ae0320 (Login dan ruang kosong)
+=======
+>>>>>>> 52fda40 (login baru bisa, belum clean code)
