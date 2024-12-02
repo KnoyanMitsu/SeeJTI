@@ -1,7 +1,7 @@
 <?php
 function connectDatabase() {
     $host = 'localhost';
-    $dbname = 'seejti';
+    $dbname = 'SeeJTI';
     $username = 'sa';
     $password = 'seejti';
 
