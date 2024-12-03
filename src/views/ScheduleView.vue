@@ -6,32 +6,43 @@ import NavClassroom from '@/widget/NavClassroom.vue';
 
 <script>
 import axios from '../api/api';
+let cachedSchedules = null;
 export default {
   data() {
     return {
       schedules: [], // Data jadwal
-      selectedClass: 'TI-2C', // Kelas yang dipilih
+      selectedClass: '', // Kelas yang dipilih
       classList: [],
-      day: 'Senin', // Hari saat ini
-    }
+      day: '', // Hari saat ini
+    };
   },
   methods: {
     async fetchSchedules() {
+      // Jika data sudah ada di cache, gunakan cache
+      if (cachedSchedules) {
+        this.setScheduleData(cachedSchedules);
+        return;
+      }
+
+      // Jika tidak ada cache, fetch dari API
       try {
         const response = await axios.get('http://localhost:8000/classJSON.php');
-        console.log('API Response:', response.data); // Debugging
+
         if (response.data && response.data.classes) {
-          this.schedules = response.data.classes;
-          this.classList = response.data.classes.map((c) => c.name); // Ambil nama kelas
-          console.log('Class List:', this.classList); // Debugging
-          if (this.classList.length > 0) {
-            this.selectedClass = this.classList[0]; // Default pilih kelas pertama
-          }
+          cachedSchedules = response.data.classes; // Simpan data ke cache
+          this.setScheduleData(cachedSchedules);
         } else {
           console.error('Invalid API Response:', response.data);
         }
       } catch (error) {
         console.error('Error fetching schedules:', error);
+      }
+    },
+    setScheduleData(data) {
+      this.schedules = data;
+      this.classList = data.map((c) => c.name); // Ambil nama kelas
+      if (this.classList.length > 0) {
+        this.selectedClass = this.classList[0]; // Default pilih kelas pertama
       }
     },
     filteredSchedule() {
@@ -44,7 +55,7 @@ export default {
   created() {
     this.fetchSchedules();
   },
-}
+};
 </script>
 
 <template>
@@ -57,12 +68,12 @@ export default {
     <div class="container mx-auto">
       <div class="mt-10 mx-4 lg:mx-20 ">
             <div class="">
-              <div class="p-2 w-48 bg-white rounded-2xl shadow-md mb-10">
+              <div class="p-2 w-56 bg-white rounded-2xl shadow-md mb-10">
                 <p class="font-bold inline-block">Jadwal Kelas</p>
                 <select
                   name="Kelas"
                   v-model="selectedClass"
-                  class="bg-white w-16 inline-block"
+                  class="bg-white w-24 inline-block"
                   id=""
                 >
                 <option

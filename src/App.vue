@@ -8,8 +8,10 @@ import { RouterView } from 'vue-router'
   </head>
   <html class="bg-[#F3F6F9]">
 
-
+  <keep-alive>
     <router-view/>
+  </keep-alive>
+
   </html>
 </template>
 
