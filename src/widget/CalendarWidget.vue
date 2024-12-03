@@ -9,7 +9,11 @@
       <tbody>
         <tr v-for="(week, index) in calendar" :key="index">
           <td v-for="day in week" :key="day" :class="{ empty: !day }">
-            {{ day || '' }}
+            <p class="mb-5">{{ day || '' }}</p>
+            <span
+            class="inline-flex bg-green-200 rounded-full px-3 py-1 items-center text-sm font-semibold text-green-700 mt-5 mb-2 mr-2"
+            >2 Ruangan
+          </span>
           </td>
         </tr>
       </tbody>
@@ -89,8 +93,8 @@ table {
 }
 td {
   border: 1px solid #ddd;
-  text-align: center;
-  padding: 50px;
+
+  padding: 10px;
   height: 30px;
   width: 30px;
 }
