@@ -18,9 +18,10 @@
     "@fullcalendar/interaction": "^6.1.15",
     "@fullcalendar/vue3": "^6.1.15",
     "@popperjs/core": "^2.11.8",
+    "axios": "^1.7.8",
     "material-icons": "^1.13.12",
     "vue": "^3.5.12",
-    "vue-router": "^4.4.5",
+    "vue-router": "^4.5.0",
     "vuesax": "^3.12.2",
     "vuesax3": "^4.2.1"
   },
