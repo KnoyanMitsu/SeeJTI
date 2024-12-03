@@ -37,7 +37,7 @@ export default {
       <NavClassroom/>
   </nav>
 
-  <div class="grid grid-cols-2">
+  <div class="grid grid-cols-2 container mx-auto">
     <div class="">
       <p class="font-semibold text-lg mb-5">{{ month }}</p>
 
@@ -60,8 +60,13 @@ export default {
         <p>Ruang yang dipilih</p>
         <p class="font-semibold">None</p>
       </div>
-      <div>
-        Todo: This Ruang yang di pilih and button Request Pindah Ruang
+      <div class="flex justify-end">
+        <button
+                type="submit"
+                class=" px-4 py-2 text-white bg-[#F05529] rounded-md hover:bg-[#FEA127]"
+              >
+              Request Pindah Ruang
+              </button>
       </div>
     </div>
   </div>
