@@ -80,12 +80,12 @@ export default {
   methods: {
     async login() {
       try {
-        const response = await axios.post('http://localhost/sas/login.php', {
+        const response = await axios.post('http://localhost:8000/login.php', {
           username: this.username,
           password: this.password,
         });
 
-        if (response.data === 'berhasil') {
+        if (response.data == 'berhasil') {
           this.pesan = 'login berhasil';
           router.push({name : 'home'});
         } else {

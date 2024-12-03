@@ -5,7 +5,7 @@ function connectDatabase() {
     $host = 'localhost';
     $dbname = 'SeeJTI';
     $username = 'sa';
-    $password = 'seejti';
+    $password = 'Vionastia06';
 
     try {
         $pdo = new PDO("sqlsrv:Server=$host;Database=$dbname", $username, $password);

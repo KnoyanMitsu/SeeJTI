@@ -4,7 +4,7 @@ require './config/database.php';
 header('Content-Type: application/json');
 $pdo = connectDatabase();
 // Query data
-$sql = "SELECT nama_hari, kode_mk, kode_kelas, kode_ruang, jam_kuliah.jam_mulai, jam_kuliah.jam_selesai  FROM dbo.jadwal, dbo.jam_kuliah where jam_kuliah.id_jam = id_jam_mulai";
+$sql = "SELECT * from getJadwal;";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 

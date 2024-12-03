@@ -1,5 +1,6 @@
 <?php
-include 'database.php';
+include 'config/database.php';
+header ('Access-Control-Allow-Origin: *');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
@@ -19,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($password === $user['password']) {
                 session_start();
                 $_SESSION['username'] = $username;
-                header("Location: info.php");  // Redirect ke info.php jika login berhasil
+                echo "berhasil"; 
                 exit();
             } else {
                 echo "Password salah.";
