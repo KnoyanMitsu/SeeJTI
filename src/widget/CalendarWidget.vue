@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="{{ classname }}">
     <table>
       <thead>
         <tr>
@@ -24,6 +24,9 @@
 <script>
 export default {
   props: {
+    classname: {
+      type: String,
+    },
     year: {
       type: Number,
       required: true,

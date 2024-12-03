@@ -7,7 +7,6 @@ import ListRoomWidget from '@/widget/ListRoomWidget.vue';
 </script>
 
 <script>
-import schedule from '@/data/dummy/schedule.json'
 export default {
   mounted() {
     const clockInstance = new Date()
@@ -37,19 +36,19 @@ export default {
       <NavClassroom/>
   </nav>
 
-  <div class="grid grid-cols-2 container mx-auto">
-    <div class="">
+  <div class="xl:grid xl:grid-cols-2 md:grid-cols-1 container mx-auto  grid-flow-col gap-x-32 md:gap-x-32">
+    <div class="col-span-1">
       <p class="font-semibold text-lg mb-5">{{ month }}</p>
 
       <Calendar :year="year" :month="month" />
     </div>
-    <div>
+    <div class="md:mt-5">
       <div>
         <h1 class="font-semibold text-lg mb-2">Ruang Kosong</h1>
         <p class="text-[#7A7979]">{{ day }}</p>
       </div>
       <div>
-        <div class="grid mt-6 gap-5 2xl:grid-cols-3 lg:mx-20 lg:grid-cols-2  md:grid-cols-1">
+        <div class="grid mt-6 gap-5 2xl:grid-cols-3 lg:mx-20 lg:grid-cols-2  md:grid-cols-1 col-span-2">
           <ListRoomWidget
             v-for="(item, index) in filteredDay"
             :key="index"

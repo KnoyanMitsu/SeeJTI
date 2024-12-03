@@ -1,25 +1,49 @@
 <script setup>
 import Navbar from '@/components/NavbarComponent.vue'
-import schedule from '@/data/dummy/schedule.json'
 import AllSchWidget from '@/widget/AllSchWidget.vue';
 import NavClassroom from '@/widget/NavClassroom.vue';
 </script>
 
 <script>
+import axios from '../api/api';
 export default {
   data() {
     return {
-      selectedClass: 'TI-2C',
+      schedules: [], // Data jadwal
+      selectedClass: 'TI-2C', // Kelas yang dipilih
+      classList: [],
+      day: 'Senin', // Hari saat ini
     }
   },
-  computed: {
-    filteredSchedule() {
-      return this.selectedClass
-        ? schedule.classes.find(item => item.name === this.selectedClass)
-            .schedule
-        : []
+  methods: {
+    async fetchSchedules() {
+      try {
+        const response = await axios.get('http://localhost:8000/classJSON.php');
+        console.log('API Response:', response.data); // Debugging
+        if (response.data && response.data.classes) {
+          this.schedules = response.data.classes;
+          this.classList = response.data.classes.map((c) => c.name); // Ambil nama kelas
+          console.log('Class List:', this.classList); // Debugging
+          if (this.classList.length > 0) {
+            this.selectedClass = this.classList[0]; // Default pilih kelas pertama
+          }
+        } else {
+          console.error('Invalid API Response:', response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching schedules:', error);
+      }
     },
-  }
+    filteredSchedule() {
+      const selectedClassSchedule = this.schedules.find(
+        (item) => item.name === this.selectedClass
+      );
+      return selectedClassSchedule ? selectedClassSchedule.schedule : {};
+    },
+  },
+  created() {
+    this.fetchSchedules();
+  },
 }
 </script>
 
@@ -41,15 +65,22 @@ export default {
                   class="bg-white w-16 inline-block"
                   id=""
                 >
-                  <option value="TI-2A">TI-2A</option>
-                  <option value="TI-2B">TI-2B</option>
-                  <option value="TI-2C">TI-2C</option>
+                <option
+                  v-for="classItem in classList"
+                  :key="classItem"
+                  :value="classItem"
+                >
+                  {{ classItem }}
+                </option>
+                <option v-if="classList.length === 0" disabled>
+                  Data kelas tidak tersedia
+                </option>
                 </select>
               </div>
             </div>
           </div>
       <div
-        v-for="(matkul, hari) in filteredSchedule"
+        v-for="(matkul, hari) in filteredSchedule()"
         :key="hari"
         class=""
       >

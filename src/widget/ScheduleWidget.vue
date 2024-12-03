@@ -6,6 +6,10 @@ export default {
       type: String,
       required: true,
     },
+    dosen: {
+      type: String,
+      required: true,
+    },
     jam: {
       type: String,
       required: true,

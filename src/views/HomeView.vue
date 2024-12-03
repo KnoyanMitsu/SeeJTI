@@ -22,11 +22,9 @@ export default {
     async fetchSchedules() {
       try {
         const response = await axios.get('http://localhost:8000/classJSON.php');
-        console.log('API Response:', response.data); // Debugging
         if (response.data && response.data.classes) {
           this.schedules = response.data.classes;
-          this.classList = response.data.classes.map((c) => c.name); // Ambil nama kelas
-          console.log('Class List:', this.classList); // Debugging
+          this.classList = response.data.classes.map((c) => c.name);
           if (this.classList.length > 0) {
             this.selectedClass = this.classList[0]; // Default pilih kelas pertama
           }
