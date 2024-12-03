@@ -1,26 +1,37 @@
 <script>
-export default{
-  props:{
-    nama:{
+import Role from '@/controller/Role'
+export default {
+  props: {
+    nama: {
       type: String,
-      required: true
+      required: true,
     },
-    jam:{
+    jam: {
       type: String,
-      required: true
+      required: true,
     },
-    kelas:{
+    kelas: {
       type: String,
-      required: true
+      required: true,
     },
-    ruang:{
+    ruang: {
       type: String,
-      required: true
+      required: true,
+    },
+  },
+  data() {
+    return {
+      role: '',
     }
-  }
+  },
+  mounted() {
+    const roleInstance = new Role()
+    setInterval(() => {
+      this.role = roleInstance.role
+    })
+  },
 }
 </script>
-
 
 <template>
   <div class="bg-white shadow-md rounded-md mx-auto lg:w-full mb-7">
@@ -35,26 +46,33 @@ export default{
           <p class="font-bold ml-2">{{ kelas }}</p>
         </div>
         <div
-          class="inline-flex border-2 border-dashed border-yellow-300  p-2 rounded-md items-center"
+          class="inline-flex border-2 border-dashed border-yellow-300 p-2 rounded-md items-center"
         >
           <p class="font-bold text-gray-600">Jam:</p>
           <p class="font-bold ml-2">{{ jam }}</p>
         </div>
         <div
-          class="inline-flex border-2 border-dashed border-yellow-300  p-2 rounded-md items-center"
+          class="inline-flex border-2 border-dashed border-yellow-300 p-2 rounded-md items-center"
         >
           <p class="font-bold text-gray-600">Ruang:</p>
           <p class="font-bold ml-2">{{ ruang }}</p>
         </div>
       </div>
     </div>
-    <div class="mt-8 p-3 text-center font-semibold bg-[#00CB1E]">
-      <p class="text-white inline_block ">Kuliah Ada</p>
+    <div
+      v-if="role === 'mahasiswa'"
+      class="mt-8 p-3 text-center font-semibold bg-[#00CB1E]"
+    >
+      <p class="text-white inline_block">Kuliah Ada</p>
+    </div>
+    <div class="mb-2" v-if="role === 'ketua'">
+      <hr class="mt-8" />
+      <div class="p-3  mt-2 text-center font-semibold grid grid-cols-2">
+        <p class="text-red-600 inline_block">Tidak ada Kuliah</p>
+        <p class="text-green-600 inline_block">Kuliah Ada</p>
+      </div>
     </div>
   </div>
 </template>
 
-
-<style>
-
-</style>
+<style></style>
