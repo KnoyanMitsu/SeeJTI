@@ -25,8 +25,8 @@ foreach ($jadwal as $row) {
         $schedules[$className][$day] = [];
     }
 
-    $startTime = explode('.', $row['jam_mulai'])[0];
-    $endTime = explode('.', $row['jam_selesai'])[0];
+    $startTime = substr($row['jam_mulai'], 0, 5);
+    $endTime = substr($row['jam_selesai'], 0, 5);
 
     $schedules[$className][$day][] = [
         'subject' => $row['kode_mk'],
