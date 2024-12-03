@@ -1,51 +1,74 @@
 <script setup>
-import ClockView from '@/components/ClockComponent.vue'
-import Navbar from '@/components/NavbarComponent.vue'
-import Clock from '@/controller/Date'
-import NavWidget from '@/widget/NavWidget.vue'
-import ScheduleWidget from '@/widget/ScheduleWidget.vue'
+import ClockView from '@/components/ClockComponent.vue';
+import Navbar from '@/components/NavbarComponent.vue';
+import Clock from '@/controller/Date';
+import NavWidget from '@/widget/NavWidget.vue';
+import ScheduleWidget from '@/widget/ScheduleWidget.vue';
 </script>
 
 <script>
-import schedule from '@/data/dummy/schedule.json'
+import axios from '../api/api';
+
 export default {
   data() {
     return {
-      selectedClass: 'TI-2C',
-      day: '',
-    }
+      schedules: [], // Data jadwal
+      selectedClass: 'TI-2C', // Kelas yang dipilih
+      classList: [],
+      day: 'Senin', // Hari saat ini
+    };
   },
-  mounted() {
-    const clockInstance = new Clock()
-
-    setInterval(() => {
-      this.day = clockInstance.day
-    }, 1)
-  },
-  computed: {
+  methods: {
+    async fetchSchedules() {
+      try {
+        const response = await axios.get('http://localhost:8000/classJSON.php');
+        console.log('API Response:', response.data); // Debugging
+        if (response.data && response.data.classes) {
+          this.schedules = response.data.classes;
+          this.classList = response.data.classes.map((c) => c.name); // Ambil nama kelas
+          console.log('Class List:', this.classList); // Debugging
+          if (this.classList.length > 0) {
+            this.selectedClass = this.classList[0]; // Default pilih kelas pertama
+          }
+        } else {
+          console.error('Invalid API Response:', response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching schedules:', error);
+      }
+    },
     filteredSchedule() {
-      return this.selectedClass
-        ? schedule.classes.find(item => item.name === this.selectedClass)
-            .schedule
-        : []
+      const selectedClassSchedule = this.schedules.find(
+        (item) => item.name === this.selectedClass
+      );
+      return selectedClassSchedule ? selectedClassSchedule.schedule : {};
     },
     filteredDay() {
-      return this.day ? this.filteredSchedule[this.day] : []
+      return this.day ? this.filteredSchedule()[this.day] || [] : [];
     },
   },
-}
+  mounted() {
+    const clockInstance = new Clock();
+    setInterval(() => {
+      this.day = clockInstance.day;
+    }, 1000);
+  },
+  created() {
+    this.fetchSchedules();
+  },
+};
 </script>
 
 <style>
 .top-100 {
-  top: 50rem /* 320px */;
+  top: 50rem; /* 320px */
 }
 
 .w-100 {
-  width: 80rem /* 384px */;
+  width: 80rem; /* 384px */
 }
 .h-100 {
-  height: 80rem /* 384px */;
+  height: 80rem; /* 384px */
 }
 </style>
 
@@ -72,17 +95,26 @@ export default {
                 class="bg-white w-16 inline-block"
                 id=""
               >
-                <option value="TI-2A">TI-2A</option>
-                <option value="TI-2B">TI-2B</option>
-                <option value="TI-2C">TI-2C</option>
+                <option
+                  v-for="classItem in classList"
+                  :key="classItem"
+                  :value="classItem"
+                >
+                  {{ classItem }}
+                </option>
+                <option v-if="classList.length === 0" disabled>
+                  Data kelas tidak tersedia
+                </option>
               </select>
+              <p v-if="classList.length === 0">Tidak ada kelas tersedia.</p>
             </div>
           </div>
         </div>
-        
-        <div class="grid mt-6 gap-5 2xl:grid-cols-3 lg:mx-20 lg:grid-cols-2  md:grid-cols-1">
+        <div
+          class="grid mt-6 gap-5 2xl:grid-cols-3 lg:mx-20 lg:grid-cols-2 md:grid-cols-1"
+        >
           <ScheduleWidget
-            v-for="(item, index) in filteredDay"
+            v-for="(item, index) in filteredDay()"
             :key="index"
             :nama="item.subject"
             :jam="item.time"
