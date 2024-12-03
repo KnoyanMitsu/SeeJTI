@@ -26,6 +26,7 @@
             "time": "10:00 - 12:00",
             "class": "TI-2B"
           }
+<<<<<<< HEAD
           {
             "subject": "Sistem Informasi",
             "time": "07:00 - 09:00",
@@ -48,6 +49,8 @@
             "time": "10:00 - 12:00",
             "class": "TI-2B"
           }
+=======
+>>>>>>> main
         ],
         "Rabu": [
           {
@@ -60,6 +63,7 @@
             "time": "09:00 - 11:00",
             "class": "TI-2C"
           }
+<<<<<<< HEAD
           {
             "subject": "Sistem Basis Data",
             "time": "13:00 - 15:00",
@@ -70,6 +74,8 @@
             "time": "09:00 - 11:00",
             "class": "TI-2C"
           }
+=======
+>>>>>>> main
         ],
         "Jumat": [
           {
@@ -89,6 +95,7 @@
             "time": "08:00 - 10:00",
             "class": "TI-2B"
           }
+<<<<<<< HEAD
           {
             "subject": "Kecerdasan Buatan",
             "time": "10:00 - 12:00",
@@ -106,6 +113,8 @@
             "time": "08:00 - 10:00",
             "class": "TI-2B"
           }
+=======
+>>>>>>> main
         ]
       }
     },
@@ -135,6 +144,7 @@
             "time": "07:00 - 09:00",
             "class": "TI-2A"
           }
+<<<<<<< HEAD
           {
             "subject": "Pemrograman Web",
             "time": "09:00 - 11:00",
@@ -157,6 +167,8 @@
             "time": "07:00 - 09:00",
             "class": "TI-2A"
           }
+=======
+>>>>>>> main
         ],
         "Kamis": [
           {
@@ -198,6 +210,7 @@
             "time": "07:00 - 09:00",
             "class": "TI-2C"
           }
+<<<<<<< HEAD
           {
             "subject": "Algoritma dan Struktur Data",
             "time": "10:00 - 12:00",
@@ -237,6 +250,8 @@
             "time": "07:00 - 09:00",
             "class": "TI-2C"
           }
+=======
+>>>>>>> main
         ]
       }
     },
@@ -278,6 +293,7 @@
             "time": "08:00 - 10:00",
             "class": "TI-2A"
           }
+<<<<<<< HEAD
           {
             "subject": "Jaringan Komputer",
             "time": "13:00 - 15:00",
@@ -312,6 +328,8 @@
             "time": "08:00 - 10:00",
             "class": "TI-2A"
           }
+=======
+>>>>>>> main
         ],
         "Kamis": [
           {
@@ -324,6 +342,7 @@
             "time": "07:00 - 09:00",
             "class": "TI-2C"
           }
+<<<<<<< HEAD
           {
             "subject": "Statistika",
             "time": "13:00 - 15:00",
@@ -334,6 +353,8 @@
             "time": "07:00 - 09:00",
             "class": "TI-2C"
           }
+=======
+>>>>>>> main
         ]
       }
     }
@@ -341,6 +362,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 
@@ -357,3 +379,7 @@
 =======
 }
 >>>>>>> c061aa4 (Login dan ruang kosong)
+=======
+
+
+>>>>>>> main
