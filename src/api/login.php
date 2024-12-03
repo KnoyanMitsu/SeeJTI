@@ -1,9 +1,13 @@
 <?php
 <<<<<<< HEAD
+<<<<<<< HEAD
 include 'database.php';
 =======
 include 'config/database.php';
 >>>>>>> 693392c (login api)
+=======
+include 'database.php';
+>>>>>>> 27ffbef (update role)
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
