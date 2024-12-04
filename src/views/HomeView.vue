@@ -111,7 +111,7 @@ export default {
                   {{ classItem }}
                 </option>
                 <option v-if="classList.length === 0" disabled>
-                  Data kelas tidak tersedia
+                  Tidak ada kelas tersedia.
                 </option>
               </select>
               <p v-if="classList.length === 0">Tidak ada kelas tersedia.</p>
