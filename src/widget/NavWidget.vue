@@ -16,7 +16,7 @@ export default {
 };
 </script>
 
-<template>
+<template v-if="role === 'ketua'" >
   <div class="grid lg:grid-cols-2 gap-4 mx-auto md:grid-cols-2">
     <router-link to="/jadwal/kelas" class="w-60 bg-white rounded-md shadow-md">
       <div class="flex flex-col ml-7">
@@ -37,14 +37,14 @@ export default {
     </router-link>
 
     <router-link to="jadwal/kosong">
-      <div v-if="role === 'ketua'" class="w-60 bg-white rounded-lg shadow-md">
+      <div class="w-60 bg-white rounded-lg shadow-md">
         <div class="flex flex-col ml-7">
           <div class="text-gray-700 mb-2 mt-7">
             <vs-icon icon="building"></vs-icon>
           </div>
           <p class="text-2xl font-semibold text-gray-800">
             Ruang <br />
-            Kosong
+            Kosonggit
           </p>
         </div>
         <div class="flex mt-7">

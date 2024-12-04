@@ -8,6 +8,6 @@ export default class Role {
 
   updateRole() {
     // kalau mau ganti admin dan user disini
-    this.role = 'ketua';
+    this.role = 'mahasiswa';
   }
 }
