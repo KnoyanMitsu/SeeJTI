@@ -36,7 +36,7 @@ export default {
         }
       } catch (error) {
         console.error('Error fetching schedules:', error);
-      }f
+      }
     },
     setScheduleData(data) {
       this.schedules = data;

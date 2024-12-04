@@ -36,7 +36,7 @@ export default {
       </div>
     </router-link>
 
-    <div>
+    <div v-if="role === 'ketua'">
 
       <router-link to="jadwal/kosong">
         <div class="w-60 bg-white rounded-lg shadow-md">
