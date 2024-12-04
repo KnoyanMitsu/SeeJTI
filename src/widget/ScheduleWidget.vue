@@ -41,7 +41,7 @@ export default {
   <div class="bg-white shadow-md rounded-md mx-auto lg:w-full mb-7">
     <div class="ml-5 mr-4">
       <h1 class="text-3xl font-bold mt-7">{{ nama }}</h1>
-      <p class="font-bold text-gray-600 mt-3">RPP - Tatap Muka</p>
+      <p class="font-bold text-gray-600 mt-3">{{ dosen }}</p>
       <div class="grid grid-cols-2 gap-4 mt-3">
         <div
           class="inline-flex border-2 border-dashed border-yellow-300 p-2 rounded-md items-center"

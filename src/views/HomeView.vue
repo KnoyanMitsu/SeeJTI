@@ -128,6 +128,7 @@ export default {
             :jam="item.time"
             :kelas="selectedClass"
             :ruang="item.room"
+            :dosen="item.dosen"
           />
         </div>
       </div>
