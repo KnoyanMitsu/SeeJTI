@@ -106,6 +106,7 @@ export default {
             :kelas="selectedClass"
             :jam="item.time"
             :ruang="item.room"
+            :dosen="item.dosen"
             class="bg-white rounded-tr-md rounded-b-md"
           />
         </div>
