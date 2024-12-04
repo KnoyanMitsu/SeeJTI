@@ -36,7 +36,7 @@ export default {
         }
       } catch (error) {
         console.error('Error fetching schedules:', error);
-      }
+      }f
     },
     setScheduleData(data) {
       this.schedules = data;
@@ -106,6 +106,7 @@ export default {
             :kelas="selectedClass"
             :jam="item.time"
             :ruang="item.room"
+            :dosen="item.dosen"
             class="bg-white rounded-tr-md rounded-b-md"
           />
         </div>

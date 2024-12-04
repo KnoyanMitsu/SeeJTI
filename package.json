@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "prestart": "git pull && npm install",
+    "dev": "git pull && npm install && vite",
     "build": "vite build",
     "preview": "vite preview",
     "test:e2e": "nightwatch tests/e2e/*",
