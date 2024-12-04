@@ -15,7 +15,7 @@ import {
   TransitionChild,
   TransitionRoot,
 } from '@headlessui/vue'
-import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
+// import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
 
 // Kontrol visibilitas dialog
 const open = ref(false)
@@ -118,10 +118,10 @@ export default {
               <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                 <div class="sm:flex sm:items-start">
                   <div class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:size-10">
-                    <ExclamationTriangleIcon
+                    <!-- <ExclamationTriangleIcon
                       class="size-6 text-red-600"
                       aria-hidden="true"
-                    />
+                    /> -->
                   </div>
                   <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                     <DialogTitle
