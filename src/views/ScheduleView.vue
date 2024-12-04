@@ -2,6 +2,7 @@
 import Navbar from '@/components/NavbarComponent.vue'
 import AllSchWidget from '@/widget/AllSchWidget.vue'
 import NavClassroom from '@/widget/NavClassroom.vue'
+import LoadingWidget from '@/widget/LoadingWidget.vue'
 </script>
 
 <script>
@@ -18,24 +19,37 @@ export default {
   },
   methods: {
     async fetchSchedules() {
+      const maxRetries = 10
+      let attempt = 0
+      let success = false
       // Jika data sudah ada di cache, gunakan cache
       if (cachedSchedules) {
         this.setScheduleData(cachedSchedules)
         return
       }
 
-      // Jika tidak ada cache, fetch dari API
-      try {
-        const response = await axios.get('http://localhost:8000/classJSON.php')
+      while (attempt < maxRetries && !success) {
+        try {
+          const response = await axios.get(
+            'http://localhost:8000/classJSON.php',
+          )
 
-        if (response.data && response.data.classes) {
-          cachedSchedules = response.data.classes // Simpan data ke cache
-          this.setScheduleData(cachedSchedules)
-        } else {
-          console.error('Invalid API Response:', response.data)
+          if (response.data && response.data.classes) {
+            cachedSchedules = response.data.classes // Simpan data ke cache
+            this.setScheduleData(cachedSchedules)
+            this.success = true
+            success = true
+          } else {
+            console.error('Invalid API Response:', response.data)
+            throw new Error('Invalid response')
+          }
+        } catch (error) {
+          attempt++
+          console.error(`Error fetching schedules (attempt ${attempt}):`, error)
+          if (attempt >= maxRetries) {
+            console.error('Max retries reached. Unable to fetch schedules.')
+          }
         }
-      } catch (error) {
-        console.error('Error fetching schedules:', error)
       }
     },
     setScheduleData(data) {
@@ -102,6 +116,7 @@ export default {
         <div
           class="grid lg:grid-cols-3 lg:mx-20 md:grid-cols-2 mb-2 rounded-b-md"
         >
+        <LoadingWidget v-if="filteredSchedule().length === 0 && !success" />
           <AllSchWidget
             v-for="item in matkul"
             :key="item"

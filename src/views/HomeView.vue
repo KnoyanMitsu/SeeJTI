@@ -1,71 +1,86 @@
 <script setup>
-import ClockView from '@/components/ClockComponent.vue';
-import Navbar from '@/components/NavbarComponent.vue';
-import Clock from '@/controller/Date';
-import NavWidget from '@/widget/NavWidget.vue';
-import ScheduleWidget from '@/widget/ScheduleWidget.vue';
-import LoadingWidget from '@/widget/LoadingWidget.vue';
+import ClockView from '@/components/ClockComponent.vue'
+import Navbar from '@/components/NavbarComponent.vue'
+import Clock from '@/controller/Date'
+import LoadingWidget from '@/widget/LoadingWidget.vue'
+import NavWidget from '@/widget/NavWidget.vue'
+import ScheduleWidget from '@/widget/ScheduleWidget.vue'
 </script>
 
 <script>
-import axios from '../api/api';
-let cachedSchedules = null;
+import axios from '../api/api'
+let cachedSchedules = null
 export default {
   data() {
     return {
       schedules: [], // Data jadwal
       selectedClass: '', // Kelas yang dipilih
       classList: [],
-      day: '', // Hari saat ini
-    };
+      day: '',
+      success: '', // Hari saat ini
+    }
   },
   methods: {
     async fetchSchedules() {
-      if (cachedSchedules) {
-        this.setScheduleData(cachedSchedules);
-        return;
-      }
+      const maxRetries = 10
+      let attempt = 0
+      let success = false
 
-      try {
-        const response = await axios.get('http://localhost:8000/classJSON.php');
-        if (response.data && response.data.classes) {
-          cachedSchedules = response.data.classes;
-          this.setScheduleData(cachedSchedules);
-        } else {
-          console.error('Invalid API Response:', response.data);
+      if (cachedSchedules) {
+        this.setScheduleData(cachedSchedules)
+        return
+      }
+      while (attempt < maxRetries && !success) {
+        try {
+          const response = await axios.get(
+            'http://localhost:8000/classJSON.php',
+          )
+          if (response.data && response.data.classes) {
+            cachedSchedules = response.data.classes
+            this.setScheduleData(cachedSchedules)
+            this.success = true
+            success = true
+          } else {
+            console.error('Invalid API Response:', response.data)
+            throw new Error('Invalid response')
+          }
+        } catch (error) {
+          attempt++
+          console.error(`Error fetching schedules (attempt ${attempt}):`, error)
+          if (attempt >= maxRetries) {
+            console.error('Max retries reached. Unable to fetch schedules.')
+          }
         }
-      } catch (error) {
-        console.error('Error fetching schedules:', error);
       }
     },
 
     setScheduleData(data) {
-      this.schedules = data;
-      this.classList = data.map((c) => c.name);
+      this.schedules = data
+      this.classList = data.map(c => c.name)
       if (this.classList.length > 0) {
-            this.selectedClass = this.classList[0]; // Default pilih kelas pertama
+        this.selectedClass = this.classList[0] // Default pilih kelas pertama
       }
     },
     filteredSchedule() {
       const selectedClassSchedule = this.schedules.find(
-        (item) => item.name === this.selectedClass
-      );
-      return selectedClassSchedule ? selectedClassSchedule.schedule : {};
+        item => item.name === this.selectedClass,
+      )
+      return selectedClassSchedule ? selectedClassSchedule.schedule : {}
     },
     filteredDay() {
-      return this.day ? this.filteredSchedule()[this.day] || [] : [];
+      return this.day ? this.filteredSchedule()[this.day] || [] : []
     },
   },
   mounted() {
-    const clockInstance = new Clock();
+    const clockInstance = new Clock()
     setInterval(() => {
-      this.day = clockInstance.day;
-    }, 1000);
+      this.day = clockInstance.day
+    }, 1000)
   },
   created() {
-    this.fetchSchedules();
+    this.fetchSchedules()
   },
-};
+}
 </script>
 
 <style>
@@ -122,7 +137,7 @@ export default {
         <div
           class="grid mt-6 gap-5 2xl:grid-cols-3 lg:mx-20 lg:grid-cols-2 md:grid-cols-1"
         >
-          <LoadingWidget v-if="filteredDay().length === 0" />
+          <LoadingWidget v-if="filteredDay().length === 0 && !success" />
           <ScheduleWidget
             v-for="(item, index) in filteredDay()"
             :key="index"
