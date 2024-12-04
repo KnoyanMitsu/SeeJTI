@@ -116,31 +116,21 @@ export default {
           >
             <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
               <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                <div class="sm:flex sm:items-start">
-                  <div class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:size-10">
-                    <!-- <ExclamationTriangleIcon
-                      class="size-6 text-red-600"
-                      aria-hidden="true"
-                    /> -->
-                  </div>
-                  <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                    <DialogTitle
-                      as="h3"
-                      class="text-base font-semibold text-gray-900"
-                    >
-                      Deactivate account
-                    </DialogTitle>
-                    <div class="mt-2">
-                      <p class="text-sm text-gray-500">
-                        Are you sure you want to deactivate your account? All of
-                        your data will be permanently removed. This action
-                        cannot be undone.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <p class="mb-3">Nama Matkul</p>
+                <select name="room"  id="" class="bg-white mb-4 w-full">
+                  <option value="sim">Test</option>
+                </select>
+                <p class="mb-3">Nama Ruang</p>
+                <select name="room"  id="" class="bg-white mb-4 w-full">
+                  <option value="sim">Test</option>
+                </select>
+                <p class="mb-3">Hari</p>
+                <input type="text" class="bg-white mb-4 w-full">
+                <p class="mb-3">Jam</p>
+                <input type="time" class="bg-white mb-4 w-full">
               </div>
-              <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+
+              <div class="bg-white px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                 <button
                   type="button"
                   class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
