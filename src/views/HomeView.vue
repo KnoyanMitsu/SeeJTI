@@ -4,6 +4,7 @@ import Navbar from '@/components/NavbarComponent.vue';
 import Clock from '@/controller/Date';
 import NavWidget from '@/widget/NavWidget.vue';
 import ScheduleWidget from '@/widget/ScheduleWidget.vue';
+import LoadingWidget from '@/widget/LoadingWidget.vue';
 </script>
 
 <script>
@@ -121,6 +122,7 @@ export default {
         <div
           class="grid mt-6 gap-5 2xl:grid-cols-3 lg:mx-20 lg:grid-cols-2 md:grid-cols-1"
         >
+          <LoadingWidget v-if="filteredDay().length === 0" />
           <ScheduleWidget
             v-for="(item, index) in filteredDay()"
             :key="index"
