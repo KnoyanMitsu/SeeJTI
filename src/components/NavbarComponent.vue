@@ -8,28 +8,31 @@ let cachedUser = null
 export default {
   data() {
     return {
-      user: [], // Data jadwal
+      user: [], // Data user
     }
   },
   methods: {
-    async fetchSchedules() {
+    async fetchUser() {
       const maxRetries = 10
       let attempt = 0
       let success = false
+
       // Jika data sudah ada di cache, gunakan cache
       if (cachedUser) {
-        this.setUserData(cachedSchedules)
+        this.setUserData(cachedUser)
         return
       }
 
       while (attempt < maxRetries && !success) {
         try {
-          const response = await axios.get('http://localhost:8000/user.php')
+          const response = await axios.get('http://localhost:8000/user.php', {
+            withCredentials: true, // Kirim cookies
+          })
 
-          if (response.data && response.data.classes) {
+          if (response.data && response.data.users) {
             cachedUser = response.data.users // Simpan data ke cache
             this.setUserData(cachedUser)
-            this.success = true
+
             success = true
           } else {
             console.error('Invalid API Response:', response.data)
@@ -37,19 +40,23 @@ export default {
           }
         } catch (error) {
           attempt++
-          console.error(`Error fetching schedules (attempt ${attempt}):`, error)
+          console.error(`Error fetching user data (attempt ${attempt}):`, error)
           if (attempt >= maxRetries) {
-            console.error('Max retries reached. Unable to fetch schedules.')
+            console.error('Max retries reached. Unable to fetch user data.')
           }
         }
       }
     },
     setUserData(data) {
-      this.user = data
+      this.user = data[0]
     },
   },
+  created() {
+    this.fetchUser()
+  }
 }
 </script>
+
 <template>
   <nav class="flex items-center justify-between flex-wrap p-6">
     <router-link to="/" class="flex items-center flex-shrink-0 text-white mr-6">

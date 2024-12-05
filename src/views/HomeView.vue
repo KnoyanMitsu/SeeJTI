@@ -33,7 +33,7 @@ export default {
       while (attempt < maxRetries && !success) {
         try {
           const response = await axios.get(
-            'http://localhost:8000/classJSON.php',
+            'http://localhost:8000/classJSON.php',{withCredentials: true,}
           )
           if (response.data && response.data.classes) {
             cachedSchedules = response.data.classes

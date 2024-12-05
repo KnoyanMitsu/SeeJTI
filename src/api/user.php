@@ -1,16 +1,25 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: http://localhost:8080"); // Sesuaikan dengan domain Anda
+header("Access-Control-Allow-Credentials: true"); // Aktifkan cookies
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
+header('Content-Type: application/json');
+
 require './config/database.php';
 
-header('Content-Type: application/json');
-$pdo = connectDatabase();
 session_start();
-// Ambil kelas dari parameter (misalnya dari sesi login atau request)
-$user = $_SESSION['id_user']; // Ganti ini dengan nilai dari sesi atau query string
 
-// Query data user dengan filter kelas
+if (!isset($_SESSION['id_user'])) {
+    http_response_code(401); // Unauthorized
+    echo json_encode(["error" => "User not authenticated"]);
+    exit;
+}
+
+// Ambil user ID dari session
+$user = $_SESSION['id_user'];
+
+// Query data user
+$pdo = connectDatabase();
 $sql = "SELECT nama, nim, kelas 
         FROM dbo.users
         WHERE id_user = :user
@@ -21,15 +30,17 @@ $stmt->execute();
 
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Format data user
-$output = ['users' => []];
-foreach ($users as $row) {
-    $output['users'][] = [
-        'name' => $row['nama'],
-        'nim' => $row['nim'],
-        'class' => $row['kelas']
-    ];
+if ($users) {
+    $output = ['users' => []];
+    foreach ($users as $row) {
+        $output['users'][] = [
+            'name' => $row['nama'],
+            'nim' => $row['nim'],
+            'class' => $row['kelas'],
+        ];
+    }
+    echo json_encode($output, JSON_PRETTY_PRINT);
+} else {
+    echo json_encode(["error" => "No data found"], JSON_PRETTY_PRINT);
 }
-
-echo json_encode($output, JSON_PRETTY_PRINT);
 ?>
