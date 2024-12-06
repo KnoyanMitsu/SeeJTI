@@ -1,10 +1,7 @@
 <?php
-header("Access-Control-Allow-Origin: http://localhost:8080"); // Sesuaikan dengan domain Anda
-header("Access-Control-Allow-Credentials: true"); // Aktifkan cookies
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
-header('Content-Type: application/json');
 
+include 'core.php';
 require './config/database.php';
 
 session_start();
