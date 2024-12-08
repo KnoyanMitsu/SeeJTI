@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     async fetchUser() {
-      const maxRetries = 10
+      const maxRetries = 0
       let attempt = 0
       let success = false
 

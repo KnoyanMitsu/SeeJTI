@@ -6,8 +6,8 @@ require './config/database.php';
 header('Content-Type: application/json');
 $pdo = connectDatabase();
 // Query data
-$sql = "SELECT nama_hari, nama_mk, kode_kelas, kode_ruang, nama_dosen, jam_kuliah.jam_mulai, jam_kuliah.jam_selesai, [status]
-FROM dbo.jadwal, dbo.dosen, dbo.jam_kuliah, dbo.mata_kuliah where jam_kuliah.id_jam = id_jam_mulai AND jadwal.kode_mk = mata_kuliah.kode_mk AND jadwal.id_dosen = dosen.id_dosen ORDER BY kode_kelas ASC, nama_hari DESC";
+$sql = "SELECT nama_hari, nama_mk, kode_kelas, kode_ruang, nama_dosen, jam_kuliah.jam_mulai, jam_kuliah.jam_selesai
+FROM dbo.jadwal, dbo.dosen, dbo.jam_kuliah, dbo.mata_kuliah where jam_kuliah.id_jam = id_jam_mulai AND jadwal.kode_mk = mata_kuliah.kode_mk AND jadwal.kode_dosen = dosen.kode_dosen ORDER BY kode_kelas ASC, nama_hari DESC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 

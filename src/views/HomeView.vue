@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     async fetchSchedules() {
-      const maxRetries = 10
+      const maxRetries = 0
       let attempt = 0
       let success = false
 
@@ -45,7 +45,6 @@ export default {
             throw new Error('Invalid response')
           }
         } catch (error) {
-          attempt++
           console.error(`Error fetching schedules (attempt ${attempt}):`, error)
           if (attempt >= maxRetries) {
             console.error('Max retries reached. Unable to fetch schedules.')
@@ -130,7 +129,6 @@ export default {
                   Tidak ada kelas tersedia.
                 </option>
               </select>
-              <p v-if="classList.length === 0">Tidak ada kelas tersedia.</p>
             </div>
           </div>
         </div>

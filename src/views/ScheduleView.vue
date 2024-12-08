@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     async fetchSchedules() {
-      const maxRetries = 10
+      const maxRetries = 0
       let attempt = 0
       let success = false
       // Jika data sudah ada di cache, gunakan cache

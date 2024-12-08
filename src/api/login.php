@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($password === $user['password']) {
                 session_start();
                 $_SESSION['id_user'] = $user['id_user'];
+                $_SESSION['level'] = $user['level'];
                 echo "berhasil"; 
                 exit();
             } else {

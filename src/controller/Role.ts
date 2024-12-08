@@ -1,3 +1,4 @@
+import axios from '../api/api';
 export default class Role {
   role: string = '';
 
@@ -7,7 +8,17 @@ export default class Role {
   }
 
   updateRole() {
-    // kalau mau ganti admin dan user disini
-    this.role = 'ketua';
+    async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/checkAuth.php');
+        if (response.data === 'berhasil') {
+          this.role = 'ketua';
+        } else {
+          this.role = 'mahasiswa';
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
   }
 }

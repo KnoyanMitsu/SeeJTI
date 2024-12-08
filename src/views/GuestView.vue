@@ -2,9 +2,8 @@
 import ClockView from '@/components/ClockComponent.vue'
 import Navbar from '@/components/NavbarComponent.vue'
 import Clock from '@/controller/Date'
+import AllSchWidget from '@/widget/AllSchWidget.vue'
 import LoadingWidget from '@/widget/LoadingWidget.vue'
-import NavWidget from '@/widget/NavWidget.vue'
-import ScheduleWidget from '@/widget/ScheduleWidget.vue'
 </script>
 
 <script>
@@ -22,21 +21,23 @@ export default {
   },
   methods: {
     async fetchSchedules() {
-      const maxRetries = 10
+      const maxRetries = 0
       let attempt = 0
       let success = false
-
+      // Jika data sudah ada di cache, gunakan cache
       if (cachedSchedules) {
         this.setScheduleData(cachedSchedules)
         return
       }
+
       while (attempt < maxRetries && !success) {
         try {
           const response = await axios.get(
-            'http://localhost:8000/classJSON.php',{withCredentials: true,}
+            'http://localhost:8000/classJSON.php',
           )
+
           if (response.data && response.data.classes) {
-            cachedSchedules = response.data.classes
+            cachedSchedules = response.data.classes // Simpan data ke cache
             this.setScheduleData(cachedSchedules)
             this.success = true
             success = true
@@ -53,10 +54,9 @@ export default {
         }
       }
     },
-
     setScheduleData(data) {
       this.schedules = data
-      this.classList = data.map(c => c.name)
+      this.classList = data.map(c => c.name) // Ambil nama kelas
       if (this.classList.length > 0) {
         this.selectedClass = this.classList[0] // Default pilih kelas pertama
       }
@@ -66,9 +66,6 @@ export default {
         item => item.name === this.selectedClass,
       )
       return selectedClassSchedule ? selectedClassSchedule.schedule : {}
-    },
-    filteredDay() {
-      return this.day ? this.filteredSchedule()[this.day] || [] : []
     },
   },
   mounted() {
@@ -97,59 +94,81 @@ export default {
 </style>
 
 <template>
-  <p>This guest</p>
-  <!-- <div class="relative justify-center items-center min-h-screen">
+  <div class="relative justify-center items-center min-h-screen">
     <div
       class="fixed top-100 justify-center left-28 w-100 h-100 bg-gradient-to-r animate-move blur-3xl from-40% from-[#FEA127] via-[#F05529] via-10% to-[#244282] to-80% rounded-full"
     ></div>
 
     <div class="backdrop-blur-md h-full">
       <Navbar />
-      <div class="container mx-auto mt-24">
+      <div class="flex grid-cols-2 container mx-auto mt-24">
         <div class="grid gap-5 lg:grid-cols-2">
-          <ClockView />
-          <NavWidget />
-        </div>
-        <div class="mt-10 mx-4 lg:mx-20">
-          <div class="">
-            <div class="p-2 w-56 bg-white rounded-2xl shadow-md">
-              <p class="font-bold inline-block">Jadwal Kelas</p>
-              <select
-                name="Kelas"
-                v-model="selectedClass"
-                class="bg-white w-24 inline-block"
-                id=""
-              >
-                <option
-                  v-for="classItem in classList"
-                  :key="classItem"
-                  :value="classItem"
+          <div class="grid items-center justify-center">
+            <ClockView class="mb-6" />
+            <router-link
+                  to="/login"
+                  class="px-4 py-2 text-white text-center bg-[#F05529] rounded-md mb-4 hover:bg-[#FEA127]"
                 >
-                  {{ classItem }}
-                </option>
-                <option v-if="classList.length === 0" disabled>
-                  Tidak ada kelas tersedia.
-                </option>
-              </select>
-              <p v-if="classList.length === 0">Tidak ada kelas tersedia.</p>
+                  Login
+                </router-link>
+          </div>
+
+        </div>
+        <div>
+          <div class="mt-10 mx-4 lg:mx-20">
+            <div class="">
+              <div class="p-2 w-full bg-white rounded-2xl shadow-md">
+                <p class="font-bold inline-block">Jadwal Kelas</p>
+                <select
+                  name="Kelas"
+                  v-model="selectedClass"
+                  class="bg-white w-24 inline-block"
+                  id=""
+                >
+                  <option
+                    v-for="classItem in classList"
+                    :key="classItem"
+                    :value="classItem"
+                  >
+                    {{ classItem }}
+                  </option>
+                  <option v-if="classList.length === 0" disabled>
+                    Tidak ada kelas tersedia.
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div
+            v-for="(matkul, hari) in filteredSchedule()"
+            :key="hari"
+            class=""
+          >
+            <div class="bg-white lg:mx-20 rounded-t-md w-20">
+              <h1 class="text-lg font-bolt mx-3 font-bold text-center">
+                {{ hari }}
+              </h1>
+            </div>
+            <div
+              class="grid lg:grid-cols-3 lg:mx-20 md:grid-cols-2 mb-2 rounded-b-md"
+            >
+              <LoadingWidget
+                v-if="filteredSchedule().length === 0 && !success"
+              />
+              <AllSchWidget
+                v-for="item in matkul"
+                :key="item"
+                :nama="item.subject"
+                :kelas="selectedClass"
+                :jam="item.time"
+                :ruang="item.room"
+                :dosen="item.dosen"
+                class="bg-white rounded-tr-md rounded-b-md"
+              />
             </div>
           </div>
         </div>
-        <div
-          class="grid mt-6 gap-5 2xl:grid-cols-3 lg:mx-20 lg:grid-cols-2 md:grid-cols-1"
-        >
-          <LoadingWidget v-if="filteredDay().length === 0 && !success" />
-          <ScheduleWidget
-            v-for="(item, index) in filteredDay()"
-            :key="index"
-            :nama="item.subject"
-            :jam="item.time"
-            :kelas="selectedClass"
-            :ruang="item.room"
-            :dosen="item.dosen"
-          />
-        </div>
       </div>
     </div>
-  </div> -->
+  </div>
 </template>
