@@ -28,8 +28,6 @@ export default {
           const response = await axios.get('http://localhost:8000/user.php', {
             withCredentials: true, // Kirim cookies
           })
-
-          http://localhost:8000/user.php
         } catch (error) {
           attempt++
           console.error(`Error fetching user data (attempt ${attempt}):`, error)
