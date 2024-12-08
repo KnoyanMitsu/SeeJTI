@@ -8,7 +8,8 @@ let cachedUser = null
 export default {
   data() {
     return {
-      user: [], // Data user
+      user: [],
+      success: false,
     }
   },
   methods: {
@@ -28,6 +29,15 @@ export default {
           const response = await axios.get('http://localhost:8000/user.php', {
             withCredentials: true, // Kirim cookies
           })
+          if (response.data && response.data.classes) {
+            cachedUser = response.data.classes
+            this.setScheduleData(cachedUser)
+            this.success = true
+            success = true
+          } else {
+            console.error('Invalid API Response:', response.data)
+            throw new Error('Invalid response')
+          }
         } catch (error) {
           attempt++
           console.error(`Error fetching user data (attempt ${attempt}):`, error)
@@ -43,7 +53,7 @@ export default {
   },
   created() {
     this.fetchUser()
-  }
+  },
 }
 </script>
 
@@ -55,21 +65,7 @@ export default {
       >
       <img class="h-8" :src="JTI" alt="" />
     </router-link>
-    <!-- <div class="block lg:hidden">
-      <button
-        class="flex items-center px-3 py-2 border rounded text-blue-200 border-blue-400 hover:text-white hover:border-white"
-      >
-        <svg
-          class="fill-current h-3 w-3"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <title>Menu</title>
-          <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-        </svg>
-      </button>
-    </div> -->
-    <div class="flex justify-end w-auto">
+    <div v-if="success === true" class="flex justify-end w-auto">
       <div class="flex justify-end">
         <img
           src="https://pbs.twimg.com/media/GLp9znnWMAAAsz_.jpg"
@@ -84,6 +80,16 @@ export default {
             {{ user.nim }} | {{ user.class }}
           </p>
         </div>
+      </div>
+    </div>
+    <div class="flex justify-end items-center">
+      <img
+        src="https://pbs.twimg.com/media/GLp9znnWMAAAsz_.jpg"
+        alt="profile"
+        class="w-10 h-10 rounded-full object-cover"
+      />
+      <div class="ml-3">
+        <router-link to="/login" class="text-black text-center underline">Masuk</router-link>
       </div>
     </div>
   </nav>
