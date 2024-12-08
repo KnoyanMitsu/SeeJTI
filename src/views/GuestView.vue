@@ -97,7 +97,8 @@ export default {
 </style>
 
 <template>
-  <div class="relative justify-center items-center min-h-screen">
+  <p>This guest</p>
+  <!-- <div class="relative justify-center items-center min-h-screen">
     <div
       class="fixed top-100 justify-center left-28 w-100 h-100 bg-gradient-to-r animate-move blur-3xl from-40% from-[#FEA127] via-[#F05529] via-10% to-[#244282] to-80% rounded-full"
     ></div>
@@ -150,5 +151,5 @@ export default {
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>

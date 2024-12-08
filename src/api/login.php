@@ -1,6 +1,8 @@
 <?php
 include 'config/database.php';
-header ('Access-Control-Allow-Origin: *');
+include 'core.php';
+
+// header ('Access-Control-Allow-Origin: *');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
@@ -19,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user) {
             if ($password === $user['password']) {
                 session_start();
-                $_SESSION['username'] = $username;
+                $_SESSION['id_user'] = $user['id_user'];
                 echo "berhasil"; 
                 exit();
             } else {
