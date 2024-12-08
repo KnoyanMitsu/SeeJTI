@@ -29,15 +29,7 @@ export default {
             withCredentials: true, // Kirim cookies
           })
 
-          if (response.data && response.data.users) {
-            cachedUser = response.data.users // Simpan data ke cache
-            this.setUserData(cachedUser)
-
-            success = true
-          } else {
-            console.error('Invalid API Response:', response.data)
-            throw new Error('Invalid response')
-          }
+          http://localhost:8000/user.php
         } catch (error) {
           attempt++
           console.error(`Error fetching user data (attempt ${attempt}):`, error)
