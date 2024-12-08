@@ -2,10 +2,10 @@
 error_reporting(E_ALL); 
 ini_set('display_errors', 1);   
 function connectDatabase() {
-    $host = 'localhost';
+    $host = '192.168.191.191';
     $dbname = 'SeeJTI';
     $username = 'sa';
-    $password = 'Vionastia06';
+    $password = 'HsnB@#PkS3Cu9fEr1bTL';
 
     try {
         $pdo = new PDO("sqlsrv:TrustServerCertificate=yes;Server=$host;Database=$dbname", $username, $password);
