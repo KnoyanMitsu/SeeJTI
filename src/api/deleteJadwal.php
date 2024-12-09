@@ -1,4 +1,9 @@
 <?php
+
+require './config/database.php';
+
+$pdo = connectDatabase();
+
 $json = file_get_contents('php://input'); // isi pake directory nya
 $data = json_decode($json, true);
 

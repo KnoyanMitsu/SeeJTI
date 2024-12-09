@@ -1,5 +1,10 @@
 <?php
 
+require './config/database.php';
+
+$pdo = connectDatabase();
+
+
 $json = file_get_contents(''); // ganti pake directory
 $data = json_decode($json, true);
 
