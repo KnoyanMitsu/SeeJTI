@@ -37,8 +37,8 @@ if ($method === 'POST') {
             ':level' => $data['level'],
         ]);
 
-        $response['status'] = 'success';
-        $response['message'] = 'User created successfully.';
+        $response['status'] = 'Sukses';
+        $response['message'] = 'Mahasiswa Berhasil Terdaftar.';
     } catch (PDOException $e) {
         $response['message'] = 'Error: ' . $e->getMessage();
     }

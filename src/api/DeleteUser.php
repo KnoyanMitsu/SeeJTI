@@ -3,9 +3,9 @@ header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: DELETE");
 header("Access-Control-Allow-Origin: *");
 
-require './config/database.php'; // File koneksi database
+require './config/database.php';
 
-$pdo = connectDatabase(); // Fungsi koneksi database
+$pdo = connectDatabase();
 
 $response = [
     'status' => 'error',
@@ -32,9 +32,9 @@ if ($method === 'DELETE') {
 
         if ($stmt->rowCount() > 0) {
             $response['status'] = 'success';
-            $response['message'] = 'User deleted successfully.';
+            $response['message'] = 'Mahasiswa Berhasil Dihapus.';
         } else {
-            $response['message'] = 'User not found.';
+            $response['message'] = 'Mahasiswa Tidak Ditemukan.';
         }
     } catch (PDOException $e) {
         $response['message'] = 'Error: ' . $e->getMessage();
