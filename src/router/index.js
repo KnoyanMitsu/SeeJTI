@@ -6,6 +6,10 @@ import ScheduleView from '@/views/ScheduleView.vue';
 import NoRoomView from '@/views/NoRoomView.vue';
 import LoginUserView from '@/views/LoginUserView.vue';
 import DasboardView from '@/views/DasboardView.vue';
+import AdminLayoutView from '@/views/Admin/AdminLayoutView.vue';
+import AdminScheduleView from '@/views/Admin/AdminScheduleView.vue';
+import AdminDashView from '@/views/Admin/AdminDashView.vue';
+import AdminRoomView from '@/views/Admin/AdminRoomView.vue';
 // Middleware function to check authentication
 async function checkAuth(to, from, next) {
   try {
@@ -81,10 +85,24 @@ const router = createRouter({
       component: NotFound,
     },
     {
-      path: '/jadwal/kelas',
-      name: 'kelas',
+      path: '/jadwal',
+      name: 'jadwal',
       component: ScheduleView,
       beforeEnter: checkAuth,
+      children: [
+        {
+          path: 'kelas',
+          name: 'kelas',
+          component: ScheduleView,
+          // beforeEnter: checkAuth,
+        },
+        {
+          path: 'ruang',
+          name: 'ruang',
+          component: NoRoomView,
+          // beforeEnter: checkAuth,
+        },
+      ]
     },
     // {
     //   path: '/jadwal/ruang',
@@ -92,10 +110,30 @@ const router = createRouter({
     //   component: RoomView,
     // },
     {
-      path: '/jadwal/kosong',
-      name: 'kosong',
-      component: NoRoomView,
-      beforeEnter: checkAuth,
+      path: '/admin/',
+      name: 'dashboard',
+      component: AdminLayoutView,
+      children: [
+        {
+          path: 'jadwal',
+          name: 'adminjadwal',
+          component: AdminScheduleView,
+          // beforeEnter: checkAuth,
+        },
+        {
+          path: 'dashboard',
+          name: 'admindash',
+          component: AdminDashView,
+          // beforeEnter: checkAuth,
+        },
+        {
+          path: 'ruang',
+          name: 'adminroom',
+          component: AdminRoomView,
+          // beforeEnter: checkAuth,
+        },
+      ]
+      // beforeEnter: checkAuth,
     },
   ],
 });

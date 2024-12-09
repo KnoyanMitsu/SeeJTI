@@ -29,6 +29,7 @@ export default {
   computed: {
     currentView() {
       return this.role === 'login' ? 'HomeView' : 'GuestView';
+      // return this.role === 'login' ? 'GuestView' : 'HomeView' ;
     },
   },
   created() {

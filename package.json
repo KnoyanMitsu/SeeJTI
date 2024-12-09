@@ -6,6 +6,7 @@
   "scripts": {
     "prestart": "git pull && npm install",
     "dev": "git pull && npm install && vite",
+    "lazy": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "test:e2e": "nightwatch tests/e2e/*",
@@ -25,6 +26,7 @@
     "heroicons": "^2.2.0",
     "material-icons": "^1.13.12",
     "vue": "^3.5.12",
+    "vue-iconsax": "^2.0.0",
     "vue-router": "^4.5.0",
     "vuesax": "^3.12.2",
     "vuesax3": "^4.2.1"
