@@ -9,8 +9,8 @@ import DasboardView from '@/views/DasboardView.vue';
 // Middleware function to check authentication
 async function checkAuth(to, from, next) {
   try {
-    const response = await axios.get('http://localhost:8000/checkAuth.php');
-    if (response.data === 'berhasil') {
+    const response = await axios.get('http://localhost:8000/checkAuth.php',{withCredentials: true,});
+    if (response.data === 'ketua' || response.data === 'mahasiswa') {
       next();
     } else if (response.data === 'admin') {
       if (to.name === 'login') {
@@ -38,9 +38,26 @@ async function checkLogin(to, from, next) {
     next({ name: 'home' });
   }
 }
+
+async function logout(to, from, next) {
+  try {
+    await axios.get('http://localhost:8000/logout.php');
+    next({name: 'home', forceRefresh: true});
+  } catch (error) {
+    next({name: 'home', forceRefresh: true});
+  }
+}
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/logout',
+      name: 'logout',
+      beforeEnter: logout,
+      meta: {
+        reload: true,
+      }
+    },
     {
       path: '/',
       name: 'home',

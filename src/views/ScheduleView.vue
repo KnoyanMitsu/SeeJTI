@@ -21,14 +21,12 @@ export default {
     async fetchSchedules() {
       const maxRetries = 0
       let attempt = 0
-      let success = false
       // Jika data sudah ada di cache, gunakan cache
       if (cachedSchedules) {
         this.setScheduleData(cachedSchedules)
         return
       }
 
-      while (attempt < maxRetries && !success) {
         try {
           const response = await axios.get(
             'http://localhost:8000/classJSON.php',
@@ -38,7 +36,6 @@ export default {
             cachedSchedules = response.data.classes // Simpan data ke cache
             this.setScheduleData(cachedSchedules)
             this.success = true
-            success = true
           } else {
             console.error('Invalid API Response:', response.data)
             throw new Error('Invalid response')
@@ -50,7 +47,6 @@ export default {
             console.error('Max retries reached. Unable to fetch schedules.')
           }
         }
-      }
     },
     setScheduleData(data) {
       this.schedules = data
@@ -103,7 +99,6 @@ export default {
                 Tidak ada kelas tersedia.
               </option>
             </select>
-            <p v-if="classList.length === 0">Tidak ada kelas tersedia.</p>
           </div>
         </div>
       </div>
@@ -116,7 +111,7 @@ export default {
         <div
           class="grid lg:grid-cols-3 lg:mx-20 md:grid-cols-2 mb-2 rounded-b-md"
         >
-        <LoadingWidget v-if="filteredSchedule().length === 0 && !success" />
+        <LoadingWidget v-if="filteredSchedule().length === 0" />
           <AllSchWidget
             v-for="item in matkul"
             :key="item"
@@ -128,6 +123,7 @@ export default {
             class="bg-white rounded-tr-md rounded-b-md"
           />
         </div>
+
       </div>
     </div>
   </div>

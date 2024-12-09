@@ -23,24 +23,21 @@ export default {
     async fetchSchedules() {
       const maxRetries = 0
       let attempt = 0
-      let success = false
       // Jika data sudah ada di cache, gunakan cache
       if (cachedSchedules) {
         this.setScheduleData(cachedSchedules)
         return
       }
 
-      while (attempt < maxRetries && !success) {
         try {
           const response = await axios.get(
-            'http://localhost:8000/classJSON.php',
+            'http://localhost:8000/classJSON.php',{withCredentials: true,}
           )
 
           if (response.data && response.data.classes) {
             cachedSchedules = response.data.classes // Simpan data ke cache
             this.setScheduleData(cachedSchedules)
             this.success = true
-            success = true
           } else {
             console.error('Invalid API Response:', response.data)
             throw new Error('Invalid response')
@@ -52,7 +49,6 @@ export default {
             console.error('Max retries reached. Unable to fetch schedules.')
           }
         }
-      }
     },
     setScheduleData(data) {
       this.schedules = data
@@ -101,9 +97,9 @@ export default {
 
     <div class="backdrop-blur-md h-full">
       <Navbar />
-      <div class="flex grid-cols-2 container mx-auto mt-24">
-        <div class="grid gap-5 lg:grid-cols-2">
-          <div class="grid items-center justify-center">
+      <div class="flex gap-20 container mx-auto grid-cols-2 mt-24">
+        <div class="">
+          <div class="grid sticky items-center justify-center">
             <ClockView class="mb-6" />
             <router-link
                   to="/login"
@@ -115,9 +111,9 @@ export default {
 
         </div>
         <div>
-          <div class="mt-10 mx-4 lg:mx-20">
+          <div class="mt-10 mb-6 ">
             <div class="">
-              <div class="p-2 w-full bg-white rounded-2xl shadow-md">
+              <div class="p-2 w-54 bg-white rounded-2xl shadow-md">
                 <p class="font-bold inline-block">Jadwal Kelas</p>
                 <select
                   name="Kelas"
@@ -144,13 +140,13 @@ export default {
             :key="hari"
             class=""
           >
-            <div class="bg-white lg:mx-20 rounded-t-md w-20">
+            <div class="bg-white rounded-t-md w-20">
               <h1 class="text-lg font-bolt mx-3 font-bold text-center">
                 {{ hari }}
               </h1>
             </div>
             <div
-              class="grid lg:grid-cols-3 lg:mx-20 md:grid-cols-2 mb-2 rounded-b-md"
+              class="grid lg:grid-cols-3 md:grid-cols-2 mb-2 rounded-b-md"
             >
               <LoadingWidget
                 v-if="filteredSchedule().length === 0 && !success"
