@@ -3,6 +3,7 @@ header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: DELETE");
 header("Access-Control-Allow-Origin: *");
 
+include 'core.php';
 require './config/database.php';
 
 $pdo = connectDatabase();

@@ -1,5 +1,5 @@
 <?php
-
+include 'core.php';
 require './config/database.php';
 
 $pdo = connectDatabase();

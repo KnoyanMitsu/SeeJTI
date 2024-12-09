@@ -1,5 +1,6 @@
 <?php
-
+include 'config/database.php';
+include 'core.php';
 
 session_start();
 if ($_SESSION['id_user']) {

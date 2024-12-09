@@ -1,8 +1,5 @@
 <?php
-header("Content-Type: application/json");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Allow-Origin: *");
-
+include 'core.php';
 require './config/database.php';
 
 $pdo = connectDatabase();
@@ -30,7 +27,7 @@ if ($method === 'POST') {
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             ':username' => $data['username'],
-            ':password' => md5($data['password']),
+            ':password' => $data['password'],
             ':nama' => $data['nama'],
             ':nim' => $data['nim'],
             ':kelas' => $data['kelas'],
