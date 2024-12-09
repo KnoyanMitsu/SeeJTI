@@ -33,8 +33,9 @@ async function checkAuth(to, from, next) {
 async function checkLogin(to, from, next) {
   try {
     const response = await axios.get('http://localhost:8000/checkAuth.php');
-    if (response.data !== 'berhasil') {
+    if (response.data !== 'ketua'  &&  response.data !== 'mahasiswa') {
       next();
+      console.log(response.data);
     } else {
       next({ name: 'home' });
     }

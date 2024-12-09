@@ -1,4 +1,5 @@
 <?php
+ini_set('mssql.timeout', 6);
 function checkServer($host, $timeout = 5) {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $host);
@@ -18,25 +19,14 @@ function connectDatabase() {
     $username = 'sa';
     $password = 'HsnB@#PkS3Cu9fEr1bTL';
 
-    // Cek server sebelum mencoba koneksi
-    if (!checkServer("http://$host", 5)) {
-        die("BACKEND LOST CONNECTION.");
-    }
-
     try {
-        $pdo = new PDO(
-            "sqlsrv:TrustServerCertificate=yes;Server=$host;Database=$dbname",
-            $username,
-            $password,
-            [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_TIMEOUT => 5 // Timeout maksimal 5 detik
-            ]
-        );
+        $pdo = new PDO("sqlsrv:TrustServerCertificate=yes;Server=$host;Database=$dbname", $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $pdo;
     } catch (PDOException $e) {
         echo "Koneksi ke database gagal: " . $e->getMessage();
         return null;
     }
+
 }
 ?>
