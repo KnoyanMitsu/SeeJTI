@@ -15,8 +15,8 @@ export default {
   methods: {
     async checkAuth() {
       try {
-        const response = await axios.get('http://localhost:8000/checkAuth.php')
-        if (response.data === 'berhasil') {
+        const response = await axios.get('http://localhost:8000/checkAuth.php',{withCredentials: true,})
+        if (response.data === 'mahasiswa' || response.data === 'ketua') {
           this.role = 'login'
         }else {
           this.role = 'guest'
@@ -30,6 +30,9 @@ export default {
     currentView() {
       return this.role === 'login' ? 'HomeView' : 'GuestView';
     },
+  },
+  created() {
+    this.checkAuth()
   },
 }
 </script>

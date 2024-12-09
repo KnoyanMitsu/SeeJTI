@@ -24,13 +24,12 @@ export default {
     async fetchSchedules() {
       const maxRetries = 0
       let attempt = 0
-      let success = false
 
       if (cachedSchedules) {
         this.setScheduleData(cachedSchedules)
         return
       }
-      while (attempt < maxRetries && !success) {
+
         try {
           const response = await axios.get(
             'http://localhost:8000/classJSON.php',{withCredentials: true,}
@@ -38,8 +37,6 @@ export default {
           if (response.data && response.data.classes) {
             cachedSchedules = response.data.classes
             this.setScheduleData(cachedSchedules)
-            this.success = true
-            success = true
           } else {
             console.error('Invalid API Response:', response.data)
             throw new Error('Invalid response')
@@ -50,7 +47,6 @@ export default {
             console.error('Max retries reached. Unable to fetch schedules.')
           }
         }
-      }
     },
 
     setScheduleData(data) {
@@ -135,7 +131,7 @@ export default {
         <div
           class="grid mt-6 gap-5 2xl:grid-cols-3 lg:mx-20 lg:grid-cols-2 md:grid-cols-1"
         >
-          <LoadingWidget v-if="filteredDay().length === 0 && !success" />
+          <LoadingWidget v-if="filteredDay().length === 0" />
           <ScheduleWidget
             v-for="(item, index) in filteredDay()"
             :key="index"

@@ -3,12 +3,15 @@
 
 session_start();
 if ($_SESSION['id_user']) {
-    echo "berhasil";
-    if($_SESSION['level'] === "admin"){
+    if($_SESSION['level'] === "Admin"){
         echo "admin";
-        return;
-    }else{
-        return;
+    }else if($_SESSION['level'] === "Ketua"){
+        echo "ketua";
+    }else if($_SESSION['level'] === "Mahasiswa"){
+        echo "mahasiswa";
+    }
+    else{
+        echo "gagal";
     }
 }else{
     echo "gagal";

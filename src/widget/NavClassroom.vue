@@ -12,7 +12,7 @@
         <vs-icon icon="book"></vs-icon>
         <router-link to="/jadwal/kelas">Jadwal Perkuliahan</router-link>
       </li>
-      <li class="flex items-center gap-2">
+      <li v-if="role === 'ketua'" class="flex items-center gap-2">
           <vs-icon icon="domain"></vs-icon>
           <router-link to="/jadwal/kosong">Ruang kosong</router-link>
       </li>
