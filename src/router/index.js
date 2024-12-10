@@ -44,6 +44,19 @@ async function checkLogin(to, from, next) {
   }
 }
 
+async function checkAdmin(to, from, next) {
+  try {
+    const response = await axios.get('http://localhost:8000/checkAuth.php');
+    if (response.data === 'admin') {
+      next();
+    } else {
+      next({ name: 'home' });
+    }
+  } catch (error) {
+    next({ name: 'home' });
+  }
+}
+
 async function logout(to, from, next) {
   try {
     await axios.get('http://localhost:8000/logout.php');
@@ -69,10 +82,9 @@ const router = createRouter({
       component: DasboardView,
     },
     {
-      path: '/admin',
+      path: '/loginadmin',
       name: 'login',
       component: LoginAdminView,
-      beforeEnter: checkAuth,
     },
     {
       path: '/login',
@@ -114,23 +126,27 @@ const router = createRouter({
       path: '/admin/',
       name: 'dashboard',
       component: AdminLayoutView,
+      beforeEnter: checkAdmin,
       children: [
         {
           path: 'jadwal',
           name: 'adminjadwal',
           component: AdminScheduleView,
+          beforeEnter: checkAdmin,
           // beforeEnter: checkAuth,
         },
         {
           path: 'dashboard',
           name: 'admindash',
           component: AdminDashView,
+          beforeEnter: checkAdmin,
           // beforeEnter: checkAuth,
         },
         {
           path: 'ruang',
           name: 'adminroom',
           component: AdminRoomView,
+          beforeEnter: checkAdmin,
           // beforeEnter: checkAuth,
         },
       ]
