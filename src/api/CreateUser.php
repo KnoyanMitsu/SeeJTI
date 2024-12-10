@@ -1,6 +1,6 @@
 <?php
-header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: POST");
+header("Content-Type: application/json");
 include 'core.php';
 require './config/database.php';
 
@@ -20,38 +20,43 @@ $method = $_SERVER['REQUEST_METHOD'];
 if ($method === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
 
-    $userLevel = $data['user_level'] ?? null;
-
-    if (!isAdmin($userLevel)) {
-        http_response_code(403);
-        $response['message'] = 'Access denied. Only Admin can perform this action.';
-        echo json_encode($response);
-        exit;
+    // Validasi input
+    if (!isset($data['username'], $data['password'], $data['nama'], $data['nim'], $data['kelas'], $data['level'])) {
+        die(json_encode([
+            "status" => "error",
+            "message" => "Invalid input user."
+        ]));
     }
 
+    // Validasi input
     if (!isset($data['username'], $data['password'], $data['nama'], $data['nim'], $data['kelas'], $data['level'])) {
-        $response['message'] = 'All fields are required.';
-        echo json_encode($response);
-        exit;
+        die(json_encode([
+            "status" => "error",
+            "message" => "Invalid input user."
+        ]));
     }
 
     try {
-        $sql = "INSERT INTO [SeeJTI].[dbo].[users] 
-                    (username, password, nama, nim, kelas, level)
-                    VALUES (:username, :password, :nama, :nim, :kelas, :level)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':username' => $data['username'],
-            ':password' => $data['password'],
-            ':nama' => $data['nama'],
-            ':nim' => $data['nim'],
-            ':kelas' => $data['kelas'],
-            ':level' => $data['level'],
-        ]);
+        $params = [
+            [$data['username'], SQLSRV_PARAM_IN],
+            [md5($data['password']), SQLSRV_PARAM_IN],
+            [$data['nama'], SQLSRV_PARAM_IN],
+            [$data['nim'], SQLSRV_PARAM_IN],
+            [$data['kelas'], SQLSRV_PARAM_IN],
+            [$data['level'], SQLSRV_PARAM_IN],
+        ];
+
+        // Stored Procedure untuk Create User
+        $sql = "{CALL CreateUser(?, ?, ?, ?, ?, ?)}";
+        $stmt = sqlsrv_query($conn, $sql, $params);
+
+        if ($stmt === false) {
+            throw new Exception(print_r(sqlsrv_errors(), true));
+        }
 
         $response['status'] = 'Sukses';
-        $response['message'] = 'Mahasiswa Berhasil Terdaftar.';
-    } catch (PDOException $e) {
+        $response['message'] = 'User berhasil ditambahkan.';
+    } catch (Exception $e) {
         $response['message'] = 'Error: ' . $e->getMessage();
     }
 
@@ -62,3 +67,4 @@ if ($method === 'POST') {
 http_response_code(405);
 $response['message'] = 'Method not allowed.';
 echo json_encode($response);
+?>
