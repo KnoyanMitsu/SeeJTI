@@ -10,6 +10,9 @@ import AdminLayoutView from '@/views/Admin/AdminLayoutView.vue';
 import AdminScheduleView from '@/views/Admin/AdminScheduleView.vue';
 import AdminDashView from '@/views/Admin/AdminDashView.vue';
 import AdminRoomView from '@/views/Admin/AdminRoomView.vue';
+import AdminUserView from '@/views/Admin/AdminUserView.vue';
+import AdminCalView from '@/views/Admin/AdminCalView.vue';
+import ComingSoon from '@/views/Error/ComingSoon.vue';
 // Middleware function to check authentication
 async function checkAuth(to, from, next) {
   try {
@@ -98,24 +101,22 @@ const router = createRouter({
       component: NotFound,
     },
     {
-      path: '/jadwal/',
-      name: 'jadwal',
+      path: '/jadwal/kelas',
+      name: 'kelas',
       component: ScheduleView,
-      beforeEnter: checkAuth,
-      children: [
-        {
-          path: 'kelas',
-          name: 'kelas',
-          component: ScheduleView,
-          // beforeEnter: checkAuth,
-        },
-        {
-          path: 'ruang',
-          name: 'ruang',
-          component: NoRoomView,
-          // beforeEnter: checkAuth,
-        },
-      ]
+      // beforeEnter: checkAuth,
+    },
+    {
+      path: '/jadwal/ruang',
+      name: 'ruang',
+      component: NoRoomView,
+      // beforeEnter: checkAuth,
+    },
+    {
+      path: '/jadwal/kosong',
+      name: 'kosong',
+      component: ComingSoon,
+      // beforeEnter: checkAuth,
     },
     // {
     //   path: '/jadwal/ruang',
@@ -148,6 +149,16 @@ const router = createRouter({
           component: AdminRoomView,
           beforeEnter: checkAdmin,
           // beforeEnter: checkAuth,
+        },
+        {
+          path: 'users',
+          name: 'users',
+          component: AdminUserView
+        },
+        {
+          path: 'calendar',
+          name: 'calendar',
+          component: AdminCalView
         },
       ]
       // beforeEnter: checkAuth,

@@ -79,7 +79,7 @@ import { VsxIcon } from 'vue-iconsax'
                   <p class="inline-block ml-2">Edit Data User</p></router-link
                 >
                 <router-link
-                  to="/admin/users/dosen"
+                  to="/admin/calendar"
                   class="block p-2 my-2 hover:bg-gray-700 hover:text-white rounded-md"
                 >
                   <VsxIcon

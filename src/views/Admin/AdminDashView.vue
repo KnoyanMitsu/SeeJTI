@@ -1,10 +1,10 @@
 <script setup>
-import LoadingWidget from '@/widget/LoadingWidget.vue'
+// import LoadingWidget from '@/widget/LoadingWidget.vue'
 import { VsxIcon } from 'vue-iconsax'
 
 </script>
 
-<script> 
+<script>
 
 </script>
 
@@ -37,7 +37,7 @@ import { VsxIcon } from 'vue-iconsax'
       </div>
     </div>
     <div class ="grid py-3 gap-3 grid-cols-3 border-2 rounded-b-2xl">
-      
+
       <div class="align-middle flex justify-center">
         <p>Nama Ruang</p>
       </div>
@@ -58,6 +58,6 @@ import { VsxIcon } from 'vue-iconsax'
       </div>
     </div>
   </div>
-  </div>  
-  
+  </div>
+
 </template>
