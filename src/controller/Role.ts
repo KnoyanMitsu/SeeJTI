@@ -13,8 +13,10 @@ export default class Role {
       const response = await axios.get('http://localhost:8000/checkAuth.php',{withCredentials: true,});
       if (response.data === 'ketua') {
         return 'ketua';
-      } else {
+      } else if (response.data === 'mahasiswa') {
         return 'mahasiswa';
+      }else{
+        return 'admin';
       }
     } catch (error) {
       console.log(error);
