@@ -98,7 +98,7 @@ const router = createRouter({
       component: NotFound,
     },
     {
-      path: '/jadwal',
+      path: '/jadwal/',
       name: 'jadwal',
       component: ScheduleView,
       beforeEnter: checkAuth,
