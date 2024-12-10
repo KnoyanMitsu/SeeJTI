@@ -11,10 +11,23 @@ $response = [
     'message' => 'Invalid request',
 ];
 
+function isAdmin($userLevel) {
+    return $userLevel === 'Admin';
+}
+
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
+
+    $userLevel = $data['user_level'] ?? null;
+
+    if (!isAdmin($userLevel)) {
+        http_response_code(403);
+        $response['message'] = 'Access denied. Only Admin can perform this action.';
+        echo json_encode($response);
+        exit;
+    }
 
     if (!isset($data['username'], $data['password'], $data['nama'], $data['nim'], $data['kelas'], $data['level'])) {
         $response['message'] = 'All fields are required.';
@@ -24,8 +37,8 @@ if ($method === 'POST') {
 
     try {
         $sql = "INSERT INTO [SeeJTI].[dbo].[users] 
-                (username, password, nama, nim, kelas, level)
-                VALUES (:username, :password, :nama, :nim, :kelas, :level)";
+                    (username, password, nama, nim, kelas, level)
+                    VALUES (:username, :password, :nama, :nim, :kelas, :level)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             ':username' => $data['username'],
