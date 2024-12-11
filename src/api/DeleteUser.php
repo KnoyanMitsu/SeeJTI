@@ -22,11 +22,11 @@ try {
     $params = [
         [$data['id_user'], SQLSRV_PARAM_IN]
     ];
-    $sql = "{CALL DeleteUser(?)}";
+    $sql = "{CALL DeleteUser (?)}";
     $stmt = sqlsrv_query($conn, $sql, $params);
 
     if ($stmt === false) {
-        throw new Exception("User gagal untuk dihapus.");
+        throw new Exception("User  gagal untuk dihapus.");
     }
 
     sqlsrv_free_stmt($stmt);
@@ -34,7 +34,7 @@ try {
 
     echo json_encode([
         "status" => "success",
-        "message" => "User berhasil untuk dihapus."
+        "message" => "User  berhasil untuk dihapus."
     ]);
 } catch (Exception $e) {
     echo json_encode([
