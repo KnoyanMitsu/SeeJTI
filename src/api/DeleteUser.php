@@ -5,41 +5,51 @@ header("Content-Type: application/json");
 include 'core.php';
 require './config/database.php';
 
-$pdo = connectDatabase();
-
-$json = file_get_contents('php://input');
-$data = json_decode($json, true);
-
-// Validasi input
-if (!isset($data['id_user'])) {
-    die(json_encode([
-        "status" => "error",
-        "message" => "Invalid input. 'id_user' diperlukan."
-    ]));
-}
-
 try {
-    $params = [
-        [$data['id_user'], SQLSRV_PARAM_IN]
-    ];
-    $sql = "{CALL DeleteUser (?)}";
-    $stmt = sqlsrv_query($conn, $sql, $params);
-
-    if ($stmt === false) {
-        throw new Exception("User  gagal untuk dihapus.");
+    $pdo = connectDatabase();
+    
+    // Get and decode JSON input
+    $data = json_decode(file_get_contents("php://input"), true);
+    
+    // Validate input
+    if (!isset($data['id_user'])) {
+        http_response_code(400);
+        die(json_encode([
+            "status" => "error",
+            "message" => "Invalid input. 'id_user' diperlukan."
+        ]));
     }
-
-    sqlsrv_free_stmt($stmt);
-    sqlsrv_close($conn);
-
+    
+    // Prepare and execute the stored procedure
+    $sql = "EXEC DeleteUser :id_user";
+    $stmt = $pdo->prepare($sql);
+    
+    // Bind parameter and ensure it's treated as an integer if needed
+    $stmt->bindValue(':id_user', $data['id_user'], PDO::PARAM_INT);
+    
+    if ($stmt->execute()) {
+            http_response_code(200);
+            echo json_encode([
+                "status" => "success",
+                "message" => "User berhasil untuk dihapus."
+            ]);
+    } else {
+        throw new Exception("User gagal untuk dihapus.");
+    }
+    
+} catch (PDOException $e) {
+    http_response_code(500);
     echo json_encode([
-        "status" => "success",
-        "message" => "User  berhasil untuk dihapus."
+        "status" => "error",
+        "message" => "Database error: " . $e->getMessage()
     ]);
 } catch (Exception $e) {
+    http_response_code(500);
     echo json_encode([
         "status" => "error",
         "message" => $e->getMessage()
     ]);
 }
+
+// No need to explicitly close PDO connection - it's handled automatically
 ?>
