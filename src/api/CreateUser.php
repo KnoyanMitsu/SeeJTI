@@ -4,8 +4,6 @@ header("Content-Type: application/json");
 include 'core.php';
 require './config/database.php';
 
-$pdo = connectDatabase();
-
 $response = [
     'status' => 'error',
     'message' => 'Invalid request',
@@ -16,55 +14,53 @@ function isAdmin($userLevel) {
 }
 
 $method = $_SERVER['REQUEST_METHOD'];
-
 if ($method === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
-
-    // Validasi input
+    
+    // Validate input
     if (!isset($data['username'], $data['password'], $data['nama'], $data['nim'], $data['kelas'], $data['level'])) {
+        http_response_code(400);
         die(json_encode([
             "status" => "error",
             "message" => "Invalid input user."
         ]));
     }
-
-    // Validasi input
-    if (!isset($data['username'], $data['password'], $data['nama'], $data['nim'], $data['kelas'], $data['level'])) {
-        die(json_encode([
-            "status" => "error",
-            "message" => "Invalid input user."
-        ]));
-    }
-
+    
     try {
-        $params = [
-            [$data['username'], SQLSRV_PARAM_IN],
-            [md5($data['password']), SQLSRV_PARAM_IN],
-            [$data['nama'], SQLSRV_PARAM_IN],
-            [$data['nim'], SQLSRV_PARAM_IN],
-            [$data['kelas'], SQLSRV_PARAM_IN],
-            [$data['level'], SQLSRV_PARAM_IN],
-        ];
-
-        // Stored Procedure untuk Create User
-        $sql = "{CALL CreateUser(?, ?, ?, ?, ?, ?)}";
-        $stmt = sqlsrv_query($conn, $sql, $params);
-
-        if ($stmt === false) {
-            throw new Exception(print_r(sqlsrv_errors(), true));
+        $conn = connectDatabase(); // Assuming this returns PDO connection
+        
+        // Prepare the stored procedure call using PDO
+        $sql = "EXEC CreateUser :username, :password, :nama, :nim, :kelas, :level";
+        $stmt = $conn->prepare($sql);
+        
+        // Bind parameters
+        $stmt->bindValue(':username', $data['username'], PDO::PARAM_STR);
+        $stmt->bindValue(':password', md5($data['password']), PDO::PARAM_STR); // Note: Consider using better hashing
+        $stmt->bindValue(':nama', $data['nama'], PDO::PARAM_STR);
+        $stmt->bindValue(':nim', $data['nim'], PDO::PARAM_STR);
+        $stmt->bindValue(':kelas', $data['kelas'], PDO::PARAM_STR);
+        $stmt->bindValue(':level', $data['level'], PDO::PARAM_STR);
+        
+        // Execute the statement
+        if ($stmt->execute()) {
+            $response['status'] = 'success';
+            $response['message'] = 'User berhasil ditambahkan.';
+            http_response_code(201); // Created
+        } else {
+            throw new Exception("Failed to create user");
         }
-
-        $response['status'] = 'Sukses';
-        $response['message'] = 'User berhasil ditambahkan.';
+    } catch (PDOException $e) {
+        http_response_code(500);
+        $response['message'] = 'Database error: ' . $e->getMessage();
     } catch (Exception $e) {
+        http_response_code(500);
         $response['message'] = 'Error: ' . $e->getMessage();
     }
-
+    
     echo json_encode($response);
     exit;
 }
 
-http_response_code(405);
+http_response_code(405); // Method Not Allowed
 $response['message'] = 'Method not allowed.';
 echo json_encode($response);
-?>
