@@ -14,7 +14,7 @@ if (!isset($_SESSION['id_user']) && $_SESSION['level'] == 'admin') {
 
 // Query data user
 $pdo = connectDatabase();
-$sql = "SELECT nama, nim, [level] 
+$sql = "SELECT id_user, nama, nim, [level] 
         FROM dbo.users
         ORDER BY nama ASC";
 $stmt = $pdo->prepare($sql);
@@ -26,6 +26,7 @@ if ($users) {
     $output = ['users' => []];
     foreach ($users as $row) {
         $output['users'][] = [
+            'id' => $row['id_user'],
             'name' => $row['nama'],
             'nim' => $row['nim'],
             'level' => $row['level'],
