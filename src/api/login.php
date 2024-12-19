@@ -23,7 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 session_start();
                 $_SESSION['id_user'] = $user['id_user'];
                 $_SESSION['level'] = $user['level'];
-                echo "berhasil"; 
+                echo json_encode([
+                    'status' => 'berhasil',
+                    'level' => $user['level']
+                ]);
                 exit();
             } else {
                 echo "Password salah.";

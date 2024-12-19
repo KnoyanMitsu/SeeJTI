@@ -88,17 +88,27 @@ export default {
           },
         )
 
-        if (response.data == 'berhasil') {
-          this.pesan = 'login berhasil'
-          router.push({ name: 'home' })
+        const data = response.data
+        console.log('Response Data:', data)
+        if (data.status === 'berhasil') {
+          this.pesan = 'Login berhasil'
+          const level = data.level.toLowerCase()
+
+          if (level == 'mahasiswa' || level == 'ketua') {
+            router.push({ path: '/' })
+          } else if (level == 'admin') {
+            router.push({ path: '/admin/dashboard' })
+          } else {
+            this.pesan = 'Level pengguna tidak dikenal.'
+          }
         } else {
-          this.pesan = 'Login gagal : ' + response.data
+          this.pesan = 'Login gagal: password atau username salah '
         }
       } catch (error) {
         if (error.response && error.response.data) {
-          this.pesan = 'Terjadi kesalahan saat login : ' + error.response.data
+          this.pesan = 'Terjadi kesalahan saat login: ' + error.response.data
         } else {
-          console.error('Error Details : ', error)
+          console.error('Error Details: ', error)
           this.pesan = 'Terjadi kesalahan saat login'
         }
       }

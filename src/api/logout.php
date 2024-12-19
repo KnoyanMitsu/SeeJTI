@@ -1,7 +1,7 @@
 <?php
-header ('Access-Control-Allow-Origin: *');
+include 'core.php';
 session_start();
 session_unset();
 session_destroy();
-echo "logout";
+echo json_encode(['status' => 'berhasil']);
 ?>

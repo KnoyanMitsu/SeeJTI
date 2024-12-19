@@ -27,26 +27,24 @@ export default {
         return
       }
 
-        try {
-          const response = await axios.get(
-            'http://localhost:8000/classJSON.php',
-          )
+      try {
+        const response = await axios.get('http://localhost:8000/classJSON.php')
 
-          if (response.data && response.data.classes) {
-            cachedSchedules = response.data.classes // Simpan data ke cache
-            this.setScheduleData(cachedSchedules)
-            this.success = true
-          } else {
-            console.error('Invalid API Response:', response.data)
-            throw new Error('Invalid response')
-          }
-        } catch (error) {
-          attempt++
-          console.error(`Error fetching schedules (attempt ${attempt}):`, error)
-          if (attempt >= maxRetries) {
-            console.error('Max retries reached. Unable to fetch schedules.')
-          }
+        if (response.data && response.data.classes) {
+          cachedSchedules = response.data.classes // Simpan data ke cache
+          this.setScheduleData(cachedSchedules)
+          this.success = true
+        } else {
+          console.error('Invalid API Response:', response.data)
+          throw new Error('Invalid response')
         }
+      } catch (error) {
+        attempt++
+        console.error(`Error fetching schedules (attempt ${attempt}):`, error)
+        if (attempt >= maxRetries) {
+          console.error('Max retries reached. Unable to fetch schedules.')
+        }
+      }
     },
     setScheduleData(data) {
       this.schedules = data
@@ -111,7 +109,7 @@ export default {
         <div
           class="grid lg:grid-cols-3 lg:mx-20 md:grid-cols-2 mb-2 rounded-b-md"
         >
-        <LoadingWidget v-if="filteredSchedule().length === 0" />
+          <LoadingWidget v-if="filteredSchedule().length === 0" />
           <AllSchWidget
             v-for="item in matkul"
             :key="item"
@@ -123,7 +121,6 @@ export default {
             class="bg-white rounded-tr-md rounded-b-md"
           />
         </div>
-
       </div>
     </div>
   </div>

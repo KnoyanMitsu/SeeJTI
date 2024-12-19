@@ -2,7 +2,6 @@
 import JTI from '@/assets/Logo/jti_polinema 3.png'
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-
 </script>
 
 <script>
@@ -47,6 +46,30 @@ export default {
     setUserData(data) {
       this.user = data[0]
     },
+
+    async logout() {
+      try {
+        const response = await axios.post(
+          'http://localhost:8000/logout.php',
+          {},
+          {
+            withCredentials: true,
+          },
+        )
+
+        const data = response.data
+        if (data.status === 'berhasil') {
+          this.$router.push('/login')
+          window.location.reload()
+        } else {
+          console.error('Gagal logout:', data.message)
+          alert('Logout gagal: ' + data.message)
+        }
+      } catch (error) {
+        console.error('Terjadi kesalahan saat logout:', error)
+        alert('Terjadi kesalahan saat logout.')
+      }
+    },
   },
   created() {
     this.fetchUser()
@@ -57,19 +80,29 @@ export default {
 <template>
   <nav class="flex items-center justify-between flex-wrap p-6">
     <router-link to="/" class="flex items-center flex-shrink-0 text-white mr-6">
-      <span class="font-bold text-2xl tracking-tight text-black px-4 py-2">SeeJTI</span>
+      <span class="font-bold text-2xl tracking-tight text-black px-4 py-2"
+        >SeeJTI</span
+      >
       <img class="h-8" :src="JTI" alt="" />
     </router-link>
     <Menu>
       <div>
         <MenuButton class="flex justify-end w-auto">
           <div class="flex justify-end">
-
-            <div class="relative w-10 h-10 overflow-hidden bg-gray-600 rounded-full dark:bg-gray-200">
-              <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd">
-                </path>
+            <div
+              class="relative w-10 h-10 overflow-hidden bg-gray-600 rounded-full dark:bg-gray-200"
+            >
+              <svg
+                class="absolute w-12 h-12 text-gray-400 -left-1"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                  clip-rule="evenodd"
+                ></path>
               </svg>
             </div>
 
@@ -82,19 +115,36 @@ export default {
               </p>
             </div>
           </div>
-          <ChevronDownIcon class="-mr-1 size-5 text-gray-400" aria-hidden="true" />
+          <ChevronDownIcon
+            class="-mr-1 size-5 text-gray-400"
+            aria-hidden="true"
+          />
         </MenuButton>
       </div>
-      <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95"
-        enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75"
-        leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+      <transition
+        enter-active-class="transition ease-out duration-100"
+        enter-from-class="transform opacity-0 scale-95"
+        enter-to-class="transform opacity-100 scale-100"
+        leave-active-class="transition ease-in duration-75"
+        leave-from-class="transform opacity-100 scale-100"
+        leave-to-class="transform opacity-0 scale-95"
+      >
         <MenuItems
-          class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+          class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+        >
           <div class="py-1">
             <MenuItem v-slot="{ active }">
-            <router-link to="/logout"
-              :class="[active ? 'bg-gray-100 text-gray-900 outline-none' : 'text-gray-700', 'block w-full px-4 py-2 text-left text-sm']">Sign
-              out</router-link>
+              <button
+                @click="logout"
+                :class="[
+                  active
+                    ? 'bg-gray-100 text-gray-900 outline-none'
+                    : 'text-gray-700',
+                  'block w-full px-4 py-2 text-left text-sm',
+                ]"
+              >
+                Sign out
+              </button>
             </MenuItem>
           </div>
         </MenuItems>
