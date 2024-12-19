@@ -13,11 +13,11 @@ let cachedSchedules = null
 export default {
   data() {
     return {
-      schedules: [], // Data jadwal
-      selectedClass: '', // Kelas yang dipilih
+      schedules: [],
+      selectedClass: '',
       classList: [],
       day: '',
-      success: '', // Hari saat ini
+      success: '',
     }
   },
   methods: {
@@ -30,30 +30,32 @@ export default {
         return
       }
 
-        try {
-          const response = await axios.get(
-            'http://localhost:8000/classJSON.php',{withCredentials: true,}
-          )
-          if (response.data && response.data.classes) {
-            cachedSchedules = response.data.classes
-            this.setScheduleData(cachedSchedules)
-          } else {
-            console.error('Invalid API Response:', response.data)
-            throw new Error('Invalid response')
-          }
-        } catch (error) {
-          console.error(`Error fetching schedules (attempt ${attempt}):`, error)
-          if (attempt >= maxRetries) {
-            console.error('Max retries reached. Unable to fetch schedules.')
-          }
+      try {
+        const response = await axios.get(
+          'http://localhost:8000/classJSON.php',
+          { withCredentials: true },
+        )
+        if (response.data && response.data.classes) {
+          cachedSchedules = response.data.classes
+          this.setScheduleData(cachedSchedules)
+        } else {
+          console.error('Invalid API Response:', response.data)
+          throw new Error('Invalid response')
         }
+      } catch (error) {
+        console.error(`Error fetching schedules (attempt ${attempt}):`, error)
+        if (attempt >= maxRetries) {
+          console.error('Max retries reached. Unable to fetch schedules.')
+        }
+      }
     },
 
     setScheduleData(data) {
       this.schedules = data
       this.classList = data.map(c => c.name)
-      if (this.classList.length > 0) {
-        this.selectedClass = this.classList[0] // Default pilih kelas pertama
+      console.log('Class List:', this.classList) // Debug data classList
+      if (this.classList.length > 0 && !this.selectedClass) {
+        this.selectedClass = this.classList[0] // Set default ke kelas pertama jika belum ada selectedClass
       }
     },
     filteredSchedule() {
@@ -73,6 +75,15 @@ export default {
     }, 1000)
   },
   created() {
+    this.fetchSchedules()
+  },
+
+  created() {
+    const storedClass = localStorage.getItem('selectedClass')
+    if (storedClass) {
+      this.selectedClass = storedClass
+    }
+
     this.fetchSchedules()
   },
 }
@@ -112,7 +123,6 @@ export default {
                 name="Kelas"
                 v-model="selectedClass"
                 class="bg-white w-24 inline-block"
-                id=""
               >
                 <option
                   v-for="classItem in classList"

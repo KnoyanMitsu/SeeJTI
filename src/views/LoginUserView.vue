@@ -92,6 +92,8 @@ export default {
         console.log('Response Data:', data)
         if (data.status === 'berhasil') {
           this.pesan = 'Login berhasil'
+
+          localStorage.setItem('selectedClass', data.kelas)
           const level = data.level.toLowerCase()
 
           if (level == 'mahasiswa' || level == 'ketua') {
