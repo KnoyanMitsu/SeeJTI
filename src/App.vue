@@ -16,10 +16,12 @@ import { RouterView } from 'vue-router'
 </template>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('../src/assets/style.css');
 html{
   height: 100%;
 }
-@import url('../src/assets/style.css');
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+
 
 </style>
