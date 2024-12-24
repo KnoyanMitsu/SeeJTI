@@ -7,48 +7,30 @@ header('Content-Type: application/json');
 $pdo = connectDatabase();
 
 // Query data ruang kosong
-$sql = "SELECT kode_ruang, nama_ruang, nama_hari 
-        FROM dbo.ruang 
-        WHERE kode_ruang NOT IN (
-            SELECT DISTINCT kode_ruang 
-            FROM dbo.jadwal
-            WHERE nama_hari = :nama_hari
-        )
-        ORDER BY kode_ruang ASC, nama_hari DESC";
-        
-$stmt = $pdo->prepare($sql);
+$sql = "SELECT * FROM getRuangKosong WHERE nama_hari = :nama_hari ORDER BY kode_ruang ASC, nama_hari DESC";
 
-// Jika Anda ingin memfilter berdasarkan hari tertentu, tambahkan parameter `nama_hari`
-$namaHari = 'Senin'; // Ubah sesuai kebutuhan atau gunakan parameter dari request.
+// Retrieve `nama_hari` from the request parameters
+$namaHari = isset($_GET['nama_hari']) ? $_GET['nama_hari'] : 'Senin'; // Default to 'Senin' if not provided
+
+$stmt = $pdo->prepare($sql);
 $stmt->bindParam(':nama_hari', $namaHari, PDO::PARAM_STR);
 
 $stmt->execute();
-$ruangKosong = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Format data ruang kosong
-$rooms = [];
-foreach ($ruangKosong as $row) {
-    $roomCode = $row['kode_ruang'];
-    $day = $row['nama_hari'];
-
-    if (!isset($rooms[$roomCode])) {
-        $rooms[$roomCode] = [];
-    }
-
-    $rooms[$roomCode][] = [
-        'room_name' => $row['nama_ruang'],
-        'day' => $day
+// Fetch all results
+$available_rooms = [];
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $available_rooms[] = [
+        'room_name' => $row['kode_ruang'],
+        'time' => date('H:i', strtotime($row['jam_kosong_mulai'])) . '-' . date('H:i', strtotime($row['jam_kosong_selesai']))
     ];
 }
 
-// Format output JSON
-$output = ['available_rooms' => []];
-foreach ($rooms as $roomCode => $roomDetails) {
-    $output['available_rooms'][] = [
-        'code' => $roomCode,
-        'details' => $roomDetails
-    ];
-}
+$response = [
+    'day' => $namaHari, // Use the request parameter for the day
+    'count' => count($available_rooms),
+    'available_rooms' => $available_rooms
+];
 
-echo json_encode($output, JSON_PRETTY_PRINT);
+echo json_encode($response, JSON_PRETTY_PRINT);
 ?>
