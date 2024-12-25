@@ -19,10 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
-            if (md5($password) === $user['password']) {
+            if ( $password === $user['password'] || md5($password) === $user['password']) {
                 session_start();
                 $_SESSION['id_user'] = $user['id_user'];
-                $_SESSION['level'] = $user['level'];
+                $_SESSION['level'] = $user['level'];    
                 echo json_encode([
                     'status' => 'berhasil',
                     'level' => $user['level'],
