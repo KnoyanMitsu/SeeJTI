@@ -116,7 +116,7 @@ const router = createRouter({
     {
       path: '/jadwal/kosong',
       name: 'kosong',
-      component: ComingSoon,
+      component: NoRoomView,
       // beforeEnter: checkAuth,
     },
     // {
@@ -164,9 +164,9 @@ const router = createRouter({
         {
           path: 'tambahuser',
           name: 'tambahuser',
-          component: AdminAdd 
+          component: AdminAdd
         },
-        
+
       ]
       // beforeEnter: checkAuth,
     },
