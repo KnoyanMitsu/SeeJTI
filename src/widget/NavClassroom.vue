@@ -34,7 +34,7 @@ export default {
         <router-link to="/jadwal/kelas">Jadwal Perkuliahan</router-link>
       </li>
       <li v-if="role === 'ketua'" class="flex items-center gap-2">
-          <vs-icon icon="domain"></vs-icon>
+        <VsxIcon iconName="Building" class="inline-block" :size="24" type="bold" />
           <router-link to="/jadwal/kosong">Ruang kosong</router-link>
       </li>
     </ul>
