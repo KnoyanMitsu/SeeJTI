@@ -167,18 +167,6 @@ export default {
         <h1 class="font-semibold text-lg mb-2">Ruang Kosong</h1>
         <p class="text-[#7A7979]">{{ day }}</p>
       </div>
-      <div>
-        <div
-          class="grid mt-6 gap-5 2xl:grid-cols-3 lg:mx-20 lg:grid-cols-2 md:grid-cols-1 col-span-2"
-        >
-          <ListRoomWidget
-            v-for="(item, index) in filteredDay"
-            :key="index"
-            :jam="item.time"
-            :ruang="item.room"
-          />
-        </div>
-      </div>
       <div class="flex justify-end">
         <button
           @click="open = true"
@@ -228,7 +216,7 @@ export default {
                   <p class="mb-3">Nama Matkul</p>
                   <select
                     name="matkul"
-                    class="bg-gray-100 rounded-md mb-4 w-full"
+                    class="w-full px-4 py-2 mb-4 border rounded-md border-black focus:outline-none focus:ring-2 focus:ring-[#F05529]"
                   >
                     <option
                       :value="item.id"
@@ -243,7 +231,7 @@ export default {
                   <input
                     name="class"
                     type="text"
-                    class="bg-gray-100 rounded-md mb-4 w-full"
+                    class="w-full px-4 py-2 mb-4 border rounded-md border-black focus:outline-none focus:ring-2 focus:ring-[#F05529]"
                     :value="this.class"
                   >
 
@@ -252,7 +240,7 @@ export default {
                     v-model="selectedDay"
                     name="day"
                     @change="updateRooms"
-                    class="w-full bg-gray-100 rounded-md mb-4"
+                    class="w-full px-4 py-2 mb-4 border rounded-md border-black focus:outline-none focus:ring-2 focus:ring-[#F05529]"
                     id="hari"
                   >
                     <option value="Senin">Senin</option>
@@ -268,7 +256,7 @@ export default {
                     v-model="selectedRoom"
                     @change="updateTimes"
                     name="room"
-                    class="bg-gray-100 rounded-md mb-4 w-full"
+                    class="w-full px-4 py-2 mb-4 border rounded-md border-black focus:outline-none focus:ring-2 focus:ring-[#F05529]"
                   >
                     <option
                       v-for="(room, index) in selectedMatkul"
@@ -285,7 +273,7 @@ export default {
                     v-if="selectedRoom"
                       v-model="selectedTime"
                       name="time"
-                      class="bg-gray-100 rounded-md mb-4 w-full"
+                      class="w-full px-4 py-2 mb-4 border rounded-md border-black focus:outline-none focus:ring-2 focus:ring-[#F05529]"
                     >
                       <option
                         v-for="time in times"
