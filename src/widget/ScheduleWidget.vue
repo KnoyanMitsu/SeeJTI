@@ -1,5 +1,5 @@
 <script>
-import Role from '@/controller/Role'
+import Role from '@/controller/Role';
 export default {
   props: {
     nama: {
@@ -26,15 +26,21 @@ export default {
   data() {
     return {
       role: '',
-    }
+      selectedOption: null,
+    };
   },
   mounted() {
-    const roleInstance = new Role()
+    const roleInstance = new Role();
     setInterval(() => {
-      this.role = roleInstance.role
-    })
+      this.role = roleInstance.role;
+    }, 1000);
   },
-}
+  methods: {
+    selectOption(option) {
+      this.selectedOption = option;
+    },
+  },
+};
 </script>
 
 <template>
@@ -43,40 +49,65 @@ export default {
       <h1 class="text-3xl font-bold mt-7">{{ nama }}</h1>
       <p class="font-bold text-gray-600 mt-3">{{ dosen }}</p>
       <div class="grid grid-cols-2 gap-4 mt-3">
-        <div
-          class="inline-flex border-2 border-dashed border-yellow-300 p-2 rounded-md items-center"
-        >
+        <div class="inline-flex border-2 border-dashed border-yellow-300 p-2 rounded-md items-center">
           <p class="font-bold text-gray-600">Kelas:</p>
           <p class="font-bold ml-2">{{ kelas }}</p>
         </div>
-        <div
-          class="inline-flex border-2 border-dashed border-yellow-300 p-2 rounded-md items-center"
-        >
+        <div class="inline-flex border-2 border-dashed border-yellow-300 p-2 rounded-md items-center">
           <p class="font-bold text-gray-600">Jam:</p>
           <p class="font-bold ml-2">{{ jam }}</p>
         </div>
-        <div
-          class="inline-flex border-2 border-dashed border-yellow-300 p-2 rounded-md items-center"
-        >
+        <div class="inline-flex border-2 border-dashed border-yellow-300 p-2 rounded-md items-center">
           <p class="font-bold text-gray-600">Ruang:</p>
           <p class="font-bold ml-2">{{ ruang }}</p>
         </div>
       </div>
     </div>
-    <div
-      v-if="role === 'mahasiswa'"
-      class="mt-8 p-3 text-center font-semibold bg-[#00CB1E]"
-    >
+    <div v-if="role === 'mahasiswa'" class="mt-8 p-3 text-center font-semibold bg-[#00CB1E]">
       <p class="text-white inline_block">Kuliah Ada</p>
     </div>
-    <div class="mb-2" v-if="role === 'ketua'">
+    <div v-if="role === 'ketua'" class="mb-2">
       <hr class="mt-8" />
-      <div class="p-3  mt-2 text-center font-semibold grid grid-cols-2">
-        <p class="text-red-600 inline_block">Tidak ada Kuliah</p>
-        <p class="text-green-600 inline_block">Kuliah Ada</p>
+      <div class="p-3 mt-2 text-center font-semibold grid grid-cols-2 gap-4">
+        <button
+          @click="selectOption('no')"
+          :class="{
+            'bg-red-600 text-white': selectedOption === 'no',
+            'bg-gray-300': selectedOption !== 'no',
+          }"
+          class="p-3 rounded-md font-semibold"
+        >
+          Tidak Ada Kuliah
+        </button>
+        <button
+          @click="selectOption('yes')"
+          :class="{
+            'bg-green-600 text-white': selectedOption === 'yes',
+            'bg-gray-300': selectedOption !== 'yes',
+          }"
+          class="p-3 rounded-md font-semibold"
+        >
+          Kuliah Ada
+        </button>
+      </div>
+      <div class="mt-4 h-4 bg-gray-200 rounded-md">
+        <div
+          :class="{
+            'bg-red-600': selectedOption === 'no',
+            'bg-green-600': selectedOption === 'yes',
+          }"
+          :style="{
+            width: selectedOption ? '100%' : '0%',
+          }"
+          class="h-4 rounded-md"
+        ></div>
       </div>
     </div>
   </div>
 </template>
 
-<style></style>
+<style>
+button {
+  transition: all 0.3s ease;
+}
+</style>

@@ -40,7 +40,7 @@
         <div class="mb-4">
           <label for="level" class="block text-sm font-medium text-gray-700">Level</label>
           <select v-model="level" id="level" name="level" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg">
-            <option value="Admin">Admin</option>
+            <option value="Ketua">Ketua</option>
             <option value="Mahasiswa">Mahasiswa</option>
           </select>
         </div>

@@ -35,7 +35,7 @@ if ($method === 'POST') {
         
         // Bind parameters
         $stmt->bindValue(':username', $data['username'], PDO::PARAM_STR);
-        $stmt->bindValue(':password', md5($data['password']), PDO::PARAM_STR); // Note: Consider using better hashing
+        $stmt->bindValue(':password', $data['password'], PDO::PARAM_STR); // Note: Consider using better hashing
         $stmt->bindValue(':nama', $data['nama'], PDO::PARAM_STR);
         $stmt->bindValue(':nim', $data['nim'], PDO::PARAM_STR);
         $stmt->bindValue(':kelas', $data['kelas'], PDO::PARAM_STR);

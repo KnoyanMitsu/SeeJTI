@@ -6,7 +6,7 @@ function connectDatabase() {
     $dbname = 'SeeJTI';
     $username = 'sa';
     $password = 'HsnB@#PkS3Cu9fEr1bTL';
-    // $host = 'LAPTOP-25E0DE8S';
+    // $host = '192.168.191.191';
     // $dbname = 'SeeJTI';
     // $username = 'sa';
     // $password = 'Vionastia06';

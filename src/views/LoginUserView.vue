@@ -20,6 +20,27 @@ import JTI from '@/assets/Logo/jti_polinema 3.png'
           <div class="col-span-1">
             <h1 class="text-black text-6xl font-bold mb-5">Login</h1>
             <div>
+              <div
+                v-if="pesan"
+                class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
+                role="alert"
+              >
+                <svg
+                  class="flex-shrink-0 inline w-4 h-4 me-3"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+                  />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                  {{ pesan }}
+                </div>
+              </div>
               <form @submit.prevent="login">
                 <div class="mb-2">
                   <p class="font-bold mb-3 inline-block">Username</p>
@@ -54,7 +75,6 @@ import JTI from '@/assets/Logo/jti_polinema 3.png'
                   Login
                 </button>
               </form>
-              <p>{{ pesan }}</p>
             </div>
           </div>
         </div>
