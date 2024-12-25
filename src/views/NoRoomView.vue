@@ -99,6 +99,7 @@ export default {
       this.year = clockInstance.year
       this.month = clockInstance.month
       this.day = clockInstance.day
+      this.date = clockInstance.date
     }, 1)
   },
   data() {
@@ -165,7 +166,7 @@ export default {
     <div class="md:mt-5">
       <div>
         <h1 class="font-semibold text-lg mb-2">Ruang Kosong</h1>
-        <p class="text-[#7A7979]">{{ day }}</p>
+        <p class="text-[#7A7979]">{{ date }}</p>
       </div>
       <div class="flex justify-end">
         <button
