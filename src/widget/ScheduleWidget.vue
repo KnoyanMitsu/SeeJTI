@@ -1,5 +1,6 @@
 <script>
-import Role from '@/controller/Role';
+import Role from '@/controller/Role'
+import axios from '../api/api'
 export default {
   props: {
     nama: {
@@ -22,25 +23,52 @@ export default {
       type: String,
       required: true,
     },
+    status: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
       role: '',
       selectedOption: null,
-    };
+    }
   },
   mounted() {
-    const roleInstance = new Role();
+    const roleInstance = new Role()
     setInterval(() => {
-      this.role = roleInstance.role;
-    }, 1000);
+      this.role = roleInstance.role
+    }, 1000)
+    this.selectOption(this.status)
   },
   methods: {
-    selectOption(option) {
-      this.selectedOption = option;
+    async selectOption(option) {
+      this.loading = true
+      this.selectedOption = option
+      try {
+        const response = await axios.post(
+          'http://localhost:8000/updateStatus.php',
+          {
+            ruang: this.ruang,
+            kelas: this.kelas,
+            status: option,
+          },
+          {
+            withCredentials: true,
+          },
+        )
+        if (response.data === 'Berhasil') {
+          this.$emit('refresh')
+        }
+      } catch (error) {
+        console.log(error)
+        this.loading = false
+      } finally {
+        this.loading = false
+      }
     },
   },
-};
+}
 </script>
 
 <template>
@@ -116,7 +144,6 @@ export default {
     </div>
   </div>
 </template>
-
 
 <style>
 button {
