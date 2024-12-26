@@ -25,10 +25,6 @@ export default {
       const maxRetries = 0
       let attempt = 0
 
-      if (cachedSchedules) {
-        this.setScheduleData(cachedSchedules)
-        return
-      }
 
       try {
         const response = await axios.get(
@@ -53,7 +49,6 @@ export default {
     setScheduleData(data) {
       this.schedules = data
       this.classList = data.map(c => c.name)
-      console.log('Class List:', this.classList) // Debug data classList
       if (this.classList.length > 0 && !this.selectedClass) {
         this.selectedClass = this.classList[0] // Set default ke kelas pertama jika belum ada selectedClass
       }
@@ -71,21 +66,19 @@ export default {
   mounted() {
     const clockInstance = new Clock()
     setInterval(() => {
-      this.day = clockInstance.day
+      const currentDay = clockInstance.day
+      if (this.day !== currentDay) {
+        this.day = currentDay // Update hanya jika `day` berubah
+      }
     }, 1000)
-  },
-  created() {
-    this.fetchSchedules()
-  },
 
-  created() {
     const storedClass = localStorage.getItem('selectedClass')
     if (storedClass) {
       this.selectedClass = storedClass
     }
 
     this.fetchSchedules()
-  },
+  }
 }
 </script>
 
@@ -139,17 +132,19 @@ export default {
           </div>
         </div>
         <div
-          class="grid mt-6 gap-5 2xl:grid-cols-3 lg:mx-20 lg:grid-cols-2 md:grid-cols-1"
+          class="flex flex-row mt-6 gap-5 2xl:grid-cols-3 lg:mx-20 lg:grid-cols-2 md:grid-cols-1"
         >
           <LoadingWidget v-if="filteredDay().length === 0" />
           <ScheduleWidget
             v-for="(item, index) in filteredDay()"
-            :key="index"
+            :key="`${selectedClass}-${index}`"
             :nama="item.subject"
             :jam="item.time"
             :kelas="selectedClass"
             :ruang="item.room"
             :dosen="item.dosen"
+            :status="item.status"
+            @refresh="fetchSchedules()"
           />
         </div>
       </div>
