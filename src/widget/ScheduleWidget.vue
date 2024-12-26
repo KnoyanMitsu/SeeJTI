@@ -1,48 +1,3 @@
-<script>
-import Role from '@/controller/Role';
-export default {
-  props: {
-    nama: {
-      type: String,
-      required: true,
-    },
-    dosen: {
-      type: String,
-      required: true,
-    },
-    jam: {
-      type: String,
-      required: true,
-    },
-    kelas: {
-      type: String,
-      required: true,
-    },
-    ruang: {
-      type: String,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      role: '',
-      selectedOption: null,
-    };
-  },
-  mounted() {
-    const roleInstance = new Role();
-    setInterval(() => {
-      this.role = roleInstance.role;
-    }, 1000);
-  },
-  methods: {
-    selectOption(option) {
-      this.selectedOption = option;
-    },
-  },
-};
-</script>
-
 <template>
   <div class="bg-white shadow-md rounded-md mx-auto lg:w-full mb-7">
     <div class="ml-5 mr-4">
@@ -105,6 +60,76 @@ export default {
     </div>
   </div>
 </template>
+
+<script>
+import Role from '@/controller/Role';
+export default {
+  props: {
+    nama: {
+      type: String,
+      required: true,
+    },
+    dosen: {
+      type: String,
+      required: true,
+    },
+    jam: {
+      type: String,
+      required: true,
+    },
+    kelas: {
+      type: String,
+      required: true,
+    },
+    ruang: {
+      type: String,
+      required: true,
+    },
+    id_jadwal: {
+      type: String,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      role: '',
+      selectedOption: null,
+    };
+  },
+  mounted() {
+    const roleInstance = new Role();
+    setInterval(() => {
+      this.role = roleInstance.role;
+    }, 1000);
+  },
+  methods: {
+    selectOption(option) {
+      this.selectedOption = option;
+      const status = option === 'yes' ? 'yes' : 'no';
+      const id_jadwal = this.id_jadwal;
+
+      fetch('Status.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `status=${status}&id_jadwal=${id_jadwal}`,
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            console.log('Status berhasil diperbarui');
+          } else {
+            console.log('Gagal memperbarui status');
+          }
+        })
+        .catch(error => {
+          console.error('Terjadi kesalahan:', error);
+        });
+    },
+  },
+};
+</script>
 
 <style>
 button {
