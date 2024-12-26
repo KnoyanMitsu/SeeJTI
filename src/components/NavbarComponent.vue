@@ -85,7 +85,7 @@ export default {
       >
       <img class="h-8" :src="JTI" alt="" />
     </router-link>
-    <Menu>
+    <Menu as="button" class="relative">
       <div>
         <MenuButton class="flex justify-end w-auto">
           <div class="flex justify-end">
