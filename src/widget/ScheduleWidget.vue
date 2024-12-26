@@ -99,9 +99,14 @@ export default {
     </div>
     <div
       v-if="role === 'mahasiswa'"
-      class="mt-8 p-3 text-center font-semibold bg-[#00CB1E]"
+      class="mt-8 p-3 text-center font-semibold"
+      :class="{
+        'bg-red-600 text-white': selectedOption === 'Tidak Ada',
+        'bg-green-600 text-white': selectedOption === 'Ada',
+      }"
     >
-      <p class="text-white inline_block">Kuliah Ada</p>
+      <p v-if="selectedOption === 'Ada'" class="text-white inline_block">Kuliah Ada</p>
+      <p v-if="selectedOption === 'Tidak Ada'" class="text-white inline_block">Tidak Ada Kuliah</p>
     </div>
     <div v-if="role === 'ketua'" class="mb-2">
       <hr class="mt-8" />

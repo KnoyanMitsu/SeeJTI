@@ -2,7 +2,7 @@
 ini_set('mssql.timeout', 6);
 
 function connectDatabase() {
-    $host = '192.168.191.191';
+    $host = 'localhost';
     $dbname = 'SeeJTI';
     $username = 'sa';
     $password = 'HsnB@#PkS3Cu9fEr1bTL';
