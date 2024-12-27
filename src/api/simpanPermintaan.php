@@ -1,6 +1,6 @@
 <?php
 include 'core.php';  
-require './config/database.php';  
+require 'config/database.php';  
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -10,6 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $room = $_POST['room'];  
     $time = $_POST['time'];  
 
+
+    $pdo = connectDatabase();
     
     $queryJam = "SELECT id_jam_mulai, id_jam_selesai FROM jam WHERE waktu = ?";
     $stmt = $pdo->prepare($queryJam);
