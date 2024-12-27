@@ -246,6 +246,7 @@ export default {
                   <p class="mb-3">Nama Matkul</p>
                   <select
                     v-model="matkuls"
+                    required
                     name="matkuls"
                     class="w-full px-4 py-2 mb-4 border rounded-md border-black focus:outline-none focus:ring-2 focus:ring-[#F05529]"
                   >
@@ -274,6 +275,7 @@ export default {
                     @change="updateRooms"
                     class="w-full px-4 py-2 mb-4 border rounded-md border-black focus:outline-none focus:ring-2 focus:ring-[#F05529]"
                     id="hari"
+                    required
                   >
                     <option value="Senin">Senin</option>
                     <option value="Selasa">Selasa</option>
@@ -284,6 +286,7 @@ export default {
 
                   <p v-if="selectedDay" class="mb-3">Nama Ruang</p>
                   <select
+                  required
                     v-if="selectedDay"
                     v-model="selectedRoom"
                     @change="updateTimes"
@@ -302,6 +305,7 @@ export default {
                   <p v-if="selectedRoom" class="mb-3">Jam</p>
                   <div class="flex">
                     <select
+                    required
                       v-if="selectedRoom"
                       v-model="time"
                       name="time"
@@ -314,7 +318,7 @@ export default {
                   </div>
                 </div>
 
-                <div class="bg-white px-4 py-3 sm:flex justify-center sm:px-6">
+                <div v-if="time" class="bg-white px-4 py-3 sm:flex justify-center sm:px-6">
                   <button
                     type="submit"
                     class="px-4 py-2 text-white bg-[#F05529] rounded-full mb-4 hover:bg-[#FEA127]"
