@@ -225,7 +225,7 @@ export default {
                           'block w-full px-4 py-2 text-left text-sm',
                         ]"
                       >
-                        Hapus semua user
+                        Hapus semua user (Kecuali Admin)
                       </button>
                     </div>
                   </MenuItems>

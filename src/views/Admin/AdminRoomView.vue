@@ -1,3 +1,3 @@
 <template>
-  <h1>Ruang Kosong</h1>
+  <h1>Permintaan</h1>
 </template>

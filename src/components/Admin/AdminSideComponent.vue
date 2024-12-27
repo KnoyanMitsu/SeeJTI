@@ -49,7 +49,7 @@ import { VsxIcon } from 'vue-iconsax'
                 color="#0E1F43"
                 type="bold"
               />
-              <p class="inline-block ml-2">Ruang Kosong</p>
+              <p class="inline-block ml-2">Permintaan</p>
             </router-link>
           </li>
           <li class="my-2">
