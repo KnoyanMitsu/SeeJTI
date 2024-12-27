@@ -1,13 +1,16 @@
 <?php
 include '../core.php';
 require '../config/database.php';
-
+session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['csvFile']) && $_FILES['csvFile']['error'] === UPLOAD_ERR_OK) {
+        if (isset($_SESSION['id_user']) && $_SESSION['level'] == 'Admin') {
         $fileTmpPath = $_FILES['csvFile']['tmp_name'];
         $pdo = connectDatabase();
 
         try {
+            $sql = "DELETE FROM [dbo].[users] WHERE [level] != 'admin'";
+            $stmt = $pdo->query($sql);
             // Membuka file CSV
             $file = fopen($fileTmpPath, 'r');
 
@@ -33,6 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } catch (Exception $e) {
             http_response_code(500);
             echo json_encode(['success' => false, 'message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+        }
+        } else {
+            http_response_code(401); // Unauthorized
+            echo json_encode(["error" => "User not authenticated"]);
         }
     } else {
         http_response_code(400);

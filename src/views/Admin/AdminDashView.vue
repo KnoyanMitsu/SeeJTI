@@ -8,17 +8,48 @@ import axios from '../../api/api'
 
 let cachedMahasiswaCount = null // Cache untuk jumlah mahasiswa
 let cachedRuangKosongCount = null // Cache untuk jumlah mahasiswa
+let cachedJadwalCount = null
 
 export default {
   data() {
     return {
       countMahasiswa: 0,
+      countJadwal: 0,
       countRuangKosong: 0, // Jumlah mahasiswa
       isLoading: true, // Status loading
       error: null, // Simpan pesan error
     }
   },
   methods: {
+    async fetchJadwalCount() {
+      // Cek cache
+      if (cachedJadwalCount !== null) {
+        this.setJadwalCount(cachedJadwalCount)
+        return
+      }
+
+      try {
+        this.isLoading = true
+        const response = await axios.get(
+          'http://localhost:8000/jumlahjadwal.php',
+          {
+            withCredentials: true, // Kirim cookies jika diperlukan
+          },
+        )
+
+        if (response.data && response.data.total) {
+          cachedJadwalCount = parseInt(response.data.total, 10) // Simpan ke cache
+          this.setJadwalCount(cachedJadwalCount)
+        } else {
+          throw new Error('Invalid response from server')
+        }
+      } catch (error) {
+        console.error('Error fetching RuangKosong count:', error)
+        this.error = 'Gagal memuat jumlah mahasiswa.'
+      } finally {
+        this.isLoading = false
+      }
+    },
     async fetchRuangKosongCount() {
       // Cek cache
       if (cachedRuangKosongCount !== null) {
@@ -83,10 +114,15 @@ export default {
     setRuangKosongCount(count) {
       this.countRuangKosong= count // Set jumlah mahasiswa
     },
+    setJadwalCount(count) {
+      this.countJadwal= count // Set jumlah mahasiswa
+    },
   },
   created() {
     this.fetchMahasiswaCount()
     this.fetchRuangKosongCount()
+    this.fetchJadwalCount()
+
   },
 }
 </script>
@@ -113,7 +149,7 @@ export default {
         class="h-36 gap-5 items-center justify-center flex w-auto border-2 rounded-2xl shadow-md"
       >
         <VsxIcon iconName="Calendar" :size="32" color="black" type="linear" />
-        <h1 class="text-2xl font-bold font-sans">50 Jadwal Aktif</h1>
+        <h1 class="text-2xl font-bold font-sans">{{ countJadwal }} Jadwal Aktif</h1>
       </div>
     </div>
     <div class="grid mt-16">

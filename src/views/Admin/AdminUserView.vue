@@ -118,12 +118,6 @@ export default {
       const maxRetries = 0
       let attempt = 0
 
-      // Jika data sudah ada di cache, gunakan cache
-      if (cachedUser) {
-        this.setUserData(cachedUser)
-        return
-      }
-
       try {
         const response = await axios.get('http://localhost:8000/ListUser.php', {
           withCredentials: true, // Kirim cookies
