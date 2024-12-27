@@ -21,7 +21,6 @@ let cachedSchedules = null
 const open = ref(false)
 export default {
   methods: {
-
     async fetchRuang() {
       const maxRetries = 0
       let attempt = 0
@@ -77,19 +76,18 @@ export default {
       return this.day ? this.filteredSchedule()[this.day] || [] : []
     },
 
-  updateRooms() {
-    this.selectedRoom = '';
-    this.times = [];
-    this.selectedMatkul = cachedSchedules[this.selectedDay];
-  },
-  updateTimes() {
-    if (this.selectedRoom) {
-
-      this.times = cachedSchedules[this.selectedDay]
-        .filter((room) => room.room_name === this.selectedRoom)
-        .map((room) => room.time);
-    }
-  },
+    updateRooms() {
+      this.selectedRoom = ''
+      this.times = []
+      this.selectedMatkul = cachedSchedules[this.selectedDay]
+    },
+    updateTimes() {
+      if (this.selectedRoom) {
+        this.times = cachedSchedules[this.selectedDay]
+          .filter(room => room.room_name === this.selectedRoom)
+          .map(room => room.time)
+      }
+    },
   },
 
   mounted() {
@@ -135,7 +133,6 @@ export default {
   <div
     class="xl:grid xl:grid-cols-2 md:grid-cols-1 container mx-auto grid-flow-col gap-x-32 md:gap-x-32"
   >
-
     <div class="col-span-1">
       <p class="font-semibold text-lg">{{ this.day }}, {{ this.month }}</p>
       <div class="grid mt-10">
@@ -183,7 +180,6 @@ export default {
   <!-- Dialog -->
   <TransitionRoot as="template" :show="open">
     <Dialog class="relative z-10" @close="open = false">
-
       <TransitionChild
         as="template"
         enter="ease-out duration-300"
@@ -234,7 +230,7 @@ export default {
                     type="text"
                     class="w-full px-4 py-2 mb-4 border rounded-md border-black focus:outline-none focus:ring-2 focus:ring-[#F05529]"
                     :value="this.class"
-                  >
+                  />
 
                   <p class="mb-3">Hari</p>
                   <select
@@ -253,7 +249,7 @@ export default {
 
                   <p v-if="selectedDay" class="mb-3">Nama Ruang</p>
                   <select
-                  v-if="selectedDay"
+                    v-if="selectedDay"
                     v-model="selectedRoom"
                     @change="updateTimes"
                     name="room"
@@ -271,16 +267,12 @@ export default {
                   <p v-if="selectedRoom" class="mb-3">Jam</p>
                   <div class="flex">
                     <select
-                    v-if="selectedRoom"
+                      v-if="selectedRoom"
                       v-model="selectedTime"
                       name="time"
                       class="w-full px-4 py-2 mb-4 border rounded-md border-black focus:outline-none focus:ring-2 focus:ring-[#F05529]"
                     >
-                      <option
-                        v-for="time in times"
-                        :key="time"
-                        :value="time"
-                      >
+                      <option v-for="time in times" :key="time" :value="time">
                         {{ time }}
                       </option>
                     </select>
