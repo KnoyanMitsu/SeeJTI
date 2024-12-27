@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     
     $queryInsert = "INSERT INTO dbo.peminjaman (nama_mk, kode_kelas, nama_hari, jam, kode_ruang, status, id_user) 
-                    VALUES (?, ?, ?, ?, ?, 'pending', ?)";
+                    VALUES (?, ?, ?, ?, ?, 'Pending', ?)";
     $stmtInsert = $pdo->prepare($queryInsert);
 
     try {
