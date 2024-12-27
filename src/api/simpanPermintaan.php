@@ -11,16 +11,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $time = $_POST['time'];  
     $user = $_SESSION['id_user'];
     $pdo = connectDatabase();
-    // $queryMatkul = "SELECT id_matkul FROM matkul WHERE kode_mk = ?";
-    // $stmtMatkul = $pdo->prepare($queryMatkul);
-    // $stmtMatkul->execute([$namaMatkul]);  
-    // $matkul = $stmtMatkul->fetch(PDO::FETCH_ASSOC);
+    $queryMatkul = "SELECT kode_mk FROM matkul WHERE nama_mk = ?";
+    $stmtMatkul = $pdo->prepare($queryMatkul);
+    $stmtMatkul->execute([$namaMatkul]);  
+    $matkul = $stmtMatkul->fetch(PDO::FETCH_ASSOC);
 
-    // if ($matkul) {
-    //     $idMatkul = $matkul['id_matkul'];
-    // } else {
-    //     die("Mata kuliah tidak ditemukan.");
-    // }
+    if ($matkul) {
+        $idMatkul = $matkul['id_matkul'];
+    } else {
+        die("Mata kuliah tidak ditemukan.");
+    }
 
 
     // $queryKelas = "SELECT kode_kelas FROM kelas WHERE nama_kelas = ?";

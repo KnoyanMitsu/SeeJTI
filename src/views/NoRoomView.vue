@@ -30,7 +30,7 @@ export default {
           class: this.class,
           day: this.day,
           room: this.selectedRoom,
-          time: this.time
+          time: this.time,
         },
         { withCredentials: true },
       )
@@ -131,7 +131,7 @@ export default {
       selectedDay: '',
       selectedRoom: '',
       class: '',
-      room : '',
+      room: '',
       time: '',
       rooms: [],
       matkul: [],
