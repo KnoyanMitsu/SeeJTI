@@ -2,6 +2,7 @@
 import NavbarComponent from '@/components/NavbarComponent.vue'
 import Date from '@/controller/Date'
 import ListRoomWidget from '@/widget/ListRoomWidget.vue'
+import SuccessMoal from '@/widget/SuccessMoal.vue'
 import NavClassroom from '@/widget/NavClassroom.vue'
 </script>
 
@@ -21,6 +22,27 @@ let cachedSchedules = null
 const open = ref(false)
 export default {
   methods: {
+    async submitForm() {
+      const response = await axios.post(
+        'http://localhost:8000/simpanPermintaan.php',
+        {
+          matkul: this.matkuls,
+          class: this.class,
+          day: this.day,
+          room: this.selectedRoom,
+          time: this.time
+        },
+        { withCredentials: true },
+      )
+      if (response.data) {
+        console.log(response.data)
+        this.fetchRuang()
+        open.value = false
+        this.showSuccessModal = true
+      } else {
+        console.error('Invalid API Response:', response.data)
+      }
+    },
     async fetchRuang() {
       const maxRetries = 0
       let attempt = 0
@@ -102,14 +124,18 @@ export default {
   },
   data() {
     return {
+      showSuccessModal: false,
       year: '',
       month: '',
       day: '',
       selectedDay: '',
       selectedRoom: '',
       class: '',
+      room : '',
+      time: '',
       rooms: [],
       matkul: [],
+      matkuls: '',
       selectedMatkul: [],
       times: [],
     }
@@ -163,9 +189,16 @@ export default {
     <div class="md:mt-5">
       <div>
         <h1 class="font-semibold text-lg mb-2">Ruang Kosong</h1>
-        <p class="text-[#7A7979]">{{ date }}</p>
+        <p class="text-[#7A7979] mb-5">{{ date }}</p>
       </div>
-      <div class="flex justify-end">
+      <div class="flex justify-between">
+        <button
+          @click="open = true"
+          type="submit"
+          class="px-4 py-2 text-white bg-[#F05529] rounded-md hover:bg-[#FEA127]"
+        >
+          Permintaan Anda
+        </button>
         <button
           @click="open = true"
           type="submit"
@@ -208,15 +241,16 @@ export default {
             <DialogPanel
               class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
             >
-              <form action="a" method="post">
+              <form @submit.prevent="submitForm">
                 <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <p class="mb-3">Nama Matkul</p>
                   <select
-                    name="matkul"
+                    v-model="matkuls"
+                    name="matkuls"
                     class="w-full px-4 py-2 mb-4 border rounded-md border-black focus:outline-none focus:ring-2 focus:ring-[#F05529]"
                   >
                     <option
-                      :value="item.id"
+                      :value="item.name"
                       v-for="(item, index) in matkul.mata_kuliah"
                       :key="index"
                     >
@@ -230,6 +264,7 @@ export default {
                     type="text"
                     class="w-full px-4 py-2 mb-4 border rounded-md border-black focus:outline-none focus:ring-2 focus:ring-[#F05529]"
                     :value="this.class"
+                    readonly
                   />
 
                   <p class="mb-3">Hari</p>
@@ -268,7 +303,7 @@ export default {
                   <div class="flex">
                     <select
                       v-if="selectedRoom"
-                      v-model="selectedTime"
+                      v-model="time"
                       name="time"
                       class="w-full px-4 py-2 mb-4 border rounded-md border-black focus:outline-none focus:ring-2 focus:ring-[#F05529]"
                     >
@@ -294,6 +329,15 @@ export default {
       </div>
     </Dialog>
   </TransitionRoot>
+
+  <SuccessMoal
+    :isVisible="showSuccessModal"
+    title="Berhasil"
+    confirmText="Oke"
+    message="Permintaan berhasil dikirim"
+    @confirm="showSuccessModal = false"
+    @close="showSuccessModal = false"
+  />
 </template>
 
 <style></style>
