@@ -12,10 +12,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $time = $_POST['time'];  
     $pdo = connectDatabase();
 
-    if (!isset($_SESSION['user_id'])) {
+    if (!isset($_SESSION['id_user'])) {
         die("User tidak terautentikasi.");
     }
-    $userId = $_SESSION['user_id'];
+    $idUser = $_SESSION['id_user'];
 
     $queryMatkul = "SELECT kode_mk FROM mata_kuliah WHERE kode_mk = ?";
     $stmtMatkul = $pdo->prepare($queryMatkul);
@@ -50,12 +50,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Ruang tidak ditemukan.");
     }
 
-    $queryInsert = "INSERT INTO dbo.peminjaman (kode_mk, kode_kelas, nama_hari, id_dosen, id_jam_mulai, id_jam_selesai, kode_ruang, status, user_id) 
-                    VALUES (?, ?, ?, '12', '1', '2', ?, 'belum acc', ?)";
+    $queryInsert = "INSERT INTO dbo.peminjaman (kode_mk, kode_kelas, nama_hari, kode_ruang, jam, status, id_user) 
+                    VALUES (?, ?, ?, ?, ?, 'belum acc', ?)";
     $stmtInsert = $pdo->prepare($queryInsert);
 
     try {
-        $stmtInsert->execute([$idMatkul, $kodeKelas, $hari, $kodeRuang, $userId]);
+        $stmtInsert->execute([$idMatkul, $kodeKelas, $hari, $kodeRuang, $time, $idUser]);
         echo "Permintaan peminjaman berhasil dikirim.";
     } catch (PDOException $e) {
         echo "Gagal mengirim permintaan peminjaman: " . $e->getMessage();
