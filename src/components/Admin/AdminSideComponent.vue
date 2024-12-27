@@ -49,7 +49,7 @@ import { VsxIcon } from 'vue-iconsax'
                 color="#0E1F43"
                 type="bold"
               />
-              <p class="inline-block ml-2">Ruang Kosong</p>
+              <p class="inline-block ml-2">Permintaan</p>
             </router-link>
           </li>
           <li class="my-2">
@@ -76,7 +76,7 @@ import { VsxIcon } from 'vue-iconsax'
                     color="#0E1F43"
                     type="bold"
                   />
-                  <p class="inline-block ml-2">Edit Data User</p></router-link
+                  <p class="inline-block ml-2">Data User</p></router-link
                 >
                 <router-link
                   to="/admin/calendar"

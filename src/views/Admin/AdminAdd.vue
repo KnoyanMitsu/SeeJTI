@@ -78,7 +78,7 @@ export default {
       nama: '',
       nim: '',
       kelas: '',
-      level: 'Admin', // Default level
+      level: 'Ketua', // Default level
       pesan: '',
     };
   },

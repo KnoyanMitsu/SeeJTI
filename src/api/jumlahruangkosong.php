@@ -5,7 +5,7 @@ require './config/database.php';
 
 try {
     $pdo = connectDatabase();
-    $query = "SELECT COUNT(*) AS total FROM [dbo].[users] WHERE level != 'admin'";
+    $query = "SELECT COUNT(*) AS total FROM getRuangKosong";
     $stmt = $pdo->prepare($query); 
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
