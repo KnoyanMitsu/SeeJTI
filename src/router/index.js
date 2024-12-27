@@ -14,6 +14,7 @@ import AdminUserView from '@/views/Admin/AdminUserView.vue';
 import AdminCalView from '@/views/Admin/AdminCalView.vue';
 import ComingSoon from '@/views/Error/ComingSoon.vue';
 import AdminAdd from '@/views/Admin/AdminAdd.vue';
+import AdminImportUser from '@/views/Admin/AdminImportUser.vue';
 // Middleware function to check authentication
 async function checkAuth(to, from, next) {
   try {
@@ -166,7 +167,11 @@ const router = createRouter({
           name: 'tambahuser',
           component: AdminAdd
         },
-
+        {
+          path: 'importuser',
+          name: 'importuser',
+          component: AdminImportUser
+        }
       ]
       // beforeEnter: checkAuth,
     },
