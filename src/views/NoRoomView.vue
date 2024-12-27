@@ -1,9 +1,8 @@
 <script setup>
 import NavbarComponent from '@/components/NavbarComponent.vue'
 import Date from '@/controller/Date'
-import ListRoomWidget from '@/widget/ListRoomWidget.vue'
-import SuccessMoal from '@/widget/SuccessMoal.vue'
 import NavClassroom from '@/widget/NavClassroom.vue'
+import SuccessMoal from '@/widget/SuccessMoal.vue'
 </script>
 
 <script>
@@ -97,7 +96,12 @@ export default {
     filteredDay() {
       return this.day ? this.filteredSchedule()[this.day] || [] : []
     },
-
+    updateMatkul() {
+      const selectedClassSchedule = this.matkul.classes.find(
+        item => item.kelas === this.class,
+      )
+      return selectedClassSchedule ? selectedClassSchedule.mata_kuliah : {}
+    },
     updateRooms() {
       this.selectedRoom = ''
       this.times = []
@@ -243,6 +247,14 @@ export default {
             >
               <form @submit.prevent="submitForm">
                 <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                  <p class="mb-3">Kelas</p>
+                  <input
+                    name="class"
+                    type="text"
+                    class="w-full px-4 py-2 mb-4 border rounded-md border-black focus:outline-none focus:ring-2 focus:ring-[#F05529]"
+                    :value="this.class"
+                    readonly
+                  />
                   <p class="mb-3">Nama Matkul</p>
                   <select
                     v-model="matkuls"
@@ -252,21 +264,12 @@ export default {
                   >
                     <option
                       :value="item.name"
-                      v-for="(item, index) in matkul.mata_kuliah"
+                      v-for="(item, index) in updateMatkul()"
                       :key="index"
                     >
                       {{ item.name }}
                     </option>
                   </select>
-
-                  <p class="mb-3">Kelas</p>
-                  <input
-                    name="class"
-                    type="text"
-                    class="w-full px-4 py-2 mb-4 border rounded-md border-black focus:outline-none focus:ring-2 focus:ring-[#F05529]"
-                    :value="this.class"
-                    readonly
-                  />
 
                   <p class="mb-3">Hari</p>
                   <select
@@ -286,7 +289,7 @@ export default {
 
                   <p v-if="selectedDay" class="mb-3">Nama Ruang</p>
                   <select
-                  required
+                    required
                     v-if="selectedDay"
                     v-model="selectedRoom"
                     @change="updateTimes"
@@ -305,7 +308,7 @@ export default {
                   <p v-if="selectedRoom" class="mb-3">Jam</p>
                   <div class="flex">
                     <select
-                    required
+                      required
                       v-if="selectedRoom"
                       v-model="time"
                       name="time"
@@ -318,7 +321,10 @@ export default {
                   </div>
                 </div>
 
-                <div v-if="time" class="bg-white px-4 py-3 sm:flex justify-center sm:px-6">
+                <div
+                  v-if="time"
+                  class="bg-white px-4 py-3 sm:flex justify-center sm:px-6"
+                >
                   <button
                     type="submit"
                     class="px-4 py-2 text-white bg-[#F05529] rounded-full mb-4 hover:bg-[#FEA127]"
