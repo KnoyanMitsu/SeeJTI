@@ -78,19 +78,6 @@ import { VsxIcon } from 'vue-iconsax'
                   />
                   <p class="inline-block ml-2">Data User</p></router-link
                 >
-                <router-link
-                  to="/admin/calendar"
-                  class="block p-2 my-2 hover:bg-gray-700 hover:text-white rounded-md"
-                >
-                  <VsxIcon
-                    iconName="NoteAdd"
-                    class="inline-block"
-                    :size="24"
-                    color="#0E1F43"
-                    type="bold"
-                  />
-                  <p class="inline-block ml-2">Tambah Jadwal</p></router-link
-                >
               </div>
             </div>
           </li>
