@@ -11,16 +11,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $time = $_POST['time'];  
     $user = $_SESSION['id_user'];
     $pdo = connectDatabase();
-    $queryMatkul = "SELECT kode_mk FROM matkul WHERE nama_mk = ?";
-    $stmtMatkul = $pdo->prepare($queryMatkul);
-    $stmtMatkul->execute([$namaMatkul]);  
-    $matkul = $stmtMatkul->fetch(PDO::FETCH_ASSOC);
+    // $queryMatkul = "SELECT kode_mk FROM matkul WHERE nama_mk = ?";
+    // $stmtMatkul = $pdo->prepare($queryMatkul);
+    // $stmtMatkul->execute([$namaMatkul]);  
+    // $matkul = $stmtMatkul->fetch(PDO::FETCH_ASSOC);
 
-    if ($matkul) {
-        $idMatkul = $matkul['id_matkul'];
-    } else {
-        die("Mata kuliah tidak ditemukan.");
-    }
+    // if ($matkul) {
+    //     $idMatkul = $matkul['id_matkul'];
+    // } else {
+    //     die("Mata kuliah tidak ditemukan.");
+    // }
 
 
     // $queryKelas = "SELECT kode_kelas FROM kelas WHERE nama_kelas = ?";
@@ -49,8 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // }
 
     
-    $queryInsert = "INSERT INTO dbo.peminjaman (kode_mk, kode_kelas, nama_hari, jam, kode_ruang, status, id_user) 
-                    VALUES (?, ?, ?, ?, ?, 'belum acc', ?)";
+    $queryInsert = "INSERT INTO dbo.peminjaman (nama_mk, kode_kelas, nama_hari, jam, kode_ruang, status, id_user) 
+                    VALUES (?, ?, ?, ?, ?, 'pending', ?)";
     $stmtInsert = $pdo->prepare($queryInsert);
 
     try {
