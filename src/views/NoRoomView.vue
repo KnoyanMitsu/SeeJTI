@@ -250,7 +250,7 @@ export default {
                     class="w-full px-4 py-2 mb-4 border rounded-md border-black focus:outline-none focus:ring-2 focus:ring-[#F05529]"
                   >
                     <option
-                      :value="item.id"
+                      :value="item.name"
                       v-for="(item, index) in matkul.mata_kuliah"
                       :key="index"
                     >
