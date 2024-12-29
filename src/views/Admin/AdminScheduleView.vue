@@ -20,21 +20,24 @@ export default {
   methods: {
     async exportCSV() {
       try {
-        const response = await axios.get("http://localhost:8000/exportJadwal.php", {
-          responseType: "blob", // Respons file biner
-        });
+        const response = await axios.get(
+          'http://localhost:8000/exportJadwal.php',
+          {
+            responseType: 'blob', // Respons file biner
+          },
+        )
 
-        const blob = new Blob([response.data], { type: "text/csv" });
-        const url = window.URL.createObjectURL(blob);
+        const blob = new Blob([response.data], { type: 'text/csv' })
+        const url = window.URL.createObjectURL(blob)
 
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", "jadwal.csv");
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', 'jadwal.csv')
+        document.body.appendChild(link)
+        link.click()
+        link.remove()
       } catch (error) {
-        console.error("Gagal mengekspor CSV:", error);
+        console.error('Gagal mengekspor CSV:', error)
       }
     },
     async fetchSchedules() {
@@ -110,17 +113,18 @@ export default {
           </select>
         </div>
         <div class="flex gap-5">
-          <Menu as="button" class="relative ">
+          <Menu as="button" class="relative">
             <MenuButton as="button" class="">
               <VsxIcon
-                class="inline-block "
+                class="inline-block"
                 iconName="HambergerMenu"
                 :size="32"
                 color="black"
                 type="bulk"
-
               />
-              <p class="inline-block ml-2 tracking-tight py-2 font-bold">Menu</p>
+              <p class="inline-block ml-2 tracking-tight py-2 font-bold">
+                Menu
+              </p>
             </MenuButton>
             <transition
               enter-active-class="transition ease-out duration-100"

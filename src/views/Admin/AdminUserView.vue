@@ -9,7 +9,7 @@ import axios from '../../api/api'
 let cachedUser = null
 export default {
   mounted() {
-    this.fetchUser();
+    this.fetchUser()
   },
   data() {
     return {
@@ -19,101 +19,114 @@ export default {
       selectedUserId: null,
       showDangerousModal: false,
       finalRegret: false,
-      lastResort: false
+      lastResort: false,
     }
   },
   methods: {
     async exportCSV() {
       try {
-        const response = await axios.get("http://localhost:8000/exportUser.php", {
-          responseType: "blob", // Respons file biner
-        });
+        const response = await axios.get(
+          'http://localhost:8000/exportUser.php',
+          {
+            responseType: 'blob', // Respons file biner
+          },
+        )
 
-        const blob = new Blob([response.data], { type: "text/csv" });
-        const url = window.URL.createObjectURL(blob);
+        const blob = new Blob([response.data], { type: 'text/csv' })
+        const url = window.URL.createObjectURL(blob)
 
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", "user.csv");
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', 'user.csv')
+        document.body.appendChild(link)
+        link.click()
+        link.remove()
       } catch (error) {
-        console.error("Gagal mengekspor CSV:", error);
+        console.error('Gagal mengekspor CSV:', error)
       }
     },
     async DeleteAll() {
       try {
-        const response = await axios.delete('http://localhost:8000/dangerousAPI/deleteAllUser.php', {}, {
-          headers: {
-            'Content-Type': 'application/json', // Pastikan header sesuai
+        const response = await axios.delete(
+          'http://localhost:8000/dangerousAPI/deleteAllUser.php',
+          {},
+          {
+            headers: {
+              'Content-Type': 'application/json', // Pastikan header sesuai
+            },
+            withCredentials: true, // Kirim cookies jika diperlukan
           },
-          withCredentials: true, // Kirim cookies jika diperlukan
-        });
+        )
         if (response.data && response.data.status === 'success') {
-          alert(response.data.message || 'Pengguna berhasil dihapus');
-          this.user = [];
-          this.fetchUser();
+          alert(response.data.message || 'Pengguna berhasil dihapus')
+          this.user = []
+          this.fetchUser()
           this.lastResort = false
           window.location.reload()
         } else {
           this.lastResort = false
-          alert(response.data.message || 'Gagal menghapus pengguna');
-          throw new Error(response.data.message || 'Gagal menghapus pengguna');
+          alert(response.data.message || 'Gagal menghapus pengguna')
+          throw new Error(response.data.message || 'Gagal menghapus pengguna')
         }
       } catch (error) {
-        console.error('Gagal menghapus pengguna:', error);
+        console.error('Gagal menghapus pengguna:', error)
       }
     },
     showDeleteModal(userId) {
-    this.selectedUserId = userId; // Simpan ID pengguna
-    this.showModal = true; // Tampilkan modal
-  },
+      this.selectedUserId = userId // Simpan ID pengguna
+      this.showModal = true // Tampilkan modal
+    },
 
-  showDeleteAllModal() {
-    this.showDangerousModal = true;
-  },
-  showLastResortModal() {
-    this.finalRegret = true
-  },
-  showTheLastResortModal() {
-    this.lastResort = true
-  },
+    showDeleteAllModal() {
+      this.showDangerousModal = true
+    },
+    showLastResortModal() {
+      this.finalRegret = true
+    },
+    showTheLastResortModal() {
+      this.lastResort = true
+    },
     async deleteUser() {
-    if (!this.selectedUserId) {
-      alert("ID pengguna tidak valid!");
-      return;
-    }
-
-    const payload = {
-      id_user: this.selectedUserId, // Data yang dikirim sesuai format JSON
-    };
-
-    try {
-      const response = await axios.post('http://localhost:8000/DeleteUser.php', payload, {
-        headers: {
-          'Content-Type': 'application/json', // Pastikan header sesuai
-        },
-        withCredentials: true, // Kirim cookies jika diperlukan
-      });
-
-      if (response.data && response.data.status === 'success') {
-        alert(response.data.message || 'Pengguna berhasil dihapus');
-        // Hapus pengguna dari daftar berdasarkan ID
-        this.fetchUser()
-        this.user = this.user.filter((item) => item.id_user !== this.selectedUserId);
-      } else {
-        throw new Error(response.data.message || 'Gagal menghapus pengguna');
+      if (!this.selectedUserId) {
+        alert('ID pengguna tidak valid!')
+        return
       }
-    } catch (error) {
-      console.error('Error deleting user:', error);
-      alert('Terjadi kesalahan saat menghapus pengguna.');
-    } finally {
-      // Reset modal dan ID pengguna
-      this.showModal = false;
-      this.selectedUserId = null;
-    }
-  },
+
+      const payload = {
+        id_user: this.selectedUserId, // Data yang dikirim sesuai format JSON
+      }
+
+      try {
+        const response = await axios.post(
+          'http://localhost:8000/DeleteUser.php',
+          payload,
+          {
+            headers: {
+              'Content-Type': 'application/json', // Pastikan header sesuai
+            },
+            withCredentials: true, // Kirim cookies jika diperlukan
+          },
+        )
+
+        if (response.data && response.data.status === 'success') {
+          alert(response.data.message || 'Pengguna berhasil dihapus')
+          // Hapus pengguna dari daftar berdasarkan ID
+          this.fetchUser()
+          this.user = this.user.filter(
+            item => item.id_user !== this.selectedUserId,
+          )
+        } else {
+          throw new Error(response.data.message || 'Gagal menghapus pengguna')
+        }
+      } catch (error) {
+        console.error('Error deleting user:', error)
+        alert('Terjadi kesalahan saat menghapus pengguna.')
+      } finally {
+        // Reset modal dan ID pengguna
+        this.showModal = false
+        this.selectedUserId = null
+      }
+    },
     async fetchUser() {
       const maxRetries = 0
       let attempt = 0
@@ -143,7 +156,6 @@ export default {
   created() {
     this.fetchUser()
   },
-
 }
 </script>
 
@@ -158,76 +170,76 @@ export default {
         Tambah pengguna
       </router-link>
       <div class="flex gap-5">
-          <Menu as="button" class="relative ml-3">
-            <MenuButton as="button" class="">
-              <VsxIcon
-                class="inline-block "
-                iconName="HambergerMenu"
-                :size="32"
-                color="black"
-                type="bulk"
-
-              />
-              <p class="inline-block ml-2 tracking-tight py-2 font-bold">Menu</p>
-            </MenuButton>
-            <transition
-              enter-active-class="transition ease-out duration-100"
-              enter-from-class="transform opacity-0 scale-95"
-              enter-to-class="transform opacity-100 scale-100"
-              leave-active-class="transition ease-in duration-75"
-              leave-from-class="transform opacity-100 scale-100"
-              leave-to-class="transform opacity-0 scale-95"
+        <Menu as="button" class="relative ml-3">
+          <MenuButton as="button" class="">
+            <VsxIcon
+              class="inline-block"
+              iconName="HambergerMenu"
+              :size="32"
+              color="black"
+              type="bulk"
+            />
+            <p class="inline-block ml-2 tracking-tight py-2 font-bold">Menu</p>
+          </MenuButton>
+          <transition
+            enter-active-class="transition ease-out duration-100"
+            enter-from-class="transform opacity-0 scale-95"
+            enter-to-class="transform opacity-100 scale-100"
+            leave-active-class="transition ease-in duration-75"
+            leave-from-class="transform opacity-100 scale-100"
+            leave-to-class="transform opacity-0 scale-95"
+          >
+            <MenuItems
+              class="absolute right-0 z-30 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
             >
-              <MenuItems
-                class="absolute right-0 z-30 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
-              >
-                <div class="py-1">
-                  <MenuItems>
-                    <div class="">
-                      <button
-                        @click="exportCSV"
-                        :class="[
-                          'text-gray-700',
-                          'block w-full px-4 py-2 text-left text-sm',
-                        ]"
-                      >
-                        Export User ke CSV
-                      </button>
-                      <hr />
-                      <p
-                        :class="[
-                          'text-red-700',
-                          'block w-full px-4 py-2 text-left text-sm',
-                        ]"
-                      >
-                        Zona Berbahaya
-                      </p>
-                      <hr />
-                      <router-link
-                        to="/admin/importuser"
-                        :class="[
-                          'text-red-700',
-                          'block w-full px-4 py-2 text-left text-sm',
-                        ]"
-                      >
-                        Import user ke CSV (Hapus kecuali admin dan tambah semua user)
-                      </router-link>
-                      <button
-                        @click="showDeleteAllModal()"
-                        :class="[
-                          'text-red-700',
-                          'block w-full px-4 py-2 text-left text-sm',
-                        ]"
-                      >
-                        Hapus semua user (Kecuali Admin)
-                      </button>
-                    </div>
-                  </MenuItems>
-                </div>
-              </MenuItems>
-            </transition>
-          </Menu>
-        </div>
+              <div class="py-1">
+                <MenuItems>
+                  <div class="">
+                    <button
+                      @click="exportCSV"
+                      :class="[
+                        'text-gray-700',
+                        'block w-full px-4 py-2 text-left text-sm',
+                      ]"
+                    >
+                      Export User ke CSV
+                    </button>
+                    <hr />
+                    <p
+                      :class="[
+                        'text-red-700',
+                        'block w-full px-4 py-2 text-left text-sm',
+                      ]"
+                    >
+                      Zona Berbahaya
+                    </p>
+                    <hr />
+                    <router-link
+                      to="/admin/importuser"
+                      :class="[
+                        'text-red-700',
+                        'block w-full px-4 py-2 text-left text-sm',
+                      ]"
+                    >
+                      Import user ke CSV (Hapus kecuali admin dan tambah semua
+                      user)
+                    </router-link>
+                    <button
+                      @click="showDeleteAllModal()"
+                      :class="[
+                        'text-red-700',
+                        'block w-full px-4 py-2 text-left text-sm',
+                      ]"
+                    >
+                      Hapus semua user (Kecuali Admin)
+                    </button>
+                  </div>
+                </MenuItems>
+              </div>
+            </MenuItems>
+          </transition>
+        </Menu>
+      </div>
     </div>
     <div class="grid mt-16">
       <div

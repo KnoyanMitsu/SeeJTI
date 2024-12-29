@@ -1,189 +1,223 @@
 <script setup>
-// import LoadingWidget from '@/widget/LoadingWidget.vue'
 import { VsxIcon } from 'vue-iconsax'
 </script>
 
 <script>
 import axios from '../../api/api'
 
-let cachedMahasiswaCount = null // Cache untuk jumlah mahasiswa
-let cachedRuangKosongCount = null // Cache untuk jumlah mahasiswa
-let cachedJadwalCount = null
-
 export default {
   data() {
     return {
       countMahasiswa: 0,
       countJadwal: 0,
-      countRuangKosong: 0, // Jumlah mahasiswa
-      isLoading: true, // Status loading
-      error: null, // Simpan pesan error
+      countRequest: 0,
+      latestRequests: [],
+      isLoading: true,
+      error: null,
     }
   },
   methods: {
-    async fetchJadwalCount() {
-      // Cek cache
-      if (cachedJadwalCount !== null) {
-        this.setJadwalCount(cachedJadwalCount)
-        return
-      }
-
+    async fetchLatestRequests() {
       try {
+        console.log('Fetching latest requests...') // Debug log
         this.isLoading = true
         const response = await axios.get(
-          'http://localhost:8000/jumlahjadwal.php',
+          'http://localhost:8000/LatestPeminjaman.php',
           {
-            withCredentials: true, // Kirim cookies jika diperlukan
+            withCredentials: true,
           },
         )
 
-        if (response.data && response.data.total) {
-          cachedJadwalCount = parseInt(response.data.total, 10) // Simpan ke cache
-          this.setJadwalCount(cachedJadwalCount)
+        console.log('Response:', response.data) // Debug log
+
+        if (response.data.status === 'success') {
+          this.latestRequests = response.data.peminjaman
         } else {
-          throw new Error('Invalid response from server')
+          throw new Error(
+            response.data.message || 'Failed to fetch latest requests',
+          )
         }
       } catch (error) {
-        console.error('Error fetching RuangKosong count:', error)
-        this.error = 'Gagal memuat jumlah mahasiswa.'
+        console.error('Error fetching latest requests:', error)
+        this.error = error.message
       } finally {
         this.isLoading = false
       }
     },
-    async fetchRuangKosongCount() {
-      // Cek cache
-      if (cachedRuangKosongCount !== null) {
-        this.setRuangKosongCount(cachedRuangKosongCount)
-        return
-      }
 
-      try {
-        this.isLoading = true
-        const response = await axios.get(
-          'http://localhost:8000/jumlahruangkosong.php',
-          {
-            withCredentials: true, // Kirim cookies jika diperlukan
-          },
-        )
-
-        if (response.data && response.data.total) {
-          cachedRuangKosongCount = parseInt(response.data.total, 10) // Simpan ke cache
-          this.setRuangKosongCount(cachedRuangKosongCount)
-        } else {
-          throw new Error('Invalid response from server')
-        }
-      } catch (error) {
-        console.error('Error fetching RuangKosong count:', error)
-        this.error = 'Gagal memuat jumlah mahasiswa.'
-      } finally {
-        this.isLoading = false
-      }
-    },
     async fetchMahasiswaCount() {
-      // Cek cache
-      if (cachedMahasiswaCount !== null) {
-        this.setMahasiswaCount(cachedMahasiswaCount)
-        return
-      }
-
       try {
-        this.isLoading = true
         const response = await axios.get(
           'http://localhost:8000/jumlahmahasiswa.php',
           {
-            withCredentials: true, // Kirim cookies jika diperlukan
+            withCredentials: true,
           },
         )
-
         if (response.data && response.data.total) {
-          cachedMahasiswaCount = parseInt(response.data.total, 10) // Simpan ke cache
-          this.setMahasiswaCount(cachedMahasiswaCount)
-        } else {
-          throw new Error('Invalid response from server')
+          this.countMahasiswa = parseInt(response.data.total)
         }
       } catch (error) {
         console.error('Error fetching mahasiswa count:', error)
-        this.error = 'Gagal memuat jumlah mahasiswa.'
-      } finally {
-        this.isLoading = false
       }
     },
-    setMahasiswaCount(count) {
-      this.countMahasiswa = count // Set jumlah mahasiswa
+
+    async fetchJadwalCount() {
+      try {
+        const response = await axios.get(
+          'http://localhost:8000/jumlahjadwal.php',
+          {
+            withCredentials: true,
+          },
+        )
+        if (response.data && response.data.total) {
+          this.countJadwal = parseInt(response.data.total)
+        }
+      } catch (error) {
+        console.error('Error fetching jadwal count:', error)
+      }
     },
-    setRuangKosongCount(count) {
-      this.countRuangKosong= count // Set jumlah mahasiswa
-    },
-    setJadwalCount(count) {
-      this.countJadwal= count // Set jumlah mahasiswa
+
+    async fetchRequestCount() {
+      try {
+        const response = await axios.get(
+          'http://localhost:8000/jumlahrequest.php',
+          {
+            withCredentials: true,
+          },
+        )
+        if (response.data && response.data.total) {
+          this.countRequest = parseInt(response.data.total)
+        }
+      } catch (error) {
+        console.error('Error fetching request count:', error)
+      }
     },
   },
-  created() {
-    this.fetchMahasiswaCount()
-    this.fetchRuangKosongCount()
-    this.fetchJadwalCount()
-
+  async mounted() {
+    console.log('Component mounted') // Debug log
+    await this.fetchMahasiswaCount()
+    await this.fetchJadwalCount()
+    await this.fetchRequestCount()
+    await this.fetchLatestRequests()
   },
 }
 </script>
 
 <template>
   <div class="container mx-auto">
+    <!-- Cards section -->
     <div class="grid gap-16 grid-cols-3">
       <router-link
         to="/admin/users"
-        class="h-36 gap-5 items-center justify-center flex w-auto border-2 rounded-2xl shadow-md cursor-pointer"
+        class="h-36 gap-5 items-center justify-center flex w-auto border-2 rounded-2xl shadow-md cursor-pointer hover:bg-gray-50"
       >
         <VsxIcon iconName="People" :size="32" color="black" type="linear" />
         <h1 class="text-2xl font-bold font-sans">
           {{ countMahasiswa }} Mahasiswa
         </h1>
       </router-link>
-      <div
-        class="h-36 gap-5 items-center justify-center flex w-auto border-2 rounded-2xl shadow-md"
+
+      <router-link
+        to="/admin/ruang"
+        class="h-36 gap-5 items-center justify-center flex w-auto border-2 rounded-2xl shadow-md cursor-pointer hover:bg-gray-50"
       >
-        <VsxIcon iconName="Buildings" :size="32" color="black" type="linear" />
-        <h1 class="text-2xl font-bold font-sans">{{ countRuangKosong }} Ruang Kosong</h1>
-      </div>
-      <div
-        class="h-36 gap-5 items-center justify-center flex w-auto border-2 rounded-2xl shadow-md"
+        <VsxIcon
+          iconName="MessageQuestion"
+          :size="32"
+          color="black"
+          type="linear"
+        />
+        <h1 class="text-2xl font-bold font-sans">
+          {{ countRequest }} Permintaan Peminjaman
+        </h1>
+      </router-link>
+
+      <router-link
+        to="/admin/jadwal"
+        class="h-36 gap-5 items-center justify-center flex w-auto border-2 rounded-2xl shadow-md cursor-pointer hover:bg-gray-50"
       >
         <VsxIcon iconName="Calendar" :size="32" color="black" type="linear" />
-        <h1 class="text-2xl font-bold font-sans">{{ countJadwal }} Jadwal Aktif</h1>
-      </div>
+        <h1 class="text-2xl font-bold font-sans">
+          {{ countJadwal }} Jadwal Aktif
+        </h1>
+      </router-link>
     </div>
-    <div class="grid mt-16">
-      <div class="grid py-3 gap-3 grid-cols-3 border-2 rounded-t-2xl">
+
+    <!-- Loading state -->
+    <div v-if="isLoading" class="text-center py-4">Loading...</div>
+
+    <!-- Error state -->
+    <div v-else-if="error" class="text-red-500 text-center py-4">
+      {{ error }}
+    </div>
+
+    <!-- Latest Requests Table -->
+    <div v-else class="grid mt-16">
+      <div
+        class="bg-[#FFD6CA] grid py-3 gap-3 grid-cols-6 border-2 rounded-t-2xl"
+      >
         <div class="align-middle flex justify-center">
-          <p>Nama Ruang</p>
+          <p>Mata Kuliah</p>
+        </div>
+        <div class="align-middle flex justify-center">
+          <p>Ruangan</p>
+        </div>
+        <div class="align-middle flex justify-center">
+          <p>Hari</p>
         </div>
         <div class="align-middle flex justify-center">
           <p>Jam</p>
         </div>
         <div class="align-middle flex justify-center">
-          <p>Kang Request</p>
+          <p>Kelas</p>
+        </div>
+        <div class="align-middle flex justify-center">
+          <p>Status</p>
         </div>
       </div>
-      <div class="grid py-3 gap-3 grid-cols-3 border-2 rounded-b-2xl">
+
+      <!-- Table Body -->
+      <div
+        v-for="(item, index) in latestRequests"
+        :key="`request-${index}`"
+        class="grid py-3 gap-3 grid-cols-6 border-2 items-center"
+      >
         <div class="align-middle flex justify-center">
-          <p>Nama Ruang</p>
+          <p>{{ item.matkul || 'N/A' }}</p>
         </div>
         <div class="align-middle flex justify-center">
-          <p>Jam</p>
+          <p>{{ item.ruangan || 'N/A' }}</p>
         </div>
         <div class="align-middle flex justify-center">
-          <p>Kang Request</p>
+          <p>{{ item.nama_hari || 'N/A' }}</p>
         </div>
         <div class="align-middle flex justify-center">
-          <p>Nama Ruang</p>
+          <p>{{ item.waktu || 'N/A' }}</p>
         </div>
         <div class="align-middle flex justify-center">
-          <p>Jam</p>
+          <p>{{ item.kelas || 'N/A' }}</p>
         </div>
         <div class="align-middle flex justify-center">
-          <p>Kang Request</p>
+          <div
+            :class="[
+              'px-4 py-2 rounded-full text-white',
+              item.status === 'disetujui'
+                ? 'bg-green-500'
+                : item.status === 'ditolak'
+                  ? 'bg-red-500'
+                  : 'bg-yellow-500',
+            ]"
+          >
+            {{ item.status }}
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.container {
+  padding: 1rem;
+}
+</style>
