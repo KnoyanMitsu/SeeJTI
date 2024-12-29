@@ -116,6 +116,11 @@ export default {
     },
   },
   mounted() {
+    setInterval(() => {
+      this.fetchRoomRequests()
+    },10000)
+  },
+  created() {
     this.fetchRoomRequests()
   },
 }
@@ -134,10 +139,10 @@ export default {
     </div>
 
     <!-- Data table -->
-    <div v-else class="grid mt-16">
+    <div v-else class="grid mt-16 overflow-hidden">
       <!-- Table Header -->
       <div
-        class="bg-[#FFD6CA] grid py-3 gap-3 grid-cols-6 border-2 rounded-t-2xl"
+        class="bg-[#FFD6CA] grid py-3 gap-3 grid-cols-7 border-2 rounded-t-2xl"
       >
         <div class="align-middle flex justify-center">
           <p>Mata Kuliah</p>
@@ -155,6 +160,9 @@ export default {
           <p>Kelas</p>
         </div>
         <div class="align-middle flex justify-center">
+          <p>Nama Mahasiswa</p>
+        </div>
+        <div class="align-middle flex justify-center">
           <p>Aksi</p>
         </div>
       </div>
@@ -162,7 +170,7 @@ export default {
       <!-- Table Body -->
       <div
         v-for="(item, index) in roomRequests"
-        class="grid py-3 gap-3 grid-cols-6 border-2 items-center"
+        class="grid py-3 gap-3 grid-cols-7 border-2 items-center"
         :key="`request-${index}`"
       >
         <div class="align-middle flex justify-center">
@@ -180,10 +188,13 @@ export default {
         <div class="align-middle flex justify-center">
           <p>{{ item.kelas || 'N/A' }}</p>
         </div>
+        <div class="align-middle flex justify-center">
+          <p>{{ item.nama || 'N/A' }}</p>
+        </div>
         <div class="align-middle flex gap-2 justify-center">
           <!-- Show status if already processed -->
           <div
-            v-if="item.status !== 'belum acc'"
+            v-if="item.status !== 'Pending'"
             :class="[
               'px-4 py-2 rounded-full text-white',
               item.status === 'disetujui' ? 'bg-green-500' : 'bg-red-500',

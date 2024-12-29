@@ -196,13 +196,13 @@ export default {
         <p class="text-[#7A7979] mb-5">{{ date }}</p>
       </div>
       <div class="flex justify-between">
-        <button
-          @click="open = true"
+        <router-link
+          to="/jadwal/permintaan"
           type="submit"
           class="px-4 py-2 text-white bg-[#F05529] rounded-md hover:bg-[#FEA127]"
         >
           Permintaan Anda
-        </button>
+        </router-link>
         <button
           @click="open = true"
           type="submit"

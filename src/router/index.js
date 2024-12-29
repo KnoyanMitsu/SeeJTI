@@ -15,6 +15,7 @@ import AdminCalView from '@/views/Admin/AdminCalView.vue'
 import ComingSoon from '@/views/Error/ComingSoon.vue'
 import AdminAdd from '@/views/Admin/AdminAdd.vue'
 import AdminImportUser from '@/views/Admin/AdminImportUser.vue'
+import PermintaanView from '@/views/PermintaanView.vue'
 // Middleware function to check authentication
 async function checkAuth(to, from, next) {
   try {
@@ -120,6 +121,12 @@ const router = createRouter({
       path: '/jadwal/kosong',
       name: 'kosong',
       component: NoRoomView,
+      // beforeEnter: checkAuth,
+    },
+    {
+      path: '/jadwal/permintaan',
+      name: 'permintaan',
+      component: PermintaanView,
       // beforeEnter: checkAuth,
     },
     // {

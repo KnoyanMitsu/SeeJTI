@@ -71,6 +71,9 @@ export default {
         this.day = currentDay // Update hanya jika `day` berubah
       }
     }, 1000)
+    setInterval(() => {
+      this.fetchSchedules()
+    },10000)
 
     const storedClass = localStorage.getItem('selectedClass')
     if (storedClass) {
