@@ -7,7 +7,7 @@ import nightwatchPlugin from 'vite-plugin-nightwatch'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/sas/',
+  base: '/',
   plugins: [
     vue(),
     vueJsx(),
